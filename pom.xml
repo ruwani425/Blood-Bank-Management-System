@@ -65,7 +65,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>lk.ijse.gdse.jfoenix/lk.ijse.gdse.jfoenix.AppInitializer</mainClass>
+                            <mainClass>lk.ijse.gdse.bbms.AppInitializer</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>

@@ -1,0 +1,44 @@
+/* Water Drop Inspired ComboBox */
+.combo-box {
+    -fx-background-color: linear-gradient(to bottom, #fbfcfd, #c6f0ff); /* Light blue gradient for water-like background */
+    -fx-border-color: #69b3e7; /* Slightly darker blue border */
+    -fx-border-radius: 30; /* Rounded corners for water drop shape */
+    -fx-background-radius: 30;
+    -fx-padding: 4; /* Padding for comfortable dropdown */
+    -fx-font-size: 12px; /* Standard font size */
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+    -fx-prompt-text-fill: #5a9dbd; /* Subtle color for prompt text */
+    -fx-text-fill: black; /* This makes the selected and entered text black */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.4, 0, 2); /* Drop shadow for water drop effect */
+}
+
+/* Focus state with enhanced shine effect */
+.combo-box:focused {
+    -fx-background-color: linear-gradient(to bottom, #cdefff, #e3f7ff); /* Brighter water-like effect on focus */
+    -fx-border-color: #3a94d6; /* Darker border when focused */
+    -fx-border-width: 2; /* Thicker border on focus */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 15, 0.5, 0, 4); /* Stronger shadow for depth */
+}
+
+/* Hover effect for interaction */
+.combo-box:hover {
+    -fx-background-color: linear-gradient(to bottom, #b4e0f9, #d1f5ff); /* Slightly lighter background on hover */
+    -fx-border-color: #78c7f0; /* Softer blue border on hover */
+}
+
+/* Styling the popup list */
+.combo-box-popup .list-cell {
+    -fx-background-color: #a4d4f7; /* Background color for items in the dropdown */
+    -fx-text-fill: black; /* Ensures dropdown items text is black */
+    -fx-font-size: 14px;
+}
+
+.combo-box-popup .list-cell:hover {
+    -fx-background-color: #b4e0f9; /* Lighter color when hovering over an item */
+    -fx-text-fill: black; /* Text remains black on hover */
+}
+
+.combo-box-popup .list-cell:focused {
+    -fx-background-color: #cdefff; /* Highlight color for focused item */
+    -fx-text-fill: black;
+}

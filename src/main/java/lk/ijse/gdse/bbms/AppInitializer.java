@@ -1,4 +1,4 @@
-package lk.ijse.gdse.jfoenix;
+package lk.ijse.gdse.bbms;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -10,9 +10,10 @@ import java.io.IOException;
 public class AppInitializer extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(AppInitializer.class.getResource("TestView.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(AppInitializer.class.getResource("login-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Hello!");
+        stage.setTitle("Welcome to blood bank management system!");
+        stage.setResizable(false);  // Disable resizing
         stage.setScene(scene);
         stage.show();
     }
