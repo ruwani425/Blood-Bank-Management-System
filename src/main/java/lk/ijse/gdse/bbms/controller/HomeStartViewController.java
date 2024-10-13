@@ -1,4 +1,4 @@
 package lk.ijse.gdse.bbms.controller;
 
-public class AddDonorController {
+public class HomeStartViewController {
 }

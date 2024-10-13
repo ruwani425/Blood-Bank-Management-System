@@ -1,22 +1,29 @@
 package lk.ijse.gdse.bbms.controller;
-
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class LoginViewController {
-    public JFXButton loginBtn;
-    public JFXTextField userNameTxt;
-    public JFXTextField passwordTxt;
+public class LoginPageViewController {
+    @FXML
+    private TextField userNameTxt;
 
-    public void loginBtnOnAction(ActionEvent actionEvent)throws IOException {
+    @FXML
+    private PasswordField passwordTxt;
+
+    @FXML
+    private JFXButton loginBtn;
+
+    @FXML
+    void navigateToHomePage(ActionEvent event) throws IOException {
         // Sample credentials for validation (you can replace this with actual logic)
         String validUsername = "admin";
         String validPassword = "1234";
@@ -28,7 +35,7 @@ public class LoginViewController {
         // Check if the entered username and password match the valid credentials
         if (validUsername.equals(enteredUsername) && validPassword.equals(enteredPassword)) {
             // Load the home view FXML if the credentials are correct
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/lk/ijse/gdse/bbms/home-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/homePage-view.fxml"));
             Parent homeView = loader.load();
 
             // Get the current stage (window) from the login button

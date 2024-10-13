@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="607.0" prefWidth="1113.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.bbms.controller.HomePageViewController">
+   <children>
+      <ImageView fitHeight="615.0" fitWidth="1116.0" layoutX="-3.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../lk/ijse/gdse/bbms/assert/newHome.png" />
+         </image>
+      </ImageView>
+      <VBox alignment="TOP_CENTER" layoutY="96.0" prefHeight="496.0" prefWidth="212.0" spacing="10.0">
+         <children>
+            <JFXButton fx:id="homeBtn" onAction="#navigateToHomePage" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/styleHomeButtons.css" text="Home" />
+            <JFXButton fx:id="donorsBtn" onAction="#navigateToDonorPage" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/styleHomeButtons.css" text="Donors" />
+            <JFXButton fx:id="hospitalsBtn" onAction="#navigateToHospitalPage" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/styleHomeButtons.css" text="Hospitals" />
+            <JFXButton fx:id="bloodCampaignBtn" onAction="#navigateToBloodCampaignPage" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/styleHomeButtons.css" text="Blood Campaigns" />
+            <JFXButton fx:id="bloodStocksBtn" onAction="#navigateToBloodStockPage" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/styleHomeButtons.css" text="Blood Stocks" />
+            <JFXButton fx:id="inventoryBtn" onAction="#navigateToInventoryPage" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/styleHomeButtons.css" text="Inventory" />
+            <JFXButton fx:id="bloodRequestBtn" onAction="#navigateToBloodRequestsPage" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/styleHomeButtons.css" text="Blood Requests" />
+            <JFXButton fx:id="donationHistoryBtn" onAction="#navigateToDonationHistoryPage" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/styleHomeButtons.css" text="Donation History" />
+         </children>
+      </VBox>
+      <AnchorPane fx:id="homeAnchor" layoutX="223.0" layoutY="6.0" prefHeight="596.0" prefWidth="886.0" />
+   </children>
+</AnchorPane>

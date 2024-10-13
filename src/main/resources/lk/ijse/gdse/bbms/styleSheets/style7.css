@@ -1,10 +1,10 @@
 /* Water Drop-Inspired TableView */
 .table-view {
-    -fx-background-color: linear-gradient(to bottom, #d39ea7, #c6f0ff); /* Light blue gradient for water-like background */
+    -fx-background-color: linear-gradient(to bottom, #ffffff, #c6f0ff); /* Light blue gradient for water-like background */
     -fx-border-color: #69b3e7; /* Slightly darker blue border */
-    -fx-border-radius: 15; /* Rounded corners for smooth edges */
-    -fx-background-radius: 15;
-    -fx-padding: 10; /* Padding for a comfortable layout */
+    -fx-border-radius: 0; /* Rounded corners for smooth edges */
+    -fx-background-radius: 0;
+    -fx-padding: 0; /* Padding for a comfortable layout */
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.4, 0, 2); /* Drop shadow for water drop effect */
 }
 

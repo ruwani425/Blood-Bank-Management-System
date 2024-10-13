@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="596.0" prefWidth="886.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.bbms.controller.DonorPageViewController">
+   <children>
+      <ImageView fitHeight="609.0" fitWidth="898.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../lk/ijse/gdse/bbms/assert/newDOnor.png" />
+         </image></ImageView>
+      <Label layoutX="110.0" layoutY="51.0" text="search" />
+      <TextField layoutX="169.0" layoutY="46.0" />
+      <Button fx:id="addDonorBtn" layoutX="372.0" layoutY="46.0" mnemonicParsing="false" onAction="#popUpNewWindowAddDonor" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/addDonorBtn.css" text="Add New Donor" />
+      <TableView fx:id="tblDonors" layoutX="22.0" layoutY="113.0" prefHeight="474.0" prefWidth="848.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/style7.css">
+        <columns>
+          <TableColumn fx:id="colId" prefWidth="87.0" text="Donor Id" />
+          <TableColumn fx:id="colName" prefWidth="96.0" text="Full Name" />
+            <TableColumn fx:id="colDob" prefWidth="108.33334350585938" text="Date of Birth" />
+            <TableColumn fx:id="colGender" prefWidth="61.0" text="Gender" />
+            <TableColumn fx:id="colBloodGroup" prefWidth="106.0" text="Blood Group" />
+            <TableColumn fx:id="colEmail" prefWidth="123.66668701171875" text="E-mail" />
+            <TableColumn fx:id="colAddress" prefWidth="138.66668701171875" text="Address" />
+            <TableColumn fx:id="colNic" prefWidth="127.33331298828125" text="Nic" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

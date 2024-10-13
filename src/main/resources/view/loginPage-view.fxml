@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.bbms.controller.LoginPageViewController">
+   <children>
+      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fitHeight="640.0" fitWidth="1068.0" layoutX="-6.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../lk/ijse/gdse/bbms/assert/loginPage-view.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="userNameTxt" layoutX="638.0" layoutY="269.0" prefHeight="39.0" prefWidth="284.0" promptText="User Name" />
+      <PasswordField fx:id="passwordTxt" layoutX="639.0" layoutY="348.0" prefHeight="39.0" prefWidth="285.0" promptText="Password" />
+      <JFXButton fx:id="loginBtn" layoutX="697.0" layoutY="445.0" onAction="#navigateToHomePage" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/style1.css" text="Login" />
+      <Label layoutX="817.0" layoutY="401.0" text="Fogot Password?" textFill="#0b0f86">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
