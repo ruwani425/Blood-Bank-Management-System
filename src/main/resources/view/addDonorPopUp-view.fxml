@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
@@ -9,27 +9,86 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="441.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.bbms.controller.AddDonorPopUpController">
    <children>
       <ImageView fitHeight="475.0" fitWidth="701.0" layoutX="-1.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../lk/ijse/gdse/bbms/assert/popupDonorApplication.png" />
+            <Image url="@../lk/ijse/gdse/bbms/assert/addDOnorPopUp.png" />
          </image>
       </ImageView>
-      <TextArea layoutX="483.0" layoutY="204.0" prefHeight="113.0" prefWidth="174.0" />
-      <Label layoutX="46.0" layoutY="68.0" text="Donor Id" />
-      <Label layoutX="46.0" layoutY="113.0" text="Full Name" />
-      <Label layoutX="45.0" layoutY="185.0" text="Date of Birth" />
-      <Label layoutX="48.0" layoutY="239.0" text="Gender" />
-      <Label layoutX="363.0" layoutY="129.0" text="Blood Group" />
-      <Label layoutX="362.0" layoutY="201.0" text="Complete Address" />
-      <Label layoutX="365.0" layoutY="70.0" text="E-mail" />
-      <ComboBox layoutX="483.0" layoutY="133.0" prefHeight="28.0" prefWidth="70.0" />
-      <DatePicker layoutX="131.0" layoutY="181.0" prefHeight="28.0" prefWidth="158.0" />
-      <ComboBox layoutX="132.0" layoutY="236.0" prefHeight="28.0" prefWidth="70.0" />
-      <TextField layoutX="481.0" layoutY="67.0" prefHeight="28.0" prefWidth="174.0" />
-      <TextArea layoutX="130.0" layoutY="102.0" prefHeight="59.0" prefWidth="174.0" />
-      <Button layoutX="552.0" layoutY="393.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="62.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/saveBtn.css" text="Save" />
+      <TextArea fx:id="txtDonorAddress" layoutX="464.0" layoutY="204.0" prefHeight="113.0" prefWidth="174.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/datePikerAndTextArea.css" />
+      <Label layoutX="36.0" layoutY="68.0" text="Donor Id">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font></Label>
+      <Label layoutX="36.0" layoutY="113.0" text="Full Name">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font></Label>
+      <Label layoutX="35.0" layoutY="177.0" prefHeight="18.0" prefWidth="91.0" text="Date of Birth">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font></Label>
+      <Label layoutX="35.0" layoutY="278.0" text="Gender">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font></Label>
+      <Label layoutX="363.0" layoutY="129.0" text="Blood Group">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font></Label>
+      <Label layoutX="363.0" layoutY="201.0" text=" Address">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font></Label>
+      <Label layoutX="365.0" layoutY="70.0" text="E-mail">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font></Label>
+      <DatePicker fx:id="txtDonorDob" layoutX="131.0" layoutY="172.0" prefHeight="28.0" prefWidth="158.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/datePikerAndTextArea.css" />
+      <Label layoutX="35.0" layoutY="231.0" text="NIC">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font></Label>
+      <HBox alignment="TOP_CENTER" layoutX="339.0" layoutY="377.0" prefHeight="47.0" prefWidth="334.0" spacing="9.0">
+         <children>
+            <JFXButton id="bevel" fx:id="btnDelete" onAction="#btnDeleteDonorOnAction" prefHeight="30.0" prefWidth="130.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/saveUpdateDeleteBtn.css" text="Delete">
+               <graphic>
+                  <ImageView fitHeight="20.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../lk/ijse/gdse/bbms/assert/icons8-delete-192.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <JFXButton id="bevel" fx:id="btnUpdate" onAction="#btnUpdateDonorOnAction" prefHeight="33.0" prefWidth="100.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/saveUpdateDeleteBtn.css" text="Update">
+               <graphic>
+                  <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../lk/ijse/gdse/bbms/assert/icons8-edit-192.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <JFXButton id="bevel" fx:id="btnAdd" onAction="#btnAddDonorOnAction" prefHeight="33.0" prefWidth="119.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/saveUpdateDeleteBtn.css" text="Add" textAlignment="JUSTIFY" textFill="#4f91fc" wrapText="true">
+               <graphic>
+                  <ImageView fitHeight="23.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../lk/ijse/gdse/bbms/assert/icons8-add-500.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+         </children>
+      </HBox>
+      <TextField id="bevel" fx:id="txtDonorEmail" layoutX="462.0" layoutY="66.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/textFeild.css" />
+      <TextField id="bevel" fx:id="txtDonorNic" layoutX="130.0" layoutY="227.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/textFeild.css" />
+      <TextField id="bevel" fx:id="txtDonorName" layoutX="128.0" layoutY="107.0" prefHeight="30.0" prefWidth="202.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/textFeild.css" />
+      <ComboBox id="glass" fx:id="txtDonorBloodGroup" layoutX="463.0" layoutY="124.0" prefHeight="28.0" prefWidth="100.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/textFeild.css" />
+      <ComboBox id="glass" fx:id="txtDonorGender" layoutX="129.0" layoutY="275.0" prefHeight="28.0" prefWidth="112.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/textFeild.css" />
+      <Label fx:id="lblDonorId" layoutX="129.0" layoutY="68.0" prefHeight="28.0" prefWidth="81.0" />
    </children>
 </AnchorPane>

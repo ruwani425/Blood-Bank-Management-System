@@ -7,5 +7,6 @@ module lk.ijse.gdse.bbms {
     requires java.sql;
 
     opens lk.ijse.gdse.bbms.controller to javafx.fxml;
+    opens lk.ijse.gdse.bbms.model to javafx.base;
     exports lk.ijse.gdse.bbms;
 }

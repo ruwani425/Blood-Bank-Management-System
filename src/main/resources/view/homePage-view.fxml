@@ -1,30 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
 
 <AnchorPane prefHeight="607.0" prefWidth="1113.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.bbms.controller.HomePageViewController">
    <children>
-      <ImageView fitHeight="615.0" fitWidth="1116.0" layoutX="-3.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="615.0" fitWidth="1119.0" layoutX="-6.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../lk/ijse/gdse/bbms/assert/newHome.png" />
+            <Image url="@../lk/ijse/gdse/bbms/assert/dashBord.png" />
          </image>
       </ImageView>
-      <VBox alignment="TOP_CENTER" layoutY="96.0" prefHeight="496.0" prefWidth="212.0" spacing="10.0">
-         <children>
-            <JFXButton fx:id="homeBtn" onAction="#navigateToHomePage" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/styleHomeButtons.css" text="Home" />
-            <JFXButton fx:id="donorsBtn" onAction="#navigateToDonorPage" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/styleHomeButtons.css" text="Donors" />
-            <JFXButton fx:id="hospitalsBtn" onAction="#navigateToHospitalPage" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/styleHomeButtons.css" text="Hospitals" />
-            <JFXButton fx:id="bloodCampaignBtn" onAction="#navigateToBloodCampaignPage" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/styleHomeButtons.css" text="Blood Campaigns" />
-            <JFXButton fx:id="bloodStocksBtn" onAction="#navigateToBloodStockPage" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/styleHomeButtons.css" text="Blood Stocks" />
-            <JFXButton fx:id="inventoryBtn" onAction="#navigateToInventoryPage" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/styleHomeButtons.css" text="Inventory" />
-            <JFXButton fx:id="bloodRequestBtn" onAction="#navigateToBloodRequestsPage" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/styleHomeButtons.css" text="Blood Requests" />
-            <JFXButton fx:id="donationHistoryBtn" onAction="#navigateToDonationHistoryPage" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/styleHomeButtons.css" text="Donation History" />
-         </children>
-      </VBox>
-      <AnchorPane fx:id="homeAnchor" layoutX="223.0" layoutY="6.0" prefHeight="596.0" prefWidth="886.0" />
+      <AnchorPane fx:id="homeAnchor" layoutX="185.0" layoutY="3.0" prefHeight="596.0" prefWidth="924.0" />
+      <ImageView fx:id="homeBtn" fitHeight="49.0" fitWidth="160.0" layoutX="10.0" layoutY="83.0" onMouseClicked="#navigateToHomePage" onMouseEntered="#onMouseEnterdImage" onMouseExited="#onMouseExitedImage" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../lk/ijse/gdse/bbms/assert/homeBtn.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="donorsBtn" fitHeight="49.0" fitWidth="160.0" layoutX="9.0" layoutY="135.0" onMouseClicked="#navigateToDonorPage" onMouseEntered="#onMouseEnterdImage" onMouseExited="#onMouseExitedImage" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../lk/ijse/gdse/bbms/assert/donorsBtn.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="hospitalBtn" fitHeight="49.0" fitWidth="160.0" layoutX="10.0" layoutY="187.0" onMouseClicked="#navigateToHospitalPage" onMouseEntered="#onMouseEnterdImage" onMouseExited="#onMouseExitedImage" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../lk/ijse/gdse/bbms/assert/hospitalBtn.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="campaignBtn" fitHeight="49.0" fitWidth="160.0" layoutX="10.0" layoutY="239.0" onMouseClicked="#navigateToCampaignPage" onMouseEntered="#onMouseEnterdImage" onMouseExited="#onMouseExitedImage" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../lk/ijse/gdse/bbms/assert/campaignsBtn.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="requestBtn" fitHeight="49.0" fitWidth="160.0" layoutX="10.0" layoutY="292.0" onMouseClicked="#navigateToDonationsPage" onMouseEntered="#onMouseEnterdImage" onMouseExited="#onMouseExitedImage" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../lk/ijse/gdse/bbms/assert/donationsBtn.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="inventoryBtn" fitHeight="49.0" fitWidth="160.0" layoutX="9.0" layoutY="346.0" onMouseClicked="#navigateToRequestPage" onMouseEntered="#onMouseEnterdImage" onMouseExited="#onMouseExitedImage" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../lk/ijse/gdse/bbms/assert/requestBtn.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="healthCheckupBtn" fitHeight="49.0" fitWidth="160.0" layoutX="8.0" layoutY="398.0" onMouseClicked="#navigateToHealthChekupPage" onMouseEntered="#onMouseEnterdImage" onMouseExited="#onMouseExitedImage" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../lk/ijse/gdse/bbms/assert/healthCheckpBtn.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="donationsBtn" fitHeight="49.0" fitWidth="160.0" layoutX="8.0" layoutY="449.0" onMouseClicked="#navigateToInventoryPage" onMouseEntered="#onMouseEnterdImage" onMouseExited="#onMouseExitedImage" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../lk/ijse/gdse/bbms/assert/inventoryBtn.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="historyBtn" fitHeight="49.0" fitWidth="160.0" layoutX="9.0" layoutY="501.0" onMouseClicked="#navigateToHistoryPage" onMouseEntered="#onMouseEnterdImage" onMouseExited="#onMouseExitedImage" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../lk/ijse/gdse/bbms/assert/historyBtn.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

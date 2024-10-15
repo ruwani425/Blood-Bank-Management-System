@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -8,27 +8,39 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="596.0" prefWidth="886.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.bbms.controller.DonorPageViewController">
+<AnchorPane prefHeight="596.0" prefWidth="924.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.bbms.controller.DonorPageViewController">
    <children>
-      <ImageView fitHeight="609.0" fitWidth="898.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="609.0" fitWidth="971.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../lk/ijse/gdse/bbms/assert/newDOnor.png" />
+            <Image url="@../lk/ijse/gdse/bbms/assert/donorPage.png" />
          </image></ImageView>
-      <Label layoutX="110.0" layoutY="51.0" text="search" />
+      <Label layoutX="110.0" layoutY="51.0" text="search">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Label>
       <TextField layoutX="169.0" layoutY="46.0" />
-      <Button fx:id="addDonorBtn" layoutX="372.0" layoutY="46.0" mnemonicParsing="false" onAction="#popUpNewWindowAddDonor" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/addDonorBtn.css" text="Add New Donor" />
-      <TableView fx:id="tblDonors" layoutX="22.0" layoutY="113.0" prefHeight="474.0" prefWidth="848.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/style7.css">
+      <TableView fx:id="tblDonors" layoutX="6.0" layoutY="113.0" prefHeight="474.0" prefWidth="915.0">
         <columns>
           <TableColumn fx:id="colId" prefWidth="87.0" text="Donor Id" />
-          <TableColumn fx:id="colName" prefWidth="96.0" text="Full Name" />
-            <TableColumn fx:id="colDob" prefWidth="108.33334350585938" text="Date of Birth" />
-            <TableColumn fx:id="colGender" prefWidth="61.0" text="Gender" />
-            <TableColumn fx:id="colBloodGroup" prefWidth="106.0" text="Blood Group" />
-            <TableColumn fx:id="colEmail" prefWidth="123.66668701171875" text="E-mail" />
-            <TableColumn fx:id="colAddress" prefWidth="138.66668701171875" text="Address" />
-            <TableColumn fx:id="colNic" prefWidth="127.33331298828125" text="Nic" />
+          <TableColumn fx:id="colName" prefWidth="162.66665649414062" text="Full Name" />
+            <TableColumn fx:id="colDob" prefWidth="101.33334350585938" text="Date of Birth" />
+            <TableColumn fx:id="colGender" prefWidth="76.33331298828125" text="Gender" />
+            <TableColumn fx:id="colBloodGroup" prefWidth="97.66665649414062" text="Blood Group" />
+            <TableColumn fx:id="colEmail" prefWidth="138.99996948242188" text="E-mail" />
+            <TableColumn fx:id="colAddress" prefWidth="120.33331298828125" text="Address" />
+            <TableColumn fx:id="colNic" prefWidth="132.0" text="Nic" />
         </columns>
       </TableView>
+      <JFXButton id="bevel" fx:id="addDonorBtn" layoutX="343.0" layoutY="46.0" onAction="#popUpNewWindowAddDonor" prefHeight="41.0" prefWidth="150.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/buttons.css" text="Add Donor">
+         <graphic>
+            <ImageView fitHeight="21.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../lk/ijse/gdse/bbms/assert/icons8-add-500.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
    </children>
 </AnchorPane>

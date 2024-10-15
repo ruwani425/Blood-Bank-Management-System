@@ -2,9 +2,7 @@ package lk.ijse.gdse.bbms.model;
 
 import lk.ijse.gdse.bbms.common.BloodGroup;
 import lk.ijse.gdse.bbms.common.Gender;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.io.Serializable;
 import java.sql.Date;

@@ -1,12 +1,18 @@
 package lk.ijse.gdse.bbms.controller;
 
+import javafx.animation.ScaleTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
+import javafx.scene.paint.Color;
+import javafx.util.Duration;
 
 
 import java.io.IOException;
@@ -16,69 +22,77 @@ import java.util.ResourceBundle;
 public class HomePageViewController implements Initializable {
 
     @FXML
-    private JFXButton homeBtn;
+    private ImageView homeBtn;
 
     @FXML
-    private JFXButton donorsBtn;
+    private ImageView donorsBtn;
 
     @FXML
-    private JFXButton hospitalsBtn;
+    private ImageView hospitalBtn;
 
     @FXML
-    private JFXButton bloodCampaignBtn;
+    private ImageView campaignBtn;
 
     @FXML
-    private JFXButton bloodStocksBtn;
+    private ImageView requestBtn;
 
     @FXML
-    private JFXButton inventoryBtn;
+    private ImageView inventoryBtn;
 
     @FXML
-    private JFXButton bloodRequestBtn;
+    private ImageView healthCheckupBtn;
 
     @FXML
-    private JFXButton donationHistoryBtn;
+    private ImageView donationsBtn;
+
+    @FXML
+    private ImageView historyBtn;
 
     @FXML
     private AnchorPane homeAnchor;
 
     @FXML
-    void navigateToBloodCampaignPage(ActionEvent event) {
+    void navigateToCampaignPage(MouseEvent event) {
 
     }
 
     @FXML
-    void navigateToBloodRequestsPage(ActionEvent event) {
+    void navigateToDonationsPage(MouseEvent event) {
 
     }
 
     @FXML
-    void navigateToBloodStockPage(ActionEvent event) {
-
-    }
-
-    @FXML
-    void navigateToDonationHistoryPage(ActionEvent event) {
-
-    }
-
-    @FXML
-    void navigateToDonorPage(ActionEvent event) {
+    void navigateToDonorPage(MouseEvent event) {
         navigateTo("/view/donorPage-view.fxml");
     }
 
     @FXML
-    void navigateToHomePage(ActionEvent event) {
+    void navigateToHealthChekupPage(MouseEvent event) {
 
     }
 
     @FXML
-    void navigateToHospitalPage(ActionEvent event) {
+    void navigateToHistoryPage(MouseEvent event) {
 
     }
 
     @FXML
-    void navigateToInventoryPage(ActionEvent event) {
+    void navigateToHomePage(MouseEvent event) {
+
+    }
+
+    @FXML
+    void navigateToHospitalPage(MouseEvent event) {
+
+    }
+
+    @FXML
+    void navigateToInventoryPage(MouseEvent event) {
+
+    }
+
+    @FXML
+    void navigateToRequestPage(MouseEvent event) {
 
     }
 
@@ -94,5 +108,34 @@ public class HomePageViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         navigateTo("/view/homeStartPage-view.fxml");
+    }
+
+    public void onMouseEnterdImage(MouseEvent event) {
+        if (event.getSource() instanceof ImageView) {
+            ImageView icon = (ImageView) event.getSource();
+
+            ScaleTransition scaleT = new ScaleTransition(Duration.millis(200), icon);
+            scaleT.setToX(1.2);
+            scaleT.setToY(1.2);
+            scaleT.play();
+
+            DropShadow glow = new DropShadow();
+            glow.setColor(Color.CORNFLOWERBLUE);
+            glow.setWidth(15);
+            glow.setHeight(15);
+            glow.setRadius(15);
+            icon.setEffect(glow);
+        }
+    }
+
+    public void onMouseExitedImage(MouseEvent event) {
+        if (event.getSource() instanceof ImageView) {
+            ImageView icon = (ImageView) event.getSource();
+            ScaleTransition scaleT = new ScaleTransition(Duration.millis(200), icon);
+            scaleT.setToX(1);
+            scaleT.setToY(1);
+            scaleT.play();
+            icon.setEffect(null);
+        }
     }
 }
