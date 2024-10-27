@@ -87,7 +87,7 @@
       <TextField id="bevel" fx:id="txtDonorEmail" layoutX="462.0" layoutY="66.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/textFeild.css" />
       <TextField id="bevel" fx:id="txtDonorNic" layoutX="130.0" layoutY="227.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/textFeild.css" />
       <TextField id="bevel" fx:id="txtDonorName" layoutX="128.0" layoutY="107.0" prefHeight="30.0" prefWidth="202.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/textFeild.css" />
-      <ComboBox id="glass" fx:id="txtDonorBloodGroup" layoutX="463.0" layoutY="124.0" prefHeight="28.0" prefWidth="100.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/textFeild.css" />
+      <ComboBox id="glass" fx:id="txtDonorBloodGroup" layoutX="463.0" layoutY="124.0" prefHeight="28.0" prefWidth="135.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/textFeild.css" />
       <ComboBox id="glass" fx:id="txtDonorGender" layoutX="129.0" layoutY="275.0" prefHeight="28.0" prefWidth="112.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/textFeild.css" />
       <Label fx:id="lblDonorId" layoutX="129.0" layoutY="68.0" prefHeight="28.0" prefWidth="81.0" />
    </children>
