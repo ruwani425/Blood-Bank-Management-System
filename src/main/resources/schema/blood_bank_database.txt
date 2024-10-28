@@ -8,7 +8,7 @@ CREATE TABLE Donor (
     Donor_nic VARCHAR(20),
     Address VARCHAR(255),
     E_mail VARCHAR(100),
-    Blood_group ENUM('A POSITIVE', 'A NEGATIVE', 'B POSITIVE', 'B NEGATIVE', 'AB POSITIVE', 'AB NEGATIVE', 'O POSITIVE', 'O NEGATIVE'),
+    Blood_group ENUM('A_POSITIVE', 'A_NEGATIVE', 'B_POSITIVE', 'B_NEGATIVE', 'AB_POSITIVE', 'AB_NEGATIVE', 'O_POSITIVE', 'O_NEGATIVE'),
     Gender ENUM('MALE', 'FEMALE', 'OTHER'),
     Dob DATE,
     Last_donation_date DATE

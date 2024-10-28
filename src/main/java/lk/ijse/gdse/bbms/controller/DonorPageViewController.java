@@ -17,11 +17,13 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import lk.ijse.gdse.bbms.common.BloodGroup;
 import lk.ijse.gdse.bbms.common.Gender;
+import lk.ijse.gdse.bbms.dto.tm.DonorTM;
 import lk.ijse.gdse.bbms.model.DonorModel;
 import javafx.scene.control.TableView;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class DonorPageViewController {
@@ -29,7 +31,7 @@ public class DonorPageViewController {
     public Button addDonorBtn;
 
     @FXML
-    private TableView<DonorModel> tblDonors;
+    private TableView<DonorTM> tblDonors;
 
     @FXML
     private TableColumn colId;
@@ -55,16 +57,14 @@ public class DonorPageViewController {
     @FXML
     private TableColumn colNic;
 
-    private ArrayList<DonorModel> donorList;
+    private ArrayList<DonorTM> donorList;
 
     @FXML
     void initialize() {
         donorList = new ArrayList<>();
-        donorList.add(new DonorModel("D001","sunil",Date.valueOf("2024-10-12"), Gender.FEMALE, BloodGroup.A_NEGATIVE,"sunil@gmail.com","galle","293724678"));
-        donorList.add(new DonorModel("D002","namal",Date.valueOf("2023-07-08"),Gender.MALE,BloodGroup.A_NEGATIVE,"namal@gmail.com","galle","293724678"));
         setCellValueFactory();
 
-        ObservableList<DonorModel> donorObList = FXCollections.observableArrayList();
+        ObservableList<DonorTM> donorObList = FXCollections.observableArrayList();
         donorObList.addAll(donorList);
         tblDonors.setItems(donorObList);
         tblRowOnAction();
@@ -74,7 +74,11 @@ public class DonorPageViewController {
         tblDonors.setOnMouseClicked((MouseEvent event) -> {
             if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
                 // Get the selected donor from the table
-                DonorModel selectedDonor = tblDonors.getSelectionModel().getSelectedItem();
+                DonorTM selectedDonor = tblDonors.getSelectionModel().getSelectedItem();
+                if (selectedDonor != null) {
+                 //   String firstColumnValue = selectedDonor.getFirstColumn(); // Replace with the actual getter method name for the first column value
+                    System.out.println(selectedDonor);
+                }
                 if (selectedDonor != null) {
                     try {
                         // Load the FXML for the pop-up window
@@ -83,7 +87,7 @@ public class DonorPageViewController {
 
                         // Pass the selected donor to the pop-up controller
                         AddDonorPopUpController controller = fxmlLoader.getController();
-                        controller.setDonorData(selectedDonor);  // Method to set data in the pop-up
+                        controller.setDonorData(selectedDonor.getDonorId());  // Method to set data in the pop-up
 
                         // Create a new stage for the pop-up window
                         Stage stage = new Stage();
@@ -100,6 +104,8 @@ public class DonorPageViewController {
 
                     } catch (IOException e) {
                         e.printStackTrace();
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
                     }
                 }
             }
