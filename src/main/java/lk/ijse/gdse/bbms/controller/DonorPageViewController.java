@@ -64,12 +64,11 @@ public class DonorPageViewController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setCellValueFactory();
         try {
-            refreshTable(); // Refresh the table with data from the database
+            refreshTable();
         } catch (SQLException e) {
-            throw new RuntimeException(e); // Handle SQL exceptions
+            throw new RuntimeException(e);
         }
 
-        // Add listener for row clicks
         tblDonors.setOnMouseClicked(this::handleRowClick);
     }
 
@@ -107,7 +106,6 @@ public class DonorPageViewController implements Initializable {
     @FXML
     void popUpNewWindowAddDonor(ActionEvent event) {
         try {
-            // Load the FXML file for the pop-up window
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/addDonorPopUp-view.fxml"));
             Parent root = fxmlLoader.load();
             AddDonorPopUpController addDonorPopUpController=fxmlLoader.getController();
