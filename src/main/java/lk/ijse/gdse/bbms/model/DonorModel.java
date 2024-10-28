@@ -4,6 +4,7 @@ import lk.ijse.gdse.bbms.util.CrudUtil;
 import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 
 public class DonorModel implements Serializable {
@@ -20,6 +21,28 @@ public class DonorModel implements Serializable {
         return "D001"; // Return the default customer ID if no data is found
     }
 
+    public ArrayList<DonorDTO> getAllDonors() throws SQLException {
+        ResultSet rst = CrudUtil.execute("select * from Donor");
+
+        ArrayList<DonorDTO> donorDTOS = new ArrayList<>();
+
+        while (rst.next()) {
+            DonorDTO donorDTO = new DonorDTO(
+                    rst.getString(1),
+                    rst.getString(2),
+                    rst.getString(3),
+                    rst.getString(4),
+                    rst.getString(5),
+                    rst.getString(6),
+                    rst.getString(7),
+                    rst.getDate(8),
+                    rst.getDate(9)
+            );
+            donorDTOS.add(donorDTO);
+        }
+        return donorDTOS;
+    }
+
     public boolean addDonor(DonorDTO donorDTO) throws SQLException {
         return CrudUtil.execute(
                 "insert into Donor values (?,?,?,?,?,?,?,?,?)",
@@ -33,5 +56,24 @@ public class DonorModel implements Serializable {
                 donorDTO.getDob(),
                 donorDTO.getLastDonationDate()
         );
+    }
+
+    public boolean deleteDonor(String donorId) throws SQLException {
+        return CrudUtil.execute("delete from Donor where Donor_id=?", donorId);
+    }
+
+    public boolean updateDonor(DonorDTO donorDTO) throws SQLException {
+        return CrudUtil.execute(
+            "update Donor set Name=?, Donor_nic=?, Address=?, E_mail=?,Blood_group=?,Gender=?,Dob=?,Last_donation_date=? where Donor_id=?",
+            donorDTO.getDonorName(),
+            donorDTO.getDonorNic(),
+            donorDTO.getDonorAddress(),
+            donorDTO.getDonorEmail(),
+            donorDTO.getBloodGroup(),
+            donorDTO.getGender(),
+            donorDTO.getDob(),
+            donorDTO.getLastDonationDate(),
+            donorDTO.getDonorId()
+            );
     }
 }

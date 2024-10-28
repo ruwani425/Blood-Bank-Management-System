@@ -3,17 +3,23 @@ package lk.ijse.gdse.bbms.controller;
 import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import lk.ijse.gdse.bbms.common.BloodGroup;
 import lk.ijse.gdse.bbms.common.Gender;
 import lk.ijse.gdse.bbms.dto.DonorDTO;
+import lk.ijse.gdse.bbms.dto.tm.DonorTM;
 import lk.ijse.gdse.bbms.model.DonorModel;
 
+import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.Optional;
+import java.util.ResourceBundle;
 
 
-public class AddDonorPopUpController {
+public class AddDonorPopUpController implements Initializable {
     @FXML
     private TextArea txtDonorAddress;
 
@@ -49,15 +55,20 @@ public class AddDonorPopUpController {
 
     DonorModel model = new DonorModel();
 
-    @FXML
-    void initialize() throws SQLException {
-        lblDonorId.setText(model.getNextDonorId());
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
+            lblDonorId.setText(model.getNextDonorId());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         populateDonorGender();
         populateDonorBloodGroup();
     }
 
     private void populateDonorGender() {
-        txtDonorGender.getItems().addAll("Male", "Female");
+        txtDonorGender.getItems().addAll("MALE","FEMALE","OTHER");
     }
     private void populateDonorBloodGroup() {
         txtDonorBloodGroup.getItems().addAll("A_POSITIVE","A_NEGATIVE","B_POSITIVE","B_NEGATIVE","AB_POSITIVE","AB_NEGATIVE","O_POSITIVE","O_NEGATIVE");
@@ -85,28 +96,59 @@ public class AddDonorPopUpController {
     }
 
     @FXML
-    void btnDeleteDonorOnAction(ActionEvent event) {
+    void btnDeleteDonorOnAction(ActionEvent event) throws SQLException {
+        String donorId = lblDonorId.getText();
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this Donor?", ButtonType.YES, ButtonType.NO);
+        Optional<ButtonType> buttonType = alert.showAndWait();
+        if (buttonType.get() == ButtonType.YES) {
+
+            boolean isDeleted = model.deleteDonor(donorId);
+
+            if (isDeleted) {
+                new Alert(Alert.AlertType.INFORMATION, "Donor deleted successfully...!").show();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Fail to delete Donor...!").show();
+            }
+        }
 
     }
 
     @FXML
-    void btnUpdateDonorOnAction(ActionEvent event) {
+    void btnUpdateDonorOnAction(ActionEvent event) throws SQLException {
+        String name = txtDonorName.getText();
+        String email = txtDonorEmail.getText();
+        String nic = txtDonorNic.getText();
+        String bloodGroup = txtDonorBloodGroup.getSelectionModel().getSelectedItem().toString();
+        String gender = txtDonorGender.getSelectionModel().getSelectedItem().toString();
+        Date dob = Date.valueOf(txtDonorDob.getValue().toString());
+        String address=txtDonorAddress.getText();
+        String id = lblDonorId.getText();
 
+        DonorDTO donorDTO = new DonorDTO(id,name,nic,address,email,bloodGroup,gender,dob,null);
+        boolean isUpdate = model.updateDonor(donorDTO);
+
+        if (isUpdate) {
+            new Alert(Alert.AlertType.INFORMATION, "Donor updated successfully...!").show();
+        } else {
+            new Alert(Alert.AlertType.ERROR, "Fail to update Donor...!").show();
+        }
     }
 
-    public void setDonorData(String selectedDonor) throws SQLException {
-        System.out.println(selectedDonor);
+    public void setDonorData(DonorTM donor) {
+        lblDonorId.setText(donor.getDonorId());
+        txtDonorName.setText(donor.getDonorName());
+        txtDonorNic.setText(donor.getDonorNic());
+        txtDonorAddress.setText(donor.getDonorAddress());
+        txtDonorEmail.setText(donor.getDonorEmail());
+        txtDonorBloodGroup.setValue(donor.getBloodGroup());
+        txtDonorGender.setValue(donor.getGender());
+
+        // Set the date for DatePicker
+        if (donor.getDob() != null) { // Ensure the DOB is not null
+            Date sqlDate = (Date) donor.getDob(); // Get the SQL Date
+            LocalDate dob = sqlDate.toLocalDate(); // Convert to LocalDate
+            txtDonorDob.setValue(dob); // Set the date in the DatePicker
+        }
     }
-
-
-//    public void setDonorData(DonorModel donor) {
-//        lblDonorId.setText(donor.getDonorId());
-//        txtDonorName.setText(donor.getDonorName());
-//        txtDonorDob.setValue(donor.getDob().toLocalDate());
-//        txtDonorBloodGroup.setValue(String.valueOf(donor.getBloodGroup()));
-//        txtDonorEmail.setText(donor.getEmail());
-//        txtDonorAddress.setText(donor.getAddress());
-//        txtDonorNic.setText(donor.getNic());
-//        txtDonorGender.setValue(String.valueOf(donor.getGender()));
-//    }
 }

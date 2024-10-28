@@ -17,7 +17,7 @@ public class DonorTM {
     private String donorNic;
     private String donorAddress;
     private String donorEmail;
-    private BloodGroup bloodGroup;
-    private Gender gender;
+    private String bloodGroup;
+    private String gender;
     private Date dob;
 }

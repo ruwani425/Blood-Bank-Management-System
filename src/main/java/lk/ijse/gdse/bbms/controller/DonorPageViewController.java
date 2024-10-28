@@ -1,10 +1,10 @@
 package lk.ijse.gdse.bbms.controller;
-import com.jfoenix.controls.JFXButton;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -15,18 +15,18 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import lk.ijse.gdse.bbms.common.BloodGroup;
-import lk.ijse.gdse.bbms.common.Gender;
+import lk.ijse.gdse.bbms.dto.DonorDTO;
 import lk.ijse.gdse.bbms.dto.tm.DonorTM;
 import lk.ijse.gdse.bbms.model.DonorModel;
 import javafx.scene.control.TableView;
 
 import java.io.IOException;
-import java.sql.Date;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
-public class DonorPageViewController {
+public class DonorPageViewController implements Initializable {
 
     public Button addDonorBtn;
 
@@ -34,84 +34,44 @@ public class DonorPageViewController {
     private TableView<DonorTM> tblDonors;
 
     @FXML
-    private TableColumn colId;
+    private TableColumn<DonorTM,String> colId;
 
     @FXML
-    private TableColumn colName;
+    private TableColumn<DonorTM,String>colName;
 
     @FXML
-    private TableColumn colDob;
+    private TableColumn<DonorTM,String> colDob;
 
     @FXML
-    private TableColumn colGender;
+    private TableColumn<DonorTM,String>colGender;
 
     @FXML
-    private TableColumn colBloodGroup;
+    private TableColumn<DonorTM,String>colBloodGroup;
 
     @FXML
-    private TableColumn colEmail;
+    private TableColumn<DonorTM,String> colEmail;
 
     @FXML
-    private TableColumn colAddress;
+    private TableColumn<DonorTM,String>colAddress;
 
     @FXML
-    private TableColumn colNic;
+    private TableColumn<DonorTM,String>colNic;
 
-    private ArrayList<DonorTM> donorList;
+    DonorModel donorModel=new DonorModel();
 
-    @FXML
-    void initialize() {
-        donorList = new ArrayList<>();
-        setCellValueFactory();
 
-        ObservableList<DonorTM> donorObList = FXCollections.observableArrayList();
-        donorObList.addAll(donorList);
-        tblDonors.setItems(donorObList);
-        tblRowOnAction();
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        setCellValueFactory(); // Set up the cell value factories for the table columns
+        try {
+            refreshTable(); // Refresh the table with data from the database
+        } catch (SQLException e) {
+            throw new RuntimeException(e); // Handle SQL exceptions
+        }
+
+        // Add listener for row clicks
+        tblDonors.setOnMouseClicked(this::handleRowClick);
     }
-
-    private void tblRowOnAction() {
-        tblDonors.setOnMouseClicked((MouseEvent event) -> {
-            if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
-                // Get the selected donor from the table
-                DonorTM selectedDonor = tblDonors.getSelectionModel().getSelectedItem();
-                if (selectedDonor != null) {
-                 //   String firstColumnValue = selectedDonor.getFirstColumn(); // Replace with the actual getter method name for the first column value
-                    System.out.println(selectedDonor);
-                }
-                if (selectedDonor != null) {
-                    try {
-                        // Load the FXML for the pop-up window
-                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/addDonorPopUp-view.fxml"));
-                        Parent root = fxmlLoader.load();
-
-                        // Pass the selected donor to the pop-up controller
-                        AddDonorPopUpController controller = fxmlLoader.getController();
-                        controller.setDonorData(selectedDonor.getDonorId());  // Method to set data in the pop-up
-
-                        // Create a new stage for the pop-up window
-                        Stage stage = new Stage();
-                        stage.setTitle("Add New Donor");
-                        stage.setResizable(false);
-                        stage.setScene(new Scene(root));
-
-                        // Optional: Specify window modality (e.g., make it a modal window)
-                        stage.initModality(Modality.WINDOW_MODAL);
-                        stage.initOwner(((Node) event.getSource()).getScene().getWindow());  // Set owner window
-
-                        // Show the new pop-up window
-                        stage.showAndWait();  // Blocks interaction with other windows until this one is closed
-
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } catch (SQLException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            }
-        });
-    }
-
 
     private void setCellValueFactory(){
         colId.setCellValueFactory(new PropertyValueFactory<>("donorId"));
@@ -119,9 +79,29 @@ public class DonorPageViewController {
         colDob.setCellValueFactory(new PropertyValueFactory<>("dob"));
         colGender.setCellValueFactory(new PropertyValueFactory<>("gender"));
         colBloodGroup.setCellValueFactory(new PropertyValueFactory<>("bloodGroup"));
-        colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
-        colAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
-        colNic.setCellValueFactory(new PropertyValueFactory<>("nic"));
+        colEmail.setCellValueFactory(new PropertyValueFactory<>("donorEmail"));
+        colAddress.setCellValueFactory(new PropertyValueFactory<>("donorAddress"));
+        colNic.setCellValueFactory(new PropertyValueFactory<>("donorNic"));
+    }
+
+    private void refreshTable() throws SQLException {
+        ArrayList<DonorDTO> donorDTOS = donorModel.getAllDonors();
+        ObservableList<DonorTM> donorTMS = FXCollections.observableArrayList();
+
+        for (DonorDTO donorDTO : donorDTOS) {
+            DonorTM donorTM = new DonorTM(
+                    donorDTO.getDonorId(),
+                    donorDTO.getDonorName(),
+                    donorDTO.getDonorNic(),
+                    donorDTO.getDonorAddress(),
+                    donorDTO.getDonorEmail(),
+                    donorDTO.getBloodGroup(),
+                    donorDTO.getGender(),
+                    donorDTO.getDob()
+            );
+            donorTMS.add(donorTM);
+        }
+        tblDonors.setItems(donorTMS);
     }
 
     @FXML
@@ -147,7 +127,35 @@ public class DonorPageViewController {
             e.printStackTrace();
         }
     }
-
-    public void btnAddNewOnAction(ActionEvent actionEvent) {
+    private void handleRowClick(MouseEvent event) {
+        if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
+            DonorTM selectedDonor = tblDonors.getSelectionModel().getSelectedItem();
+            if (selectedDonor != null) {
+                openEditDonorWindow(selectedDonor);
+            }
+        }
     }
+
+    private void openEditDonorWindow(DonorTM donor) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/addDonorPopUp-view.fxml"));
+            Parent root = fxmlLoader.load();
+
+            // Get the controller of the pop-up window
+            AddDonorPopUpController controller = fxmlLoader.getController();
+            controller.setDonorData(donor); // Set data for the selected donor
+
+            // Create and show the pop-up window
+            Stage stage = new Stage();
+            stage.setTitle("Edit Donor Details");
+            stage.setResizable(false);
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(tblDonors.getScene().getWindow());
+            stage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
