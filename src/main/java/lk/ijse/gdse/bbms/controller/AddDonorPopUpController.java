@@ -5,8 +5,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import lk.ijse.gdse.bbms.common.BloodGroup;
-import lk.ijse.gdse.bbms.common.Gender;
 import lk.ijse.gdse.bbms.dto.DonorDTO;
 import lk.ijse.gdse.bbms.dto.tm.DonorTM;
 import lk.ijse.gdse.bbms.model.DonorModel;
@@ -54,10 +52,17 @@ public class AddDonorPopUpController implements Initializable {
     private Label lblDonorId;
 
     DonorModel model = new DonorModel();
+    DonorPageViewController donorPageViewController;
 
+    public void setDonorPageViewController(DonorPageViewController donorPageViewController) {
+        this.donorPageViewController = donorPageViewController;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        btnAdd.setDisable(false);
+        btnDelete.setDisable(true);
+        btnUpdate.setDisable(true);
         try {
             lblDonorId.setText(model.getNextDonorId());
         } catch (SQLException e) {
@@ -89,10 +94,19 @@ public class AddDonorPopUpController implements Initializable {
         boolean isSaved = model.addDonor(donorDTO);
 
         if (isSaved) {
+
+            try {
+                lblDonorId.setText(model.getNextDonorId());
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+
+            donorPageViewController.refreshTable();
             new Alert(Alert.AlertType.INFORMATION, "Donor saved successfully...!").show();
         } else {
             new Alert(Alert.AlertType.ERROR, "Fail to save Donor...!").show();
         }
+        clearFields();
     }
 
     @FXML
@@ -106,12 +120,13 @@ public class AddDonorPopUpController implements Initializable {
             boolean isDeleted = model.deleteDonor(donorId);
 
             if (isDeleted) {
+                donorPageViewController.refreshTable();
                 new Alert(Alert.AlertType.INFORMATION, "Donor deleted successfully...!").show();
             } else {
                 new Alert(Alert.AlertType.ERROR, "Fail to delete Donor...!").show();
             }
         }
-
+        clearFields();
     }
 
     @FXML
@@ -129,13 +144,19 @@ public class AddDonorPopUpController implements Initializable {
         boolean isUpdate = model.updateDonor(donorDTO);
 
         if (isUpdate) {
+            donorPageViewController.refreshTable();
             new Alert(Alert.AlertType.INFORMATION, "Donor updated successfully...!").show();
         } else {
             new Alert(Alert.AlertType.ERROR, "Fail to update Donor...!").show();
         }
+        clearFields();
     }
 
     public void setDonorData(DonorTM donor) {
+        btnAdd.setDisable(true);
+        btnUpdate.setDisable(false);
+        btnDelete.setDisable(false);
+
         lblDonorId.setText(donor.getDonorId());
         txtDonorName.setText(donor.getDonorName());
         txtDonorNic.setText(donor.getDonorNic());
@@ -144,11 +165,23 @@ public class AddDonorPopUpController implements Initializable {
         txtDonorBloodGroup.setValue(donor.getBloodGroup());
         txtDonorGender.setValue(donor.getGender());
 
-        // Set the date for DatePicker
-        if (donor.getDob() != null) { // Ensure the DOB is not null
-            Date sqlDate = (Date) donor.getDob(); // Get the SQL Date
-            LocalDate dob = sqlDate.toLocalDate(); // Convert to LocalDate
-            txtDonorDob.setValue(dob); // Set the date in the DatePicker
+        if (donor.getDob() != null) {
+            Date sqlDate = (Date) donor.getDob();
+            LocalDate dob = sqlDate.toLocalDate();
+            txtDonorDob.setValue(dob);
         }
     }
+
+    @FXML
+    private void clearFields() {
+        txtDonorAddress.clear();
+        txtDonorDob.setValue(null);
+        txtDonorEmail.clear();
+        txtDonorNic.clear();
+        txtDonorName.clear();
+        txtDonorBloodGroup.getSelectionModel().clearSelection();
+        txtDonorGender.getSelectionModel().clearSelection();
+        lblDonorId.setText("");
+    }
+
 }

@@ -62,7 +62,7 @@ public class DonorPageViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        setCellValueFactory(); // Set up the cell value factories for the table columns
+        setCellValueFactory();
         try {
             refreshTable(); // Refresh the table with data from the database
         } catch (SQLException e) {
@@ -84,7 +84,7 @@ public class DonorPageViewController implements Initializable {
         colNic.setCellValueFactory(new PropertyValueFactory<>("donorNic"));
     }
 
-    private void refreshTable() throws SQLException {
+    public void refreshTable() throws SQLException {
         ArrayList<DonorDTO> donorDTOS = donorModel.getAllDonors();
         ObservableList<DonorTM> donorTMS = FXCollections.observableArrayList();
 
@@ -110,19 +110,18 @@ public class DonorPageViewController implements Initializable {
             // Load the FXML file for the pop-up window
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/addDonorPopUp-view.fxml"));
             Parent root = fxmlLoader.load();
+            AddDonorPopUpController addDonorPopUpController=fxmlLoader.getController();
+            addDonorPopUpController.setDonorPageViewController(this);
 
-            // Create a new stage for the pop-up window
             Stage stage = new Stage();
-            stage.setTitle("Add New Donor");  // Set title of the window
+            stage.setTitle("Add New Donor");
             stage.setResizable(false);
-            stage.setScene(new Scene(root));  // Set the scene with the loaded FXML
+            stage.setScene(new Scene(root));
 
-            // Optional: Specify window modality (e.g., make it a modal window)
             stage.initModality(Modality.WINDOW_MODAL);
-            stage.initOwner(((Node) event.getSource()).getScene().getWindow());  // Set owner window
+            stage.initOwner(((Node) event.getSource()).getScene().getWindow());
 
-            // Show the new pop-up window
-            stage.showAndWait();  // Blocks interaction with other windows until this one is closed
+            stage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -141,11 +140,10 @@ public class DonorPageViewController implements Initializable {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/addDonorPopUp-view.fxml"));
             Parent root = fxmlLoader.load();
 
-            // Get the controller of the pop-up window
             AddDonorPopUpController controller = fxmlLoader.getController();
-            controller.setDonorData(donor); // Set data for the selected donor
+            controller.setDonorPageViewController(this);
+            controller.setDonorData(donor);
 
-            // Create and show the pop-up window
             Stage stage = new Stage();
             stage.setTitle("Edit Donor Details");
             stage.setResizable(false);
