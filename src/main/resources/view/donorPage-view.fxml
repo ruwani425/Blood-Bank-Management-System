@@ -20,7 +20,7 @@
          <font>
             <Font name="System Bold" size="14.0" />
          </font></Label>
-      <TextField layoutX="169.0" layoutY="46.0" />
+      <TextField fx:id="txtSearchBar" layoutX="169.0" layoutY="46.0" onAction="#searchDataDonors" prefHeight="28.0" prefWidth="210.0" />
       <TableView fx:id="tblDonors" layoutX="6.0" layoutY="113.0" prefHeight="474.0" prefWidth="915.0">
         <columns>
           <TableColumn fx:id="colId" prefWidth="87.0" text="Donor Id" />
@@ -33,7 +33,7 @@
             <TableColumn fx:id="colNic" prefWidth="132.0" text="Nic" />
         </columns>
       </TableView>
-      <JFXButton id="bevel" fx:id="addDonorBtn" layoutX="343.0" layoutY="46.0" onAction="#popUpNewWindowAddDonor" prefHeight="41.0" prefWidth="150.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/buttons.css" text="Add Donor">
+      <JFXButton id="bevel" fx:id="addDonorBtn" layoutX="389.0" layoutY="46.0" onAction="#popUpNewWindowAddDonor" prefHeight="41.0" prefWidth="150.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/buttons.css" text="Add Donor">
          <graphic>
             <ImageView fitHeight="21.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                <image>

@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 import lk.ijse.gdse.bbms.dto.DonorDTO;
 import lk.ijse.gdse.bbms.dto.tm.DonorTM;
 import lk.ijse.gdse.bbms.model.DonorModel;
@@ -18,6 +19,10 @@ import java.util.ResourceBundle;
 
 
 public class AddDonorPopUpController implements Initializable {
+
+    @FXML
+    private TextField txtSearchBar;
+
     @FXML
     private TextArea txtDonorAddress;
 
@@ -50,6 +55,9 @@ public class AddDonorPopUpController implements Initializable {
 
     @FXML
     private Label lblDonorId;
+
+    @FXML
+    private Stage stage;
 
     DonorModel model = new DonorModel();
     DonorPageViewController donorPageViewController;
@@ -122,6 +130,8 @@ public class AddDonorPopUpController implements Initializable {
             if (isDeleted) {
                 donorPageViewController.refreshTable();
                 new Alert(Alert.AlertType.INFORMATION, "Donor deleted successfully...!").show();
+                stage = (Stage) btnDelete.getScene().getWindow();
+                stage.close();
             } else {
                 new Alert(Alert.AlertType.ERROR, "Fail to delete Donor...!").show();
             }
@@ -146,6 +156,8 @@ public class AddDonorPopUpController implements Initializable {
         if (isUpdate) {
             donorPageViewController.refreshTable();
             new Alert(Alert.AlertType.INFORMATION, "Donor updated successfully...!").show();
+            stage = (Stage) btnUpdate.getScene().getWindow();
+            stage.close();
         } else {
             new Alert(Alert.AlertType.ERROR, "Fail to update Donor...!").show();
         }
@@ -173,7 +185,7 @@ public class AddDonorPopUpController implements Initializable {
     }
 
     @FXML
-    private void clearFields() {
+    private void clearFields() throws SQLException {
         txtDonorAddress.clear();
         txtDonorDob.setValue(null);
         txtDonorEmail.clear();
@@ -181,7 +193,7 @@ public class AddDonorPopUpController implements Initializable {
         txtDonorName.clear();
         txtDonorBloodGroup.getSelectionModel().clearSelection();
         txtDonorGender.getSelectionModel().clearSelection();
-        lblDonorId.setText("");
+        lblDonorId.setText(model.getNextDonorId());
     }
 
 }

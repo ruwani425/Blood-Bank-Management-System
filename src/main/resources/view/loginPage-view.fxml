@@ -9,17 +9,17 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.bbms.controller.LoginPageViewController">
+<AnchorPane prefHeight="642.0" prefWidth="1066.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.bbms.controller.LoginPageViewController">
    <children>
-      <ImageView fitHeight="640.0" fitWidth="1068.0" layoutX="-6.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="658.0" fitWidth="1080.0" layoutX="-7.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../lk/ijse/gdse/bbms/assert/newLogin.png" />
          </image>
       </ImageView>
-      <TextField fx:id="userNameTxt" layoutX="638.0" layoutY="269.0" prefHeight="39.0" prefWidth="284.0" promptText="User Name" />
-      <PasswordField fx:id="passwordTxt" layoutX="639.0" layoutY="348.0" prefHeight="39.0" prefWidth="285.0" promptText="Password" />
-      <JFXButton fx:id="loginBtn" layoutX="697.0" layoutY="445.0" onAction="#navigateToHomePage" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/style1.css" text="Login" />
-      <Label layoutX="817.0" layoutY="401.0" text="Fogot Password?" textFill="#0b0f86">
+      <TextField fx:id="userNameTxt" layoutX="657.0" layoutY="269.0" prefHeight="39.0" prefWidth="284.0" promptText="User Name" />
+      <PasswordField fx:id="passwordTxt" layoutX="656.0" layoutY="348.0" prefHeight="39.0" prefWidth="285.0" promptText="Password" />
+      <JFXButton fx:id="loginBtn" layoutX="703.0" layoutY="470.0" onAction="#navigateToHomePage" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/style1.css" text="Login" />
+      <Label layoutX="842.0" layoutY="401.0" text="Fogot Password?" textFill="#0b0f86">
          <font>
             <Font size="12.0" />
          </font>

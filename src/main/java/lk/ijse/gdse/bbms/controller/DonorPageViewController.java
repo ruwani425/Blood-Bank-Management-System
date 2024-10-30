@@ -1,6 +1,7 @@
 package lk.ijse.gdse.bbms.controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -24,40 +26,42 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class DonorPageViewController implements Initializable {
 
     public Button addDonorBtn;
+    public TextField txtSearchBar;
 
     @FXML
     private TableView<DonorTM> tblDonors;
 
     @FXML
-    private TableColumn<DonorTM,String> colId;
+    private TableColumn<DonorTM, String> colId;
 
     @FXML
-    private TableColumn<DonorTM,String>colName;
+    private TableColumn<DonorTM, String> colName;
 
     @FXML
-    private TableColumn<DonorTM,String> colDob;
+    private TableColumn<DonorTM, String> colDob;
 
     @FXML
-    private TableColumn<DonorTM,String>colGender;
+    private TableColumn<DonorTM, String> colGender;
 
     @FXML
-    private TableColumn<DonorTM,String>colBloodGroup;
+    private TableColumn<DonorTM, String> colBloodGroup;
 
     @FXML
-    private TableColumn<DonorTM,String> colEmail;
+    private TableColumn<DonorTM, String> colEmail;
 
     @FXML
-    private TableColumn<DonorTM,String>colAddress;
+    private TableColumn<DonorTM, String> colAddress;
 
     @FXML
-    private TableColumn<DonorTM,String>colNic;
+    private TableColumn<DonorTM, String> colNic;
 
-    DonorModel donorModel=new DonorModel();
+    DonorModel donorModel = new DonorModel();
 
 
     @Override
@@ -72,7 +76,7 @@ public class DonorPageViewController implements Initializable {
         tblDonors.setOnMouseClicked(this::handleRowClick);
     }
 
-    private void setCellValueFactory(){
+    private void setCellValueFactory() {
         colId.setCellValueFactory(new PropertyValueFactory<>("donorId"));
         colName.setCellValueFactory(new PropertyValueFactory<>("donorName"));
         colDob.setCellValueFactory(new PropertyValueFactory<>("dob"));
@@ -108,7 +112,7 @@ public class DonorPageViewController implements Initializable {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/addDonorPopUp-view.fxml"));
             Parent root = fxmlLoader.load();
-            AddDonorPopUpController addDonorPopUpController=fxmlLoader.getController();
+            AddDonorPopUpController addDonorPopUpController = fxmlLoader.getController();
             addDonorPopUpController.setDonorPageViewController(this);
 
             Stage stage = new Stage();
@@ -124,6 +128,7 @@ public class DonorPageViewController implements Initializable {
             e.printStackTrace();
         }
     }
+
     private void handleRowClick(MouseEvent event) {
         if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
             DonorTM selectedDonor = tblDonors.getSelectionModel().getSelectedItem();
@@ -154,4 +159,31 @@ public class DonorPageViewController implements Initializable {
         }
     }
 
+    @FXML
+    void searchDataDonors(ActionEvent event) throws SQLException {
+        FilteredList<DonorTM> filteredData = new FilteredList<>(tblDonors.getItems(), b -> true);
+
+        txtSearchBar.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(donorTM -> {
+                if (newValue == null || newValue.isBlank()) {
+                    return true;
+                }
+
+                String searchKeyword = newValue.toLowerCase();
+
+                // Convert dob to a string for comparison
+                String dobString = donorTM.getDob() != null ? donorTM.getDob().toString() : "";
+                return donorTM.getDonorId().toLowerCase().contains(searchKeyword) ||
+                        donorTM.getDonorName().toLowerCase().contains(searchKeyword) ||
+                        donorTM.getDonorNic().toLowerCase().contains(searchKeyword) ||
+                        donorTM.getDonorAddress().toLowerCase().contains(searchKeyword) ||
+                        donorTM.getDonorEmail().toLowerCase().contains(searchKeyword) ||
+                        donorTM.getGender().toLowerCase().contains(searchKeyword) ||
+                        dobString.contains(searchKeyword) || // Check dob as a string
+                        donorTM.getBloodGroup().toLowerCase().contains(searchKeyword);
+            });
+        });
+
+        tblDonors.setItems(filteredData);
+    }
 }

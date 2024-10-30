@@ -76,7 +76,7 @@ public class HomePageViewController implements Initializable {
 
     @FXML
     void navigateToHomePage(MouseEvent event) {
-
+        navigateTo("/view/homeStartPage-view.fxml");
     }
 
     @FXML

@@ -11,7 +11,7 @@
             <Image url="@../lk/ijse/gdse/bbms/assert/dashBord.png" />
          </image>
       </ImageView>
-      <AnchorPane fx:id="homeAnchor" layoutX="185.0" layoutY="3.0" prefHeight="596.0" prefWidth="924.0" />
+      <AnchorPane fx:id="homeAnchor" layoutX="177.0" layoutY="-1.0" prefHeight="608.0" prefWidth="936.0" />
       <ImageView fx:id="homeBtn" fitHeight="49.0" fitWidth="160.0" layoutX="10.0" layoutY="83.0" onMouseClicked="#navigateToHomePage" onMouseEntered="#onMouseEnterdImage" onMouseExited="#onMouseExitedImage" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../lk/ijse/gdse/bbms/assert/homeBtn.png" />
