@@ -13,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
@@ -74,6 +75,7 @@ public class DonorPageViewController implements Initializable {
         }
 
         tblDonors.setOnMouseClicked(this::handleRowClick);
+      //  txtSearchBar.setOnAction(this::searchDataDonors);
     }
 
     private void setCellValueFactory() {
@@ -160,7 +162,7 @@ public class DonorPageViewController implements Initializable {
     }
 
     @FXML
-    void searchDataDonors(ActionEvent event) throws SQLException {
+    void searchDataDonors(KeyEvent event) {
         FilteredList<DonorTM> filteredData = new FilteredList<>(tblDonors.getItems(), b -> true);
 
         txtSearchBar.textProperty().addListener((observable, oldValue, newValue) -> {
