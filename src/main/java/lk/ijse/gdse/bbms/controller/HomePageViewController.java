@@ -10,6 +10,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.fxml.FXML;
 import javafx.scene.paint.Color;
+import javafx.stage.Screen;
 import javafx.util.Duration;
 
 
@@ -48,6 +49,9 @@ public class HomePageViewController implements Initializable {
 
     @FXML
     private AnchorPane homeAnchor;
+
+    @FXML
+    private AnchorPane rootPane;
 
     @FXML
     void navigateToCampaignPage(MouseEvent event) {
@@ -105,6 +109,11 @@ public class HomePageViewController implements Initializable {
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        double screenWidth = Screen.getPrimary().getVisualBounds().getWidth();
+        double screenHeight = Screen.getPrimary().getVisualBounds().getHeight();
+
+        rootPane.setPrefWidth(screenWidth);
+        rootPane.setPrefHeight(screenHeight);
         navigateTo("/view/homeStartPage-view.fxml");
     }
 

@@ -75,7 +75,6 @@ public class DonorPageViewController implements Initializable {
         }
 
         tblDonors.setOnMouseClicked(this::handleRowClick);
-      //  txtSearchBar.setOnAction(this::searchDataDonors);
     }
 
     private void setCellValueFactory() {
