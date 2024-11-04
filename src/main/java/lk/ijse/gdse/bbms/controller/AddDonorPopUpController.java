@@ -1,10 +1,14 @@
 package lk.ijse.gdse.bbms.controller;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import lk.ijse.gdse.bbms.dto.DonorDTO;
 import lk.ijse.gdse.bbms.dto.tm.DonorTM;
@@ -39,13 +43,13 @@ public class AddDonorPopUpController implements Initializable {
     private JFXButton btnAdd;
 
     @FXML
-    private TextField txtDonorEmail;
+    private JFXTextField txtDonorEmail;
 
     @FXML
-    private TextField txtDonorNic;
+    private JFXTextField txtDonorNic;
 
     @FXML
-    private TextField txtDonorName;
+    private JFXTextField txtDonorName;
 
     @FXML
     private ComboBox<String> txtDonorBloodGroup;
@@ -55,6 +59,9 @@ public class AddDonorPopUpController implements Initializable {
 
     @FXML
     private Label lblDonorId;
+
+    @FXML
+    private Label headerLbl;
 
     @FXML
     private Stage stage;
@@ -85,6 +92,15 @@ public class AddDonorPopUpController implements Initializable {
     }
     private void populateDonorBloodGroup() {
         txtDonorBloodGroup.getItems().addAll("A_POSITIVE","A_NEGATIVE","B_POSITIVE","B_NEGATIVE","AB_POSITIVE","AB_NEGATIVE","O_POSITIVE","O_NEGATIVE");
+    }
+    public void setHeaderText(String text) {
+        headerLbl.setText(text);
+
+        // Set the font to "Ubuntu Mono", size 36px
+        headerLbl.setFont(Font.font("Ubuntu Mono",FontWeight.BOLD, 46));
+
+        // Set text color to #ae1b53
+        headerLbl.setTextFill(Color.web("#ae1b53"));
     }
 
     @FXML

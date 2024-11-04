@@ -115,9 +115,10 @@ public class DonorPageViewController implements Initializable {
             Parent root = fxmlLoader.load();
             AddDonorPopUpController addDonorPopUpController = fxmlLoader.getController();
             addDonorPopUpController.setDonorPageViewController(this);
+            addDonorPopUpController.setHeaderText("Add New Donor");
 
             Stage stage = new Stage();
-            stage.setTitle("Add New Donor");
+            //stage.setTitle("Add New Donor");
             stage.setResizable(false);
             stage.setScene(new Scene(root));
 
@@ -147,6 +148,7 @@ public class DonorPageViewController implements Initializable {
             AddDonorPopUpController controller = fxmlLoader.getController();
             controller.setDonorPageViewController(this);
             controller.setDonorData(donor);
+            controller.setHeaderText("Edit Donors");
 
             Stage stage = new Stage();
             stage.setTitle("Edit Donor Details");
