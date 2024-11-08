@@ -1,6 +1,7 @@
 package lk.ijse.gdse.bbms.controller;
 
 import javafx.animation.ScaleTransition;
+import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -21,37 +22,10 @@ import java.util.ResourceBundle;
 public class HomePageViewController implements Initializable {
 
     @FXML
-    private ImageView homeBtn;
+    private ImageView homeBtn,donorsBtn,hospitalBtn,campaignBtn,requestBtn,inventoryBtn,healthCheckupBtn,donationsBtn,historyBtn,btnEmployee;
 
     @FXML
-    private ImageView donorsBtn;
-
-    @FXML
-    private ImageView hospitalBtn;
-
-    @FXML
-    private ImageView campaignBtn;
-
-    @FXML
-    private ImageView requestBtn;
-
-    @FXML
-    private ImageView inventoryBtn;
-
-    @FXML
-    private ImageView healthCheckupBtn;
-
-    @FXML
-    private ImageView donationsBtn;
-
-    @FXML
-    private ImageView historyBtn;
-
-    @FXML
-    private AnchorPane homeAnchor;
-
-    @FXML
-    private AnchorPane rootPane;
+    private AnchorPane homeAnchor,rootPane;
 
     @FXML
     void navigateToCampaignPage(MouseEvent event) {
@@ -98,7 +72,13 @@ public class HomePageViewController implements Initializable {
 
     }
 
+    @FXML
+    void navigateToEmployeePage(MouseEvent event) {
+        navigateTo("/view/employeePage-view.fxml");
+    }
+
     public void navigateTo(String fxmlPath) {
+
         try {
             homeAnchor.getChildren().clear();
             AnchorPane load = FXMLLoader.load(getClass().getResource(fxmlPath));
@@ -116,8 +96,8 @@ public class HomePageViewController implements Initializable {
         rootPane.setPrefHeight(screenHeight);
         navigateTo("/view/homeStartPage-view.fxml");
     }
-
-    public void onMouseEnterdImage(MouseEvent event) {
+    @FXML
+    void onMouseEnterdImage(MouseEvent event) {
         if (event.getSource() instanceof ImageView) {
             ImageView icon = (ImageView) event.getSource();
 
@@ -135,7 +115,8 @@ public class HomePageViewController implements Initializable {
         }
     }
 
-    public void onMouseExitedImage(MouseEvent event) {
+    @FXML
+    void onMouseExitedImage(MouseEvent event) {
         if (event.getSource() instanceof ImageView) {
             ImageView icon = (ImageView) event.getSource();
             ScaleTransition scaleT = new ScaleTransition(Duration.millis(200), icon);

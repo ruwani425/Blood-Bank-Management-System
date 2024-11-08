@@ -13,51 +13,56 @@
          </image>
       </ImageView>
       <AnchorPane fx:id="homeAnchor" layoutX="259.0" layoutY="1.0" prefHeight="696.0" prefWidth="1104.0" />
-      <VBox layoutX="21.0" layoutY="97.0" prefHeight="548.0" prefWidth="203.0" spacing="2.0">
+      <VBox alignment="TOP_CENTER" layoutX="11.0" layoutY="97.0" prefHeight="571.0" prefWidth="242.0" spacing="1.0">
          <children>
-            <ImageView fx:id="homeBtn" fitHeight="60.0" fitWidth="206.0" onMouseClicked="#navigateToHomePage" onMouseEntered="#onMouseEnterdImage" onMouseExited="#onMouseExitedImage" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="homeBtn" fitHeight="55.0" fitWidth="210.0" onMouseClicked="#navigateToHomePage" onMouseEntered="#onMouseEnterdImage" onMouseExited="#onMouseExitedImage" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../lk/ijse/gdse/bbms/assert/homeBtn.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="donorsBtn" fitHeight="58.0" fitWidth="231.0" onMouseClicked="#navigateToDonorPage" onMouseEntered="#onMouseEnterdImage" onMouseExited="#onMouseExitedImage" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="donorsBtn" fitHeight="52.0" fitWidth="198.0" onMouseClicked="#navigateToDonorPage" onMouseEntered="#onMouseEnterdImage" onMouseExited="#onMouseExitedImage" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../lk/ijse/gdse/bbms/assert/donorsBtn.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="hospitalBtn" fitHeight="60.0" fitWidth="206.0" onMouseClicked="#navigateToHospitalPage" onMouseEntered="#onMouseEnterdImage" onMouseExited="#onMouseExitedImage" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="hospitalBtn" fitHeight="55.0" fitWidth="210.0" onMouseClicked="#navigateToHospitalPage" onMouseEntered="#onMouseEnterdImage" onMouseExited="#onMouseExitedImage" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../lk/ijse/gdse/bbms/assert/hospitalsBtn.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="requestBtn" fitHeight="60.0" fitWidth="206.0" onMouseClicked="#navigateToDonationsPage" onMouseEntered="#onMouseEnterdImage" onMouseExited="#onMouseExitedImage" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="requestBtn" fitHeight="55.0" fitWidth="210.0" onMouseClicked="#navigateToDonationsPage" onMouseEntered="#onMouseEnterdImage" onMouseExited="#onMouseExitedImage" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../lk/ijse/gdse/bbms/assert/donationsBtn.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="campaignBtn" fitHeight="60.0" fitWidth="206.0" onMouseClicked="#navigateToCampaignPage" onMouseEntered="#onMouseEnterdImage" onMouseExited="#onMouseExitedImage" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="campaignBtn" fitHeight="55.0" fitWidth="210.0" onMouseClicked="#navigateToCampaignPage" onMouseEntered="#onMouseEnterdImage" onMouseExited="#onMouseExitedImage" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../lk/ijse/gdse/bbms/assert/campaignsBtn.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="healthCheckupBtn" fitHeight="60.0" fitWidth="206.0" onMouseClicked="#navigateToHealthChekupPage" onMouseEntered="#onMouseEnterdImage" onMouseExited="#onMouseExitedImage" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="healthCheckupBtn" fitHeight="55.0" fitWidth="210.0" onMouseClicked="#navigateToHealthChekupPage" onMouseEntered="#onMouseEnterdImage" onMouseExited="#onMouseExitedImage" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../lk/ijse/gdse/bbms/assert/healthCheckupBtn.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="inventoryBtn" fitHeight="60.0" fitWidth="206.0" onMouseClicked="#navigateToRequestPage" onMouseEntered="#onMouseEnterdImage" onMouseExited="#onMouseExitedImage" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="inventoryBtn" fitHeight="55.0" fitWidth="210.0" onMouseClicked="#navigateToRequestPage" onMouseEntered="#onMouseEnterdImage" onMouseExited="#onMouseExitedImage" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../lk/ijse/gdse/bbms/assert/requestBtn.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="donationsBtn" fitHeight="60.0" fitWidth="206.0" onMouseClicked="#navigateToInventoryPage" onMouseEntered="#onMouseEnterdImage" onMouseExited="#onMouseExitedImage" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="donationsBtn" fitHeight="55.0" fitWidth="210.0" onMouseClicked="#navigateToInventoryPage" onMouseEntered="#onMouseEnterdImage" onMouseExited="#onMouseExitedImage" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../lk/ijse/gdse/bbms/assert/inventoryBtn.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="historyBtn" fitHeight="60.0" fitWidth="206.0" onMouseClicked="#navigateToHistoryPage" onMouseEntered="#onMouseEnterdImage" onMouseExited="#onMouseExitedImage" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="historyBtn" fitHeight="55.0" fitWidth="210.0" onMouseClicked="#navigateToHistoryPage" onMouseEntered="#onMouseEnterdImage" onMouseExited="#onMouseExitedImage" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../lk/ijse/gdse/bbms/assert/historyBtn.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="btnEmployee" fitHeight="55.0" fitWidth="210.0" onMouseClicked="#navigateToEmployeePage" onMouseEntered="#onMouseEnterdImage" onMouseExited="#onMouseExitedImage" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../lk/ijse/gdse/bbms/assert/employeeBtn.png" />
                </image>
             </ImageView>
          </children>
