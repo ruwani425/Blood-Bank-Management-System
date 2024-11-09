@@ -44,7 +44,7 @@ public class HomePageViewController implements Initializable {
 
     @FXML
     void navigateToHealthChekupPage(MouseEvent event) {
-
+        navigateTo("/view/healthCheckUp-view.fxml");
     }
 
     @FXML

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="549.0" prefWidth="832.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.bbms.controller.AddNewHealthCheckUpPopUpController">
+   <children>
+      <ImageView fitHeight="593.0" fitWidth="891.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../lk/ijse/gdse/bbms/assert/popUpHealthCheck.png" />
+         </image>
+      </ImageView>
+      <VBox layoutX="25.0" layoutY="81.0" prefHeight="288.0" prefWidth="174.0" spacing="35.0">
+         <children>
+            <Label text="Date of CheckUP:">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label text="CheckUp Id:">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label text="Donor Nic:">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label text="Age:">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label text="weight:">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <VBox layoutX="420.0" layoutY="98.0" prefHeight="193.0" prefWidth="190.0" spacing="35.0">
+         <children>
+            <Label text="Suger Level:">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label text="Blood Presure:">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label prefHeight="25.0" prefWidth="191.0" text="Last Donation Date:">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <Label layoutX="215.0" layoutY="79.0" prefHeight="37.0" prefWidth="170.0" />
+      <Label layoutX="214.0" layoutY="137.0" prefHeight="37.0" prefWidth="143.0" />
+      <Label layoutX="213.0" layoutY="254.0" prefHeight="37.0" prefWidth="143.0" />
+      <JFXTextField focusColor="#c44569" layoutX="212.0" layoutY="314.0" prefHeight="28.0" prefWidth="151.0" />
+      <Label layoutX="623.0" layoutY="210.0" prefHeight="37.0" prefWidth="173.0" />
+      <JFXTextField focusColor="#c44569" layoutX="623.0" layoutY="142.0" prefHeight="28.0" prefWidth="151.0" />
+      <JFXTextField focusColor="#c44569" layoutX="623.0" layoutY="98.0" prefHeight="28.0" prefWidth="151.0" />
+      <JFXButton fx:id="donateBtn" layoutX="767.0" layoutY="428.0" onAction="#navigateToDonationPage" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/donationBtn.css" text="Donate" />
+      <Label layoutX="200.0" layoutY="470.0" prefHeight="46.0" prefWidth="476.0" />
+      <JFXButton id="bevel" fx:id="checkStatusBtn" layoutX="423.0" layoutY="324.0" prefHeight="43.0" prefWidth="142.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/buttons.css" text="Check  Status" />
+      <JFXTextField focusColor="#c44569" layoutX="211.0" layoutY="202.0" prefHeight="28.0" prefWidth="151.0" />
+   </children>
+</AnchorPane>

@@ -7,6 +7,7 @@
     -fx-background-insets: 0,1,2;
     -fx-text-fill: black;
     -fx-font-size: 14px;
+    -fx-font-weight: bold; /* Bold text */
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 5, 0.0, 0, 1);
 
     /* Adjusting width and height */
@@ -26,4 +27,5 @@
     -fx-padding: 3 30 3 30;
     -fx-text-fill: #242d35;
     -fx-font-size: 14px;
+    -fx-font-weight: bold; /* Bold text */
 }

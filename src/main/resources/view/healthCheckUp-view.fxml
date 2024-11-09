@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="696.0" prefWidth="1104.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.bbms.controller.HealthCheckUpPageController">
+   <children>
+      <ImageView fitHeight="703.0" fitWidth="1144.0" layoutX="-8.0" layoutY="-6.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../lk/ijse/gdse/bbms/assert/healthCheckPage.png" />
+         </image>
+      </ImageView>
+      <JFXButton fx:id="showStatusBtn" layoutX="66.0" layoutY="344.0" prefHeight="229.0" prefWidth="258.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/healthCheckBtnCss.css" text="   " />
+      <TextField fx:id="checkStatusTxt" layoutX="57.0" layoutY="108.0" prefHeight="28.0" prefWidth="360.0" />
+      <JFXButton id="bevel" fx:id="checkStatusBtn" layoutX="298.0" layoutY="156.0" prefHeight="41.0" prefWidth="150.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/buttons.css" text="Check" />
+      <HBox layoutX="612.0" layoutY="618.0" prefHeight="37.0" prefWidth="449.0" spacing="30.0">
+         <children>
+            <JFXButton id="bevel" fx:id="deleteBtn" prefHeight="41.0" prefWidth="150.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/buttons.css" text="Delete" />
+            <JFXButton id="bevel" fx:id="updateBtn" prefHeight="41.0" prefWidth="150.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/buttons.css" text="Update" />
+            <JFXButton id="bevel" fx:id="addHealthCheckBtn" onAction="#PopUpNewWindowCheckUp" prefHeight="41.0" prefWidth="150.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/buttons.css" text="Add New" />
+         </children>
+      </HBox>
+      <VBox layoutX="551.0" layoutY="91.0" prefHeight="505.0" prefWidth="523.0" spacing="10.0">
+         <children>
+            <Label fx:id="healthCheckupIdLbl" prefHeight="40.0" prefWidth="500.0">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font></Label>
+            <Label fx:id="donorIdLbl" prefHeight="40.0" prefWidth="500.0">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font></Label>
+            <Label fx:id="lastDonationDateLbl" prefHeight="40.0" prefWidth="500.0">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font></Label>
+            <Label fx:id="ageLbl" prefHeight="40.0" prefWidth="500.0">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font></Label>
+            <Label fx:id="weightLbl" prefHeight="40.0" prefWidth="500.0">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font></Label>
+            <Label fx:id="sugerLevelLbl" prefHeight="40.0" prefWidth="500.0">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font></Label>
+            <Label fx:id="bloodPresureLbl" prefHeight="40.0" prefWidth="500.0">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font></Label>
+            <Label fx:id="healthStatusLbl" prefHeight="40.0" prefWidth="500.0">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font></Label>
+            <Label fx:id="dateOfCheckUpLbl" prefHeight="40.0" prefWidth="500.0">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
