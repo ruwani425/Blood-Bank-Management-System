@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 
-public class DonorModel implements Serializable {
+public class DonorModel{
     public String getNextDonorId() throws SQLException {
         ResultSet rst = CrudUtil.execute("select Donor_id from Donor order by Donor_id desc limit 1");
 

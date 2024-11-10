@@ -13,7 +13,7 @@ import javafx.fxml.FXML;
 import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.util.Duration;
-
+import javafx.animation.TranslateTransition;
 
 import java.io.IOException;
 import java.net.URL;
@@ -29,7 +29,7 @@ public class HomePageViewController implements Initializable {
 
     @FXML
     void navigateToCampaignPage(MouseEvent event) {
-
+        navigateTo("/view/campaignPage-view.fxml");
     }
 
     @FXML
@@ -77,16 +77,38 @@ public class HomePageViewController implements Initializable {
         navigateTo("/view/employeePage-view.fxml");
     }
 
-    public void navigateTo(String fxmlPath) {
+//    public void navigateTo(String fxmlPath) {
+//
+//        try {
+//            homeAnchor.getChildren().clear();
+//            AnchorPane load = FXMLLoader.load(getClass().getResource(fxmlPath));
+//            homeAnchor.getChildren().add(load);
+//        } catch (IOException e) {
+//            new Alert(Alert.AlertType.ERROR, "Fail to load page!").show();
+//        }
+//    }
 
+    public void navigateTo(String fxmlPath) {
         try {
             homeAnchor.getChildren().clear();
             AnchorPane load = FXMLLoader.load(getClass().getResource(fxmlPath));
+
+            // Set initial position for up-to-down transition
+            load.setTranslateY(-homeAnchor.getHeight());
+
             homeAnchor.getChildren().add(load);
+
+            // Create the translate transition for up-to-down effect
+            TranslateTransition transition = new TranslateTransition(Duration.millis(1000), load);
+            transition.setFromY(-homeAnchor.getHeight());
+            transition.setToY(0);
+            transition.play();
+
         } catch (IOException e) {
-            new Alert(Alert.AlertType.ERROR, "Fail to load page!").show();
+            new Alert(Alert.AlertType.ERROR, "Failed to load page!").show();
         }
     }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         double screenWidth = Screen.getPrimary().getVisualBounds().getWidth();

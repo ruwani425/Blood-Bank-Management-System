@@ -24,6 +24,7 @@ import java.util.ResourceBundle;
 
 public class AddDonorPopUpController implements Initializable {
 
+    public JFXButton closeBtn;
     @FXML
     private TextField txtSearchBar;
 
@@ -212,4 +213,8 @@ public class AddDonorPopUpController implements Initializable {
         lblDonorId.setText(model.getNextDonorId());
     }
 
+    public void btnCloseOnAction(ActionEvent actionEvent) {
+        stage = (Stage) closeBtn.getScene().getWindow();
+        stage.close();
+    }
 }
