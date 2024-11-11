@@ -61,11 +61,15 @@ public class HealthCheckUpPageController {
     @FXML
     private Label dateOfCheckUpLbl;
 
+    HomePageViewController homePageViewController;
+
     @FXML
     void PopUpNewWindowCheckUp(ActionEvent event) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/addNewHealthCheckUpPopUp-view.fxml"));
             Parent root = fxmlLoader.load();
+            AddNewHealthCheckUpPopUpController addNewHealthCheckUpPopUpController = fxmlLoader.getController();
+            addNewHealthCheckUpPopUpController.setHomePageViewController(homePageViewController);
 
             Stage stage = new Stage();
             stage.setResizable(false);
@@ -78,5 +82,9 @@ public class HealthCheckUpPageController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void setHomePageViewController(HomePageViewController homePageViewController) {
+        this.homePageViewController = homePageViewController;
     }
 }

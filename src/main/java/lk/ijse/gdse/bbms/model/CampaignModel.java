@@ -70,4 +70,13 @@ public class CampaignModel {
                 campaignDTO.getBlood_campaign_id()
         );
     }
+
+    public ArrayList<String> findCampaignIds() throws SQLException {
+        ResultSet rst=CrudUtil.execute("select Blood_campaign_id from Blood_campaign");
+        ArrayList<String> campaignIds = new ArrayList<>();
+        while (rst.next()) {
+            campaignIds.add(rst.getString(1));
+        }
+        return campaignIds;
+    }
 }

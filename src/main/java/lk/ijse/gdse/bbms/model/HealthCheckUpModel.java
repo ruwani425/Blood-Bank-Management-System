@@ -1,15 +1,21 @@
 package lk.ijse.gdse.bbms.model;
-
 import lk.ijse.gdse.bbms.dto.HealthCheckupDTO;
 import lk.ijse.gdse.bbms.util.CrudUtil;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class HealthCheckUpModel {
-    public boolean addHealthCheckup(HealthCheckupDTO healthCheckupDTO) {
-        System.out.println("success");
-        return false;
+    public boolean addHealthCheckup(HealthCheckupDTO healthCheckupDTO) throws SQLException {
+        return CrudUtil.execute(
+                "insert into Health_checkup values (?,?,?,?,?,?,?)",
+                healthCheckupDTO.getCheckupId(),
+                healthCheckupDTO.getDonorId(),
+                healthCheckupDTO.getHealthStatus(),
+                healthCheckupDTO.getCheckupDate(),
+                healthCheckupDTO.getWeight(),
+                healthCheckupDTO.getSugarLevel(),
+                healthCheckupDTO.getBloodPressure()
+        );
     }
 
     public String getNextHealthCheckUpId() throws SQLException {

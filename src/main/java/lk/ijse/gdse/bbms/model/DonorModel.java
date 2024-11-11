@@ -78,7 +78,7 @@ public class DonorModel{
     }
 
     public DonorDTO getDonorByNic(String nic) throws SQLException {
-        ResultSet rst = CrudUtil.execute("select Donor_id, Dob, Last_donation_date from Donor where Donor_nic=?", nic);
+        ResultSet rst = CrudUtil.execute("select Donor_id, Dob, Last_donation_date,Blood_group,gender from Donor where Donor_nic=?", nic);
 
         if (rst.next()) {
             return new DonorDTO(
@@ -87,8 +87,8 @@ public class DonorModel{
                     nic,  // NIC
                     null, // Address
                     null, // E_mail
-                    null, // Blood_group
-                    null, // Gender
+                    rst.getString("Blood_group"), // Blood_group
+                    rst.getString("Gender"), // Gender
                     rst.getDate("Dob"), // Date of Birth
                     rst.getDate("Last_donation_date") // Last Donation Date
             );
