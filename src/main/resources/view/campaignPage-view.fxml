@@ -17,7 +17,7 @@
             <Image url="@../lk/ijse/gdse/bbms/assert/bloodCampaignPage.png" />
          </image>
       </ImageView>
-      <TextField fx:id="searchCampaignTxt" layoutX="304.0" layoutY="54.0" onAction="#searchCampaignData" prefHeight="28.0" prefWidth="210.0" />
+      <TextField fx:id="searchCampaignTxt" layoutX="304.0" layoutY="54.0" onKeyPressed="#searchCampaignData" prefHeight="28.0" prefWidth="210.0" />
       <Label layoutX="228.0" layoutY="54.0" text="search">
          <font>
             <Font name="System Bold" size="14.0" />

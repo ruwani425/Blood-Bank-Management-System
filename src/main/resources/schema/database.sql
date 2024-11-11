@@ -1,7 +1,5 @@
-CREATE
-DATABASE BloodBankManagement;
-USE
-BloodBankManagement;
+CREATE DATABASE BloodBankManagement;
+USE BloodBankManagement;
 
 -- Donor table
 CREATE TABLE Donor
@@ -17,17 +15,18 @@ CREATE TABLE Donor
     Last_donation_date DATE
 );
 
--- Health_checkup table
+-- Updated Health_checkup table with new attributes
 CREATE TABLE Health_checkup
 (
     Checkup_id      VARCHAR(50) PRIMARY KEY,
     Donor_id        VARCHAR(50),
     Health_status   VARCHAR(50),
     Date_of_checkup DATE,
-    Remarks         TEXT,
+    weight          DECIMAL(5,2),      -- New attribute for weight
+    sugar_level     DECIMAL(5,2),      -- New attribute for sugar level
+    blood_pressure  VARCHAR(20),       -- New attribute for blood pressure
     FOREIGN KEY (Donor_id) REFERENCES Donor (Donor_id)
 );
-
 -- Blood_campaign table
 CREATE TABLE Blood_campaign
 (
@@ -92,18 +91,15 @@ CREATE TABLE Blood_test
     FOREIGN KEY (Blood_id) REFERENCES Blood_stock (Blood_id)
 );
 
--- Blood_donation table
+-- Blood_donation table (without Donor_id foreign key)
 CREATE TABLE Blood_donation
 (
     Donation_id       VARCHAR(50) PRIMARY KEY,
-    Donor_id          VARCHAR(50),
     Blood_campaign_id VARCHAR(50),
     Health_checkup_id VARCHAR(50),
-    employee_id       VARCHAR(50),
-    Blood_group       ENUM('A POSITIVE', 'A NEGATIVE', 'B POSITIVE', 'B NEGATIVE', 'AB POSITIVE', 'AB NEGATIVE', 'O POSITIVE', 'O NEGATIVE'),
+    Blood_group       ENUM('A_POSITIVE', 'A_NEGATIVE', 'B_POSITIVE', 'B_NEGATIVE', 'AB_POSITIVE', 'AB_NEGATIVE', 'O_POSITIVE', 'O_NEGATIVE'),
     Qty               INT,
     Date_of_donation  DATE,
-    FOREIGN KEY (Donor_id) REFERENCES Donor (Donor_id),
     FOREIGN KEY (Blood_campaign_id) REFERENCES Blood_campaign (Blood_campaign_id),
     FOREIGN KEY (Health_checkup_id) REFERENCES Health_checkup (Checkup_id)
 );
@@ -125,12 +121,10 @@ CREATE TABLE Reserved_blood
 (
     Reserved_id   VARCHAR(50) PRIMARY KEY,
     Blood_id      VARCHAR(50),
-    employee_id   VARCHAR(50),
     Hospital_id   VARCHAR(50),
     Reserved_date DATE,
     Reserved_qty  INT,
-    FOREIGN KEY (Blood_id) REFERENCES Blood_stock (Blood_id),
-    FOREIGN KEY (employee_id) REFERENCES Employee (employee_id)
+    FOREIGN KEY (Blood_id) REFERENCES Blood_stock (Blood_id)
 );
 
 -- Hospital table

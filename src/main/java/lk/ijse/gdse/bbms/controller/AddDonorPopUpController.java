@@ -6,9 +6,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import lk.ijse.gdse.bbms.dto.DonorDTO;
 import lk.ijse.gdse.bbms.dto.tm.DonorTM;
@@ -24,9 +21,8 @@ import java.util.ResourceBundle;
 
 public class AddDonorPopUpController implements Initializable {
 
-    public JFXButton closeBtn;
     @FXML
-    private TextField txtSearchBar;
+    public JFXButton closeBtn;
 
     @FXML
     private TextArea txtDonorAddress;
@@ -96,12 +92,6 @@ public class AddDonorPopUpController implements Initializable {
     }
     public void setHeaderText(String text) {
         headerLbl.setText(text);
-
-        // Set the font to "Ubuntu Mono", size 36px
-        headerLbl.setFont(Font.font("Ubuntu Mono",FontWeight.BOLD, 46));
-
-        // Set text color to #ae1b53
-        headerLbl.setTextFill(Color.web("#ae1b53"));
     }
 
     @FXML

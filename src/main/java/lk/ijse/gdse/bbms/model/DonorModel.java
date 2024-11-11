@@ -1,7 +1,7 @@
 package lk.ijse.gdse.bbms.model;
 import lk.ijse.gdse.bbms.dto.DonorDTO;
 import lk.ijse.gdse.bbms.util.CrudUtil;
-import java.io.Serializable;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -75,5 +75,24 @@ public class DonorModel{
             donorDTO.getLastDonationDate(),
             donorDTO.getDonorId()
             );
+    }
+
+    public DonorDTO getDonorByNic(String nic) throws SQLException {
+        ResultSet rst = CrudUtil.execute("select Donor_id, Dob, Last_donation_date from Donor where Donor_nic=?", nic);
+
+        if (rst.next()) {
+            return new DonorDTO(
+                    rst.getString("Donor_id"),
+                    null, // Name (not required in this method)
+                    nic,  // NIC
+                    null, // Address
+                    null, // E_mail
+                    null, // Blood_group
+                    null, // Gender
+                    rst.getDate("Dob"), // Date of Birth
+                    rst.getDate("Last_donation_date") // Last Donation Date
+            );
+        }
+        return null; // Return null if no donor with the given NIC is found
     }
 }

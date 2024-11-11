@@ -15,6 +15,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
@@ -158,7 +159,7 @@ public class CampaignPageController implements Initializable {
     }
 
     @FXML
-    void searchCampaignData(ActionEvent event) {
+    void searchCampaignData(KeyEvent event) {
         // Create a filtered list based on the campaign data in the table
         FilteredList<CampaignTM> filteredData = new FilteredList<>(tblCampaign.getItems(), b -> true);
 
@@ -187,5 +188,4 @@ public class CampaignPageController implements Initializable {
         // Update the TableView with the filtered data
         tblCampaign.setItems(filteredData);
     }
-
 }
