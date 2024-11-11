@@ -15,7 +15,7 @@
 
 /* Hover effect */
 .jfx-button:hover {
-    -fx-background-color: linear-gradient(to bottom, #F53B57, #F53B57); /* Reverse gradient on hover */
+    -fx-background-color: linear-gradient(to bottom, #D50032, #D50032); /* Reverse gradient on hover */
     -fx-effect: dropshadow(three-pass-box, rgb(195, 215, 230), 15, 0, 0, 10); /* Increased shadow on hover */
     -fx-scale-x: 1.05; /* Slight scale-up effect */
     -fx-scale-y: 1.05;

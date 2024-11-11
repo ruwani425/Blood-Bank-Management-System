@@ -12,17 +12,17 @@
    <children>
       <ImageView fitHeight="715.0" fitWidth="1389.0" layoutX="-11.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../lk/ijse/gdse/bbms/assert/login.png" />
+            <Image url="@../lk/ijse/gdse/bbms/assert/loginPage.png" />
          </image>
       </ImageView>
-      <JFXTextField fx:id="userNameTxt" layoutX="868.0" layoutY="271.0" prefHeight="28.0" prefWidth="327.0" promptText="Enter User Name" />
-      <JFXPasswordField fx:id="passwordTxt" layoutX="868.0" layoutY="346.0" prefHeight="28.0" prefWidth="328.0" promptText="Enter Password" />
-      <JFXButton id="bevel" fx:id="loginBtn" layoutX="970.0" layoutY="413.0" onAction="#navigateToHomePage" prefHeight="41.0" prefWidth="175.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/loginBtn.css" text="Login" />
-      <ImageView fitHeight="21.0" fitWidth="27.0" layoutX="1076.0" layoutY="424.0" pickOnBounds="true" preserveRatio="true">
+      <JFXTextField fx:id="userNameTxt" layoutX="461.0" layoutY="290.0" prefHeight="28.0" prefWidth="327.0" promptText="Enter User Name" />
+      <JFXPasswordField fx:id="passwordTxt" layoutX="460.0" layoutY="355.0" prefHeight="28.0" prefWidth="328.0" promptText="Enter Password" />
+      <JFXButton id="bevel" fx:id="loginBtn" layoutX="551.0" layoutY="497.0" onAction="#navigateToHomePage" prefHeight="41.0" prefWidth="175.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/loginBtn.css" text="Login" />
+      <ImageView fitHeight="21.0" fitWidth="27.0" layoutX="659.0" layoutY="508.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../lk/ijse/gdse/bbms/assert/icons8-login-16.png" />
          </image>
       </ImageView>
-      <Label fx:id="lblFogotPassword" layoutX="1091.0" layoutY="388.0" text="Fogot Password?" textFill="#041c86" />
+      <Label fx:id="lblFogotPassword" layoutX="682.0" layoutY="401.0" text="Fogot Password?" textFill="#041c86" />
    </children>
 </AnchorPane>
