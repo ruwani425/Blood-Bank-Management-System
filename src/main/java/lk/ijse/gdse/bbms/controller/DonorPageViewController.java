@@ -18,6 +18,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import lk.ijse.gdse.bbms.dto.DonorDTO;
 import lk.ijse.gdse.bbms.dto.tm.DonorTM;
 import lk.ijse.gdse.bbms.model.DonorModel;
@@ -117,6 +118,7 @@ public class DonorPageViewController implements Initializable {
             addDonorPopUpController.setHeaderText("Add New Donor");
 
             Stage stage = new Stage();
+            stage.initStyle(StageStyle.UNDECORATED); // Remove the black toolbar
             //stage.setTitle("Add New Donor");
             stage.setResizable(false);
             stage.setScene(new Scene(root));
@@ -150,7 +152,7 @@ public class DonorPageViewController implements Initializable {
             controller.setHeaderText("Edit Donors");
 
             Stage stage = new Stage();
-            stage.setTitle("Edit Donor Details");
+            stage.initStyle(StageStyle.UNDECORATED); // Remove the black toolbar
             stage.setResizable(false);
             stage.setScene(new Scene(root));
             stage.initModality(Modality.WINDOW_MODAL);

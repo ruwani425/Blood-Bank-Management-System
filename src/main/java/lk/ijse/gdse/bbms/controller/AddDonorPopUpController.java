@@ -25,7 +25,7 @@ public class AddDonorPopUpController implements Initializable {
     public JFXButton closeBtn;
 
     @FXML
-    private TextArea txtDonorAddress;
+    private JFXTextField txtDonorAddress;
 
     @FXML
     private DatePicker txtDonorDob;

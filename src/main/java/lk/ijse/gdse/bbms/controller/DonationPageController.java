@@ -4,12 +4,15 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import lk.ijse.gdse.bbms.dto.DonationDTO;
 import lk.ijse.gdse.bbms.dto.tm.DonationTM;
 import lk.ijse.gdse.bbms.model.CampaignModel;
+import lk.ijse.gdse.bbms.model.DonationModel;
 
 import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -47,12 +50,19 @@ public class DonationPageController implements Initializable {
     @FXML
     private Label lblDonationId;
 
+    private DonationModel donationModel=new DonationModel();
+
     CampaignModel campaignModel = new CampaignModel();
     String checkupId;
     String bloodGroup;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
+            lblDonationId.setText(donationModel.getNextDonationId());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         try {
             ArrayList<String> idList = campaignModel.findCampaignIds();
             cmbSelectCampaign.getItems().addAll(idList); // Add items to ComboBox
@@ -65,12 +75,24 @@ public class DonationPageController implements Initializable {
     void btnAddDonationOnAction(ActionEvent event) throws SQLException {
         System.out.println(checkupId);
         System.out.println(bloodGroup);
+        String campaignId = cmbSelectCampaign.getValue();
+        int qty = Integer.parseInt(txtQty.getText());
+        Date donationDate = Date.valueOf(LocalDate.now());
+
+        DonationDTO donationDTO=new DonationDTO(lblDonationId.getText(),campaignId,checkupId,bloodGroup,qty,donationDate);
+        boolean isSaved = donationModel.addDonation(donationDTO);
+
+        if (isSaved) {
+
+            lblDonationId.setText(donationModel.getNextDonationId());
+            new Alert(Alert.AlertType.INFORMATION, "Donation saved successfully...!").show();
+        } else {
+            new Alert(Alert.AlertType.ERROR, "Fail to save Donation...!").show();
+        }
     }
 
     public void setCheckUpId(String s,String bloodGroup) {
         this.checkupId=s;
-        System.out.println(s);
-        System.out.println(bloodGroup);
         this.bloodGroup=bloodGroup;
     }
 }

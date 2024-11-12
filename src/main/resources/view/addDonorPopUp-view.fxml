@@ -5,54 +5,20 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="458.0" prefWidth="672.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.bbms.controller.AddDonorPopUpController">
+<AnchorPane prefHeight="514.0" prefWidth="691.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.bbms.controller.AddDonorPopUpController">
    <children>
-      <ImageView fitHeight="456.0" fitWidth="700.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="514.0" fitWidth="782.0" layoutX="-2.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../lk/ijse/gdse/bbms/assert/donorPopUpForm.png" />
          </image></ImageView>
-      <TextArea fx:id="txtDonorAddress" layoutX="375.0" layoutY="280.0" prefHeight="87.0" prefWidth="208.0" style="-fx-background-color: #C44569;" />
-      <Label layoutX="114.0" layoutY="107.0" text="Donor Id">
-         <font>
-            <Font name="System Bold" size="13.0" />
-         </font></Label>
-      <Label layoutX="114.0" layoutY="140.0" text="Full Name">
-         <font>
-            <Font name="System Bold" size="13.0" />
-         </font></Label>
-      <Label layoutX="115.0" layoutY="189.0" prefHeight="18.0" prefWidth="91.0" text="Date of Birth">
-         <font>
-            <Font name="System Bold" size="13.0" />
-         </font></Label>
-      <Label layoutX="117.0" layoutY="318.0" text="Gender">
-         <font>
-            <Font name="System Bold" size="13.0" />
-         </font></Label>
-      <Label layoutX="375.0" layoutY="194.0" text="Blood Group">
-         <font>
-            <Font name="System Bold" size="13.0" />
-         </font></Label>
-      <Label layoutX="373.0" layoutY="260.0" text=" Address">
-         <font>
-            <Font name="System Bold" size="13.0" />
-         </font></Label>
-      <Label layoutX="376.0" layoutY="137.0" text="E-mail">
-         <font>
-            <Font name="System Bold" size="13.0" />
-         </font></Label>
-      <DatePicker fx:id="txtDonorDob" layoutX="114.0" layoutY="224.0" prefHeight="28.0" prefWidth="184.0" style="-fx-background-color: #cd0ead;" />
-      <Label layoutX="115.0" layoutY="261.0" text="Nic">
-         <font>
-            <Font name="System Bold" size="13.0" />
-         </font></Label>
-      <HBox alignment="TOP_RIGHT" layoutX="275.0" layoutY="416.0" prefHeight="28.0" prefWidth="363.0" spacing="10.0">
+      <DatePicker fx:id="txtDonorDob" layoutX="400.0" layoutY="273.0" prefHeight="28.0" prefWidth="208.0" style="-fx-background-color: #cd0ead;" />
+      <HBox alignment="TOP_RIGHT" layoutX="323.0" layoutY="454.0" prefHeight="35.0" prefWidth="341.0" spacing="4.0">
          <children>
             <JFXButton id="bevel" fx:id="btnDelete" onAction="#btnDeleteDonorOnAction" prefHeight="30.0" prefWidth="130.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/buttonsCss2.css" text="Delete" />
             <JFXButton id="bevel" fx:id="btnUpdate" onAction="#btnUpdateDonorOnAction" prefHeight="33.0" prefWidth="100.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/buttonsCss2.css" text="Update" />
@@ -60,16 +26,17 @@
             <JFXButton id="bevel" fx:id="closeBtn" onAction="#btnCloseOnAction" prefHeight="33.0" prefWidth="119.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/buttonsCss2.css" text="Close" textAlignment="JUSTIFY" textFill="#4f91fc" wrapText="true" />
          </children>
       </HBox>
-      <ComboBox id="glass" fx:id="txtDonorBloodGroup" layoutX="371.0" layoutY="221.0" prefHeight="28.0" prefWidth="135.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/textFeild.css" />
-      <ComboBox id="glass" fx:id="txtDonorGender" layoutX="113.0" layoutY="344.0" prefHeight="28.0" prefWidth="112.0" style="-fx-background-color: C44569;" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/textFeild.css" />
-      <Label fx:id="lblDonorId" layoutX="188.0" layoutY="103.0" prefHeight="28.0" prefWidth="81.0" />
-      <JFXTextField fx:id="txtDonorName" focusColor="#c20ec5" layoutX="113.0" layoutY="151.0" prefHeight="28.0" prefWidth="215.0" />
-      <JFXTextField fx:id="txtDonorNic" focusColor="#cd0ead" layoutX="114.0" layoutY="279.0" prefHeight="28.0" prefWidth="215.0" />
-      <JFXTextField fx:id="txtDonorEmail" focusColor="#cd0ead" layoutX="376.0" layoutY="153.0" prefHeight="28.0" prefWidth="215.0" />
-      <Label fx:id="headerLbl" layoutX="121.0" layoutY="58.0" prefHeight="18.0" prefWidth="422.0">
+      <ComboBox id="glass" fx:id="txtDonorBloodGroup" layoutX="81.0" layoutY="328.0" prefHeight="28.0" prefWidth="118.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/textFeild.css" />
+      <ComboBox id="glass" fx:id="txtDonorGender" layoutX="396.0" layoutY="328.0" prefHeight="35.0" prefWidth="112.0" style="-fx-background-color: C44569;" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/textFeild.css" />
+      <Label fx:id="lblDonorId" layoutX="157.0" layoutY="93.0" prefHeight="28.0" prefWidth="73.0" />
+      <JFXTextField fx:id="txtDonorName" focusColor="#c20ec5" layoutX="88.0" layoutY="153.0" prefHeight="28.0" prefWidth="202.0" />
+      <JFXTextField fx:id="txtDonorNic" focusColor="#cd0ead" layoutX="88.0" layoutY="269.0" prefHeight="28.0" prefWidth="202.0" />
+      <JFXTextField fx:id="txtDonorEmail" focusColor="#cd0ead" layoutX="399.0" layoutY="153.0" prefHeight="28.0" prefWidth="202.0" />
+      <Label fx:id="headerLbl" contentDisplay="CENTER" layoutX="148.0" layoutY="34.0" prefHeight="18.0" prefWidth="422.0">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
+      <JFXTextField fx:id="txtDonorAddress" layoutX="88.0" layoutY="211.0" prefHeight="28.0" prefWidth="514.0" />
    </children>
 </AnchorPane>
