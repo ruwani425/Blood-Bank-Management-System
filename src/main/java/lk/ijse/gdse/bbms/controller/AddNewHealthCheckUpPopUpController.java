@@ -58,7 +58,7 @@ public class AddNewHealthCheckUpPopUpController implements Initializable {
     private JFXTextField txtDonorNic;
 
     @FXML
-    private Button btnSearchDonor;
+    private JFXButton btnSearchDonor;
 
     private Stage stage;
     String bloodGroup;
@@ -70,6 +70,7 @@ public class AddNewHealthCheckUpPopUpController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        donateBtn.setDisable(true);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         lblCheckUpDate.setText(LocalDate.now().format(formatter));
         try {
@@ -106,17 +107,23 @@ public class AddNewHealthCheckUpPopUpController implements Initializable {
         // Conditions check
         if (sugarLevel >= 100 && sugarLevel <= 140) {
             if ((age >= 18 && age <= 39) && gender.equalsIgnoreCase("female") && systolic <= 110 && diastolic <= 68) {
-                lblStatus.setText("Eligible");
+                lblStatus.setText("The Donor was eligible for a blood Donation");
+                donateBtn.setDisable(false);
             } else if ((age >= 18 && age <= 39) && gender.equalsIgnoreCase("male") && systolic <= 119 && diastolic <= 70) {
-                lblStatus.setText("Eligible");
+                lblStatus.setText("The Donor was eligible for a blood Donation");
+                donateBtn.setDisable(false);
             } else if ((age >= 40 && age <= 50) && gender.equalsIgnoreCase("female") && systolic <= 122 && diastolic <= 74) {
-                lblStatus.setText("Eligible");
+                lblStatus.setText("The Donor was eligible for a blood Donation");
+                donateBtn.setDisable(false);
             } else if ((age >= 40 && age <= 50) && gender.equalsIgnoreCase("male") && systolic <= 124 && diastolic <= 77) {
-                lblStatus.setText("Eligible");
+                lblStatus.setText("The Donor was eligible for a blood Donation");
+                donateBtn.setDisable(false);
             } else if ((age >= 60 && age <= 65) && gender.equalsIgnoreCase("female") && systolic <= 139 && diastolic <= 68) {
-                lblStatus.setText("Eligible");
+                lblStatus.setText("The Donor was eligible for a blood Donation");
+                donateBtn.setDisable(false);
             } else if ((age >= 60 && age <= 65) && gender.equalsIgnoreCase("male") && systolic <= 133 && diastolic <= 69) {
-                lblStatus.setText("Eligible");
+                lblStatus.setText("The Donor was eligible for a blood Donation");
+                donateBtn.setDisable(false);
             } else {
                 lblStatus.setText("Not Eligible");
             }
