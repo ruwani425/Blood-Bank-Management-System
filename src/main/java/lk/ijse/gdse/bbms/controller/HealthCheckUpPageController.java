@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -17,11 +18,14 @@ import lk.ijse.gdse.bbms.model.DonorModel;
 import lk.ijse.gdse.bbms.model.HealthCheckUpModel;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.Period;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.ResourceBundle;
 
-public class HealthCheckUpPageController {
+public class HealthCheckUpPageController implements Initializable {
 
     @FXML
     private JFXButton showStatusBtn;
@@ -74,6 +78,13 @@ public class HealthCheckUpPageController {
     private DonorDTO donorDTO;
     private HealthCheckUpModel healthCheckUpModel=new HealthCheckUpModel();
 
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        deleteBtn.setDisable(true);
+        updateBtn.setDisable(true);
+    }
+
     @FXML
     void PopUpNewWindowCheckUp(ActionEvent event) {
         try {
@@ -96,41 +107,92 @@ public class HealthCheckUpPageController {
     }
     @FXML
     void btnCheckDonorHealthCheckUpDetail(ActionEvent event) throws SQLException {
-        String nic=checkStatusTxt.getText();
-        donorDTO=donorModel.getDonorByNic(nic);
+        deleteBtn.setDisable(false);
+        updateBtn.setDisable(false);
 
+        String nic = checkStatusTxt.getText();
+        donorDTO = donorModel.getDonorByNic(nic);
 
         if (donorDTO == null) {
             clearLabels();
-            // Display a message if no donor found with the given NIC
+            deleteBtn.setDisable(true);
+            updateBtn.setDisable(true);
             sugerLevelLbl.setText("No donor found with the given National Id Number.");
             return;
         }
 
-        String donorId=donorDTO.getDonorId();
-        HealthCheckupDTO healthCheckupDTO =healthCheckUpModel.getHealthCheckupByDonorId(donorId);
+        String donorId = donorDTO.getDonorId();
+        HealthCheckupDTO healthCheckupDTO = healthCheckUpModel.getHealthCheckupByDonorId(donorId);
 
         if (healthCheckupDTO == null) {
             clearLabels();
-            // Display a message if no health checkup record found
+            deleteBtn.setDisable(true);
+            updateBtn.setDisable(true);
             sugerLevelLbl.setText("No health checkup record found for this donor.");
             return;
         }
 
-        LocalDate dob = donorDTO.getDob().toLocalDate(); // Convert SQL Date to LocalDate
-        LocalDate currentDate = LocalDate.now(); // Get the current date
-        int age = Period.between(dob, currentDate).getYears(); // Calculate age in years
-        ageLbl.setText(String.valueOf(age)); // Set age in the label
+        // Calculate and display the donor's age
+        LocalDate dob = donorDTO.getDob().toLocalDate();
+        LocalDate currentDate = LocalDate.now();
+        int age = Period.between(dob, currentDate).getYears();
+        ageLbl.setText("Donor age: " + age + " years old");
 
-        dateOfCheckUpLbl.setText(String.valueOf(healthCheckupDTO.getCheckupDate()));
-        donorIdLbl.setText(donorDTO.getDonorId());
-        bloodPresureLbl.setText(healthCheckupDTO.getBloodPressure());
+        // Get the last checkup date and time
+        LocalDateTime lastCheckupDateTime = healthCheckupDTO.getCheckupDateTime();
+        LocalDateTime currentDateTime = LocalDateTime.now();
+
+        // Calculate the duration
+        Duration duration = Duration.between(lastCheckupDateTime, currentDateTime);
+        long days = duration.toDays();
+
+        String elapsedTime;
+
+        // Determine the elapsed time based on the conditions
+        if (days >= 365) {
+            long years = days / 365;
+            elapsedTime = years + " years ago";
+        } else if (days >= 30) {
+            long months = days / 30;
+            elapsedTime = months + " months ago";
+        } else if (days >= 7) {
+            long weeks = days / 7;
+            elapsedTime = weeks + " weeks ago";
+        } else if (days >= 1) {
+            elapsedTime = days + " days ago";
+        } else {
+            long hours = duration.toHours();
+            if (hours >= 1) {
+                elapsedTime = hours + " hours ago";
+            } else {
+                long minutes = duration.toMinutes();
+                elapsedTime = minutes + " minutes ago";
+            }
+        }
+
+        // Format the date and set the label text
+        DateTimeFormatter dateFormatter;
+        if (lastCheckupDateTime.toLocalTime().equals(LocalTime.MIDNIGHT)) {
+            // If time is midnight, only show the date
+            dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        } else {
+            // Otherwise, show date and time
+            dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm a");
+        }
+
+        String formattedDateTime = lastCheckupDateTime.format(dateFormatter);
+        dateOfCheckUpLbl.setText("Last checkup date: " + formattedDateTime + " (" + elapsedTime + ")");
+
+        // Set additional donor information
+        donorIdLbl.setText("Donor ID: " + donorDTO.getDonorId());
+        bloodPresureLbl.setText("Donor blood Pressure: " + healthCheckupDTO.getBloodPressure());
         healthStatusLbl.setText(healthCheckupDTO.getHealthStatus());
-        healthCheckupIdLbl.setText(healthCheckupDTO.getCheckupId());
-        lastDonationDateLbl.setText(String.valueOf(donorDTO.getLastDonationDate()));
-        sugerLevelLbl.setText(String.valueOf(healthCheckupDTO.getSugarLevel()));
-        weightLbl.setText(String.valueOf(healthCheckupDTO.getWeight()));
+        healthCheckupIdLbl.setText("Donor HealthCheckup ID: " + healthCheckupDTO.getCheckupId());
+        lastDonationDateLbl.setText("Last Donation Date: " + donorDTO.getLastDonationDate());
+        sugerLevelLbl.setText("Donor sugar Level: " + healthCheckupDTO.getSugarLevel());
+        weightLbl.setText("Donor weight: " + healthCheckupDTO.getWeight());
     }
+
 
     @FXML
     public void setHomePageViewController(HomePageViewController homePageViewController) {

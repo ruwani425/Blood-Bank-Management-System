@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Data
 @NoArgsConstructor
@@ -34,4 +36,8 @@ public class HealthCheckupDTO {
         this.donation = new DonationDTO(text, campaignId, checkupId, bloodGroup, qty, donationDate);
     }
 
+    public LocalDateTime getCheckupDateTime() {
+        // Convert checkupDate (java.sql.Date) to LocalDateTime with default time (e.g., 00:00)
+        return checkupDate.toLocalDate().atTime(LocalTime.MIDNIGHT);
+    }
 }
