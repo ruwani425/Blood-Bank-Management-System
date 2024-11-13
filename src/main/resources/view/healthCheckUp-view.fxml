@@ -19,7 +19,7 @@
       </ImageView>
       <JFXButton fx:id="showStatusBtn" layoutX="66.0" layoutY="344.0" prefHeight="229.0" prefWidth="258.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/healthCheckBtnCss.css" text="   " />
       <TextField fx:id="checkStatusTxt" layoutX="57.0" layoutY="108.0" prefHeight="28.0" prefWidth="360.0" />
-      <JFXButton id="bevel" fx:id="checkStatusBtn" layoutX="298.0" layoutY="156.0" prefHeight="41.0" prefWidth="150.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/buttons.css" text="Check" />
+      <JFXButton id="bevel" fx:id="checkStatusBtn" layoutX="298.0" layoutY="156.0" onAction="#btnCheckDonorHealthCheckUpDetail" prefHeight="41.0" prefWidth="150.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/buttons.css" text="Check" />
       <HBox layoutX="634.0" layoutY="618.0" prefHeight="37.0" prefWidth="404.0" spacing="30.0">
          <children>
             <JFXButton id="bevel" fx:id="deleteBtn" prefHeight="41.0" prefWidth="150.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/buttons.css" text="Delete" />

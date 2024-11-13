@@ -30,4 +30,22 @@ public class HealthCheckUpModel {
         }
         return "H001"; // Return the default HealthCheck ID if no data is found
     }
+
+    // Method to get health checkup details by donor ID
+    public HealthCheckupDTO getHealthCheckupByDonorId(String donorId) throws SQLException {
+        ResultSet rst = CrudUtil.execute("select * from Health_checkup where Donor_id = ?", donorId);
+
+        if (rst.next()) {
+            return new HealthCheckupDTO(
+                    rst.getString(1),
+                    rst.getString(2),
+                    rst.getString(3),
+                    rst.getDate(4),
+                    rst.getDouble(5),
+                    rst.getDouble(6),
+                    rst.getString(7)
+            );
+        }
+        return null; // Return null if no health checkup found for the given donor ID
+    }
 }
