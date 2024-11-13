@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import lombok.Setter;
 
 import java.io.IOException;
 
@@ -61,6 +62,7 @@ public class HealthCheckUpPageController {
     @FXML
     private Label dateOfCheckUpLbl;
 
+    @Setter
     HomePageViewController homePageViewController;
 
     @FXML
@@ -84,7 +86,4 @@ public class HealthCheckUpPageController {
         }
     }
 
-    public void setHomePageViewController(HomePageViewController homePageViewController) {
-        this.homePageViewController = homePageViewController;
-    }
 }

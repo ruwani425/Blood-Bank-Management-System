@@ -293,6 +293,6 @@ public class CampaignPopUpWindowController implements Initializable {
                     statusGroup.selectToggle(null); // No selection if status is unrecognized
                     break;
             }
-    }
         }
+    }
 }

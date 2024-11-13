@@ -1,7 +1,6 @@
 package lk.ijse.gdse.bbms.controller;
 
 import javafx.animation.ScaleTransition;
-import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -14,6 +13,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.util.Duration;
 import javafx.animation.TranslateTransition;
+import lk.ijse.gdse.bbms.dto.HealthCheckupDTO;
 
 import java.io.IOException;
 import java.net.URL;
@@ -85,7 +85,7 @@ public class HomePageViewController implements Initializable {
 //        }
 //    }
 
-    public void navigateToDonationsPageByButton(String s,String bloodGroup){
+    public void navigateToDonationsPageByButton(String s, String bloodGroup, HealthCheckupDTO healthCheckupDTO){
         try {
             homeAnchor.getChildren().clear();
 
@@ -108,7 +108,7 @@ public class HomePageViewController implements Initializable {
             transition.play();
 
             // Now you can use the controller to access any methods or variables in HealthCheckupController
-            controller.setCheckUpId(s,bloodGroup); // Example method call in HealthCheckupController
+            controller.setCheckUpId(s,bloodGroup,healthCheckupDTO); // Example method call in HealthCheckupController
 
         } catch (IOException e) {
             new Alert(Alert.AlertType.ERROR, "Failed to load page!").show();

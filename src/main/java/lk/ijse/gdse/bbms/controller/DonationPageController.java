@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import lk.ijse.gdse.bbms.dto.DonationDTO;
+import lk.ijse.gdse.bbms.dto.HealthCheckupDTO;
 import lk.ijse.gdse.bbms.dto.tm.DonationTM;
 import lk.ijse.gdse.bbms.model.CampaignModel;
 import lk.ijse.gdse.bbms.model.DonationModel;
@@ -50,6 +51,7 @@ public class DonationPageController implements Initializable {
     @FXML
     private Label lblDonationId;
 
+    private HealthCheckupDTO healthCheckupDTO;
     private DonationModel donationModel=new DonationModel();
 
     CampaignModel campaignModel = new CampaignModel();
@@ -79,8 +81,8 @@ public class DonationPageController implements Initializable {
         int qty = Integer.parseInt(txtQty.getText());
         Date donationDate = Date.valueOf(LocalDate.now());
 
-        DonationDTO donationDTO=new DonationDTO(lblDonationId.getText(),campaignId,checkupId,bloodGroup,qty,donationDate);
-        boolean isSaved = donationModel.addDonation(donationDTO);
+        healthCheckupDTO.setDonation(lblDonationId.getText(),campaignId,checkupId,bloodGroup,qty,donationDate);
+        boolean isSaved = donationModel.addDonation(healthCheckupDTO);
 
         if (isSaved) {
 
@@ -91,7 +93,8 @@ public class DonationPageController implements Initializable {
         }
     }
 
-    public void setCheckUpId(String s,String bloodGroup) {
+    public void setCheckUpId(String s, String bloodGroup, HealthCheckupDTO healthCheckupDTO) {
+        this.healthCheckupDTO=healthCheckupDTO;
         this.checkupId=s;
         this.bloodGroup=bloodGroup;
     }

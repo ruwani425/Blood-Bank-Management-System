@@ -75,26 +75,6 @@ CREATE TABLE Supplier_Inventory
         ON DELETE CASCADE ON UPDATE CASCADE
 );
 
--- Blood_stock table
-CREATE TABLE Blood_stock
-(
-    Blood_id    VARCHAR(50) PRIMARY KEY,
-    Blood_group ENUM('A POSITIVE', 'A NEGATIVE', 'B POSITIVE', 'B NEGATIVE', 'AB POSITIVE', 'AB NEGATIVE', 'O POSITIVE', 'O NEGATIVE'),
-    Qty         INT,
-    Expiry_date DATE,
-    Is_verified BOOLEAN
-);
-
--- Blood_test table with cascades
-CREATE TABLE Blood_test
-(
-    Test_id     VARCHAR(50) PRIMARY KEY,
-    Blood_id    VARCHAR(50),
-    Test_date   DATE,
-    Test_result TEXT,
-    FOREIGN KEY (Blood_id) REFERENCES Blood_stock (Blood_id)
-        ON DELETE CASCADE ON UPDATE CASCADE
-);
 
 -- Blood_donation table with cascades
 CREATE TABLE Blood_donation
@@ -108,6 +88,31 @@ CREATE TABLE Blood_donation
     FOREIGN KEY (Blood_campaign_id) REFERENCES Blood_campaign (Blood_campaign_id)
         ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (Health_checkup_id) REFERENCES Health_checkup (Checkup_id)
+        ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+
+-- Blood_stock table
+CREATE TABLE Blood_stock
+(
+    Blood_id    VARCHAR(50) PRIMARY KEY,
+    Donation_id VARCHAR(50),
+    Blood_group ENUM('A POSITIVE', 'A NEGATIVE', 'B POSITIVE', 'B NEGATIVE', 'AB POSITIVE', 'AB NEGATIVE', 'O POSITIVE', 'O NEGATIVE'),
+    Qty         INT,
+    Expiry_date DATE,
+    Is_verified BOOLEAN,
+    FOREIGN KEY (Donation_id) REFERENCES Blood_donation (Donation_id)
+        ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- Blood_test table with cascades
+CREATE TABLE Blood_test
+(
+    Test_id     VARCHAR(50) PRIMARY KEY,
+    Blood_id    VARCHAR(50),
+    Test_date   DATE,
+    Test_result TEXT,
+    FOREIGN KEY (Blood_id) REFERENCES Blood_stock (Blood_id)
         ON DELETE CASCADE ON UPDATE CASCADE
 );
 

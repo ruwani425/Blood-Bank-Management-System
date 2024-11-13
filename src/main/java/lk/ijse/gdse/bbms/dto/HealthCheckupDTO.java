@@ -17,4 +17,9 @@ public class HealthCheckupDTO {
     private double weight;
     private double sugarLevel;
     private String bloodPressure;
+    DonationDTO donation;
+
+    public void setDonation(String text, String campaignId, String checkupId, String bloodGroup, int qty, Date donationDate) {
+        this.donation = new DonationDTO(text, campaignId, checkupId, bloodGroup, qty, donationDate);
+    }
 }

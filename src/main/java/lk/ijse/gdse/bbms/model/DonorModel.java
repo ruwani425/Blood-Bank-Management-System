@@ -64,17 +64,17 @@ public class DonorModel{
 
     public boolean updateDonor(DonorDTO donorDTO) throws SQLException {
         return CrudUtil.execute(
-            "update Donor set Name=?, Donor_nic=?, Address=?, E_mail=?,Blood_group=?,Gender=?,Dob=?,Last_donation_date=? where Donor_id=?",
-            donorDTO.getDonorName(),
-            donorDTO.getDonorNic(),
-            donorDTO.getDonorAddress(),
-            donorDTO.getDonorEmail(),
-            donorDTO.getBloodGroup(),
-            donorDTO.getGender(),
-            donorDTO.getDob(),
-            donorDTO.getLastDonationDate(),
-            donorDTO.getDonorId()
-            );
+                "update Donor set Name=?, Donor_nic=?, Address=?, E_mail=?,Blood_group=?,Gender=?,Dob=?,Last_donation_date=? where Donor_id=?",
+                donorDTO.getDonorName(),
+                donorDTO.getDonorNic(),
+                donorDTO.getDonorAddress(),
+                donorDTO.getDonorEmail(),
+                donorDTO.getBloodGroup(),
+                donorDTO.getGender(),
+                donorDTO.getDob(),
+                donorDTO.getLastDonationDate(),
+                donorDTO.getDonorId()
+        );
     }
 
     public DonorDTO getDonorByNic(String nic) throws SQLException {

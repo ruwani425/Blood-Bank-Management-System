@@ -62,6 +62,7 @@ public class AddNewHealthCheckUpPopUpController implements Initializable {
 
     private Stage stage;
     String bloodGroup;
+    HealthCheckupDTO healthCheckupDTO;
 
     private DonorModel donorModel = new DonorModel();
     private HealthCheckUpModel healthCheckUpModel = new HealthCheckUpModel();
@@ -132,10 +133,9 @@ public class AddNewHealthCheckUpPopUpController implements Initializable {
         }
 
         // Create and save the health check-up
-        HealthCheckupDTO healthCheckupDTO = new HealthCheckupDTO(healthCheckID, donorID, lblStatus.getText(), checkUpDate, donorWeight, sugarLevel, bloodPressure);
-        boolean isSaved = healthCheckUpModel.addHealthCheckup(healthCheckupDTO);
-
-        if (isSaved) {
+        healthCheckupDTO = new HealthCheckupDTO(healthCheckID, donorID, lblStatus.getText(), checkUpDate, donorWeight, sugarLevel, bloodPressure,null);
+        // boolean isSaved = healthCheckUpModel.addHealthCheckup(healthCheckupDTO);
+        if (healthCheckupDTO!=null) {
             lblCheckUpId.setText(healthCheckUpModel.getNextHealthCheckUpId());
             new Alert(Alert.AlertType.INFORMATION, "Health check-up saved successfully!").show();
         } else {
@@ -145,7 +145,7 @@ public class AddNewHealthCheckUpPopUpController implements Initializable {
 
 
 
-//    @FXML
+    //    @FXML
 //    void btnSaveHealthCheckUpDataOnAction(ActionEvent event) throws SQLException {
 //        String healthCheckID=lblCheckUpId.getText();
 //        String status=lblStatus.getText();
@@ -180,7 +180,7 @@ public class AddNewHealthCheckUpPopUpController implements Initializable {
     //donate button navigation
     @FXML
     void navigateToDonationPage(ActionEvent event) {
-        homePageViewController.navigateToDonationsPageByButton(lblCheckUpId.getText(),bloodGroup);
+        homePageViewController.navigateToDonationsPageByButton(lblCheckUpId.getText(),bloodGroup,healthCheckupDTO);
         stage = (Stage) donateBtn.getScene().getWindow();
         stage.close();
     }
