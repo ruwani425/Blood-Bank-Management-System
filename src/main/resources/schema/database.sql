@@ -15,18 +15,20 @@ CREATE TABLE Donor
     Last_donation_date DATE
 );
 
--- Updated Health_checkup table with new attributes
+-- Health_checkup table with cascades
 CREATE TABLE Health_checkup
 (
     Checkup_id      VARCHAR(50) PRIMARY KEY,
     Donor_id        VARCHAR(50),
     Health_status   VARCHAR(50),
     Date_of_checkup DATE,
-    weight          DECIMAL(5,2),      -- New attribute for weight
-    sugar_level     DECIMAL(5,2),      -- New attribute for sugar level
-    blood_pressure  VARCHAR(20),       -- New attribute for blood pressure
+    weight          DECIMAL(5,2),
+    sugar_level     DECIMAL(5,2),
+    blood_pressure  VARCHAR(20),
     FOREIGN KEY (Donor_id) REFERENCES Donor (Donor_id)
+        ON DELETE CASCADE ON UPDATE CASCADE
 );
+
 -- Blood_campaign table
 CREATE TABLE Blood_campaign
 (
@@ -60,15 +62,17 @@ CREATE TABLE Supplier
     Description TEXT
 );
 
--- Supplier_Inventory many-to-many relationship table
+-- Supplier_Inventory many-to-many relationship table with cascades
 CREATE TABLE Supplier_Inventory
 (
     Supplier_id               VARCHAR(50),
     Inventory_id              VARCHAR(50),
     Supplier_inventory_detail VARCHAR(255),
     PRIMARY KEY (Supplier_id, Inventory_id),
-    FOREIGN KEY (Supplier_id) REFERENCES Supplier (Supplier_id),
+    FOREIGN KEY (Supplier_id) REFERENCES Supplier (Supplier_id)
+        ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (Inventory_id) REFERENCES Inventory (Inventory_id)
+        ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- Blood_stock table
@@ -81,7 +85,7 @@ CREATE TABLE Blood_stock
     Is_verified BOOLEAN
 );
 
--- Blood_test table
+-- Blood_test table with cascades
 CREATE TABLE Blood_test
 (
     Test_id     VARCHAR(50) PRIMARY KEY,
@@ -89,9 +93,10 @@ CREATE TABLE Blood_test
     Test_date   DATE,
     Test_result TEXT,
     FOREIGN KEY (Blood_id) REFERENCES Blood_stock (Blood_id)
+        ON DELETE CASCADE ON UPDATE CASCADE
 );
 
--- Blood_donation table (without Donor_id foreign key)
+-- Blood_donation table with cascades
 CREATE TABLE Blood_donation
 (
     Donation_id       VARCHAR(50) PRIMARY KEY,
@@ -100,8 +105,10 @@ CREATE TABLE Blood_donation
     Blood_group       ENUM('A_POSITIVE', 'A_NEGATIVE', 'B_POSITIVE', 'B_NEGATIVE', 'AB_POSITIVE', 'AB_NEGATIVE', 'O_POSITIVE', 'O_NEGATIVE'),
     Qty               INT,
     Date_of_donation  DATE,
-    FOREIGN KEY (Blood_campaign_id) REFERENCES Blood_campaign (Blood_campaign_id),
+    FOREIGN KEY (Blood_campaign_id) REFERENCES Blood_campaign (Blood_campaign_id)
+        ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (Health_checkup_id) REFERENCES Health_checkup (Checkup_id)
+        ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- Employee table
@@ -116,17 +123,6 @@ CREATE TABLE Employee
     Status      ENUM('ACTIVE', 'INACTIVE', 'PENDING', 'COMPLETED')
 );
 
--- Reserved_blood table
-CREATE TABLE Reserved_blood
-(
-    Reserved_id   VARCHAR(50) PRIMARY KEY,
-    Blood_id      VARCHAR(50),
-    Hospital_id   VARCHAR(50),
-    Reserved_date DATE,
-    Reserved_qty  INT,
-    FOREIGN KEY (Blood_id) REFERENCES Blood_stock (Blood_id)
-);
-
 -- Hospital table
 CREATE TABLE Hospital
 (
@@ -138,7 +134,21 @@ CREATE TABLE Hospital
     Type           VARCHAR(50)
 );
 
--- Blood_request table
+-- Reserved_blood table with cascades
+CREATE TABLE Reserved_blood
+(
+    Reserved_id   VARCHAR(50) PRIMARY KEY,
+    Blood_id      VARCHAR(50),
+    Hospital_id   VARCHAR(50),
+    Reserved_date DATE,
+    Reserved_qty  INT,
+    FOREIGN KEY (Blood_id) REFERENCES Blood_stock (Blood_id)
+        ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (Hospital_id) REFERENCES Hospital (Hospital_id)
+        ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- Blood_request table with cascades
 CREATE TABLE Blood_request
 (
     Request_id       VARCHAR(50) PRIMARY KEY,
@@ -149,14 +159,17 @@ CREATE TABLE Blood_request
     Qty              INT,
     Status           ENUM('ACTIVE', 'INACTIVE', 'PENDING', 'COMPLETED'),
     FOREIGN KEY (Hospital_id) REFERENCES Hospital (Hospital_id)
+        ON DELETE CASCADE ON UPDATE CASCADE
 );
 
--- Blood_request_detail table (for many-to-many relationship between Blood_request and Blood_stock)
+-- Blood_request_detail table with cascades
 CREATE TABLE Blood_request_detail
 (
     Blood_request_id VARCHAR(50),
     Blood_id         VARCHAR(50),
     PRIMARY KEY (Blood_request_id, Blood_id),
-    FOREIGN KEY (Blood_request_id) REFERENCES Blood_request (Request_id),
+    FOREIGN KEY (Blood_request_id) REFERENCES Blood_request (Request_id)
+        ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (Blood_id) REFERENCES Blood_stock (Blood_id)
+        ON DELETE CASCADE ON UPDATE CASCADE
 );
