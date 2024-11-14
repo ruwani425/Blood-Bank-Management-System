@@ -20,6 +20,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import lk.ijse.gdse.bbms.dto.CampaignDTO;
 import lk.ijse.gdse.bbms.dto.tm.CampaignTM;
 import lk.ijse.gdse.bbms.model.CampaignModel;
@@ -123,8 +124,10 @@ public class CampaignPageController implements Initializable {
 
             CampaignPopUpWindowController addCampaignPopUpController = fxmlLoader.getController();
             addCampaignPopUpController.setCampainPageController(this);
+            addCampaignPopUpController.setHeaderText("Add New Campaign");
 
             Stage stage = new Stage();
+            stage.initStyle(StageStyle.UNDECORATED); // Remove the black toolbar
             stage.setResizable(false);
             stage.setScene(new Scene(root));
 
@@ -144,9 +147,12 @@ public class CampaignPageController implements Initializable {
 
             CampaignPopUpWindowController controller = fxmlLoader.getController();
             controller.setCampainPageController(this);
+            controller.setHeaderText("Edit Campaign Details");
+
             controller.setCampaignData(campaignTM);
 
             Stage stage = new Stage();
+            stage.initStyle(StageStyle.UNDECORATED); // Remove the black toolbar
 
             stage.setResizable(false);
             stage.setScene(new Scene(root));

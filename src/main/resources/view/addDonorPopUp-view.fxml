@@ -15,7 +15,7 @@
    <children>
       <ImageView fitHeight="514.0" fitWidth="782.0" layoutX="-2.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../lk/ijse/gdse/bbms/assert/donorPopUpForm.png" />
+            <Image url="@../lk/ijse/gdse/bbms/assert/donorForm.png" />
          </image></ImageView>
       <DatePicker fx:id="txtDonorDob" layoutX="400.0" layoutY="273.0" prefHeight="28.0" prefWidth="208.0" style="-fx-background-color: #cd0ead;" />
       <HBox alignment="TOP_RIGHT" layoutX="323.0" layoutY="454.0" prefHeight="35.0" prefWidth="341.0" spacing="4.0">

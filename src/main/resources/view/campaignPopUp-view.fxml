@@ -12,102 +12,57 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="388.0" prefWidth="734.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.bbms.controller.CampaignPopUpWindowController">
+<AnchorPane prefHeight="441.0" prefWidth="610.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.bbms.controller.CampaignPopUpWindowController">
    <children>
-      <ImageView fitHeight="383.0" fitWidth="732.0" layoutX="2.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true" />
-      <VBox layoutX="44.0" layoutY="52.0" prefHeight="249.0" prefWidth="164.0" spacing="30.0">
+      <ImageView fitHeight="454.0" fitWidth="642.0" layoutX="2.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../lk/ijse/gdse/bbms/assert/campaignForm.png" />
+         </image></ImageView>
+      <HBox layoutX="258.0" layoutY="393.0" prefHeight="28.0" prefWidth="374.0" spacing="15.0">
          <children>
-            <Label text="Campaign Id:">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
-            <Label text="Campaign Name:">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
-            <Label text="Address:">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
-            <Label text="Start Date:">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
-            <Label text="End Date:">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
-         </children>
-      </VBox>
-      <Label layoutX="550.0" layoutY="55.0" text="Status:">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-      </Label>
-      <HBox layoutX="378.0" layoutY="337.0" prefHeight="39.0" prefWidth="347.0" spacing="15.0">
-         <children>
-            <JFXButton id="bevel" fx:id="updateBtn" onAction="#updateCampaignOnAction" prefHeight="33.0" prefWidth="100.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/saveUpdateDeleteBtn.css" text="Update">
-               <graphic>
-                  <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../lk/ijse/gdse/bbms/assert/icons8-edit-192.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </JFXButton>
-            <JFXButton id="bevel" fx:id="deleteCampaignBtn" onAction="#deleteCampaignOnAction" prefHeight="30.0" prefWidth="130.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/saveUpdateDeleteBtn.css" text="Delete">
-               <graphic>
-                  <ImageView fitHeight="20.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../lk/ijse/gdse/bbms/assert/icons8-delete-192.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </JFXButton>
-            <JFXButton id="bevel" fx:id="addCampaignBtn" onAction="#addCampaignOnAction" prefHeight="33.0" prefWidth="119.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/saveUpdateDeleteBtn.css" text="Add" textAlignment="JUSTIFY" textFill="#4f91fc" wrapText="true">
-               <graphic>
-                  <ImageView fitHeight="23.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../lk/ijse/gdse/bbms/assert/icons8-add-500.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </JFXButton>
+            <JFXButton id="bevel" fx:id="updateBtn" onAction="#updateCampaignOnAction" prefHeight="33.0" prefWidth="94.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/buttonsCss2.css" text="Update" />
+            <JFXButton id="bevel" fx:id="deleteCampaignBtn" onAction="#deleteCampaignOnAction" prefHeight="30.0" prefWidth="130.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/buttonsCss2.css" text="Delete" />
+            <JFXButton id="bevel" fx:id="addCampaignBtn" onAction="#addCampaignOnAction" prefHeight="33.0" prefWidth="119.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/buttonsCss2.css" text="Add" textAlignment="JUSTIFY" textFill="#4f91fc" wrapText="true" />
+            <JFXButton id="bevel" fx:id="closeBtn" onAction="#btnCloseOnAction" prefHeight="33.0" prefWidth="119.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/buttonsCss2.css" text="Close" textAlignment="JUSTIFY" textFill="#4f91fc" wrapText="true" />
          </children>
       </HBox>
-      <Label fx:id="lblCampaignId" layoutX="214.0" layoutY="48.0" prefHeight="39.0" prefWidth="136.0" />
-      <JFXTextField fx:id="txtCampaignName" focusColor="#da2376" layoutX="214.0" layoutY="107.0" prefHeight="28.0" prefWidth="201.0" />
-      <JFXTextField fx:id="txtCampaignAddress" focusColor="#da2376" layoutX="215.0" layoutY="160.0" prefHeight="28.0" prefWidth="199.0" />
-      <DatePicker fx:id="datePikerStartDate" layoutX="212.0" layoutY="216.0" />
-      <DatePicker fx:id="datePikerEndDate" layoutX="213.0" layoutY="265.0" />
-      <VBox layoutX="562.0" layoutY="87.0" prefHeight="123.0" prefWidth="100.0" spacing="10.0">
+      <Label fx:id="lblCampaignId" layoutX="202.0" layoutY="92.0" prefHeight="28.0" prefWidth="80.0" />
+      <JFXTextField fx:id="txtCampaignName" focusColor="#da2376" layoutX="81.0" layoutY="175.0" prefHeight="28.0" prefWidth="181.0" />
+      <JFXTextField fx:id="txtCampaignAddress" focusColor="#da2376" layoutX="83.0" layoutY="237.0" prefHeight="28.0" prefWidth="448.0" />
+      <DatePicker fx:id="datePikerStartDate" layoutX="83.0" layoutY="305.0" prefHeight="35.0" prefWidth="150.0" />
+      <DatePicker fx:id="datePikerEndDate" layoutX="388.0" layoutY="307.0" prefHeight="35.0" prefWidth="150.0" />
+      <VBox layoutX="384.0" layoutY="132.0" prefHeight="54.0" prefWidth="100.0" spacing="10.0">
          <children>
-            <JFXRadioButton fx:id="btnRadioActive" text="Active" textFill="#0e945a">
+            <JFXRadioButton fx:id="btnRadioActive" text="Active">
                <font>
-                  <Font name="System Bold" size="14.0" />
+                  <Font name="System Bold" size="13.0" />
                </font>
             </JFXRadioButton>
-            <JFXRadioButton fx:id="btnRadioInactive" text="Inactive" textFill="#0e945a">
+            <JFXRadioButton fx:id="btnRadioInactive" text="Inactive">
                <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </JFXRadioButton>
-            <JFXRadioButton fx:id="btnRadioPending" text="Pending" textFill="#0e945a">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </JFXRadioButton>
-            <JFXRadioButton fx:id="btnRadioCompleted" text="Completed" textFill="#0e945a">
-               <font>
-                  <Font name="System Bold" size="14.0" />
+                  <Font name="System Bold" size="13.0" />
                </font>
             </JFXRadioButton>
          </children>
       </VBox>
+      <VBox layoutX="504.0" layoutY="133.0" prefHeight="54.0" prefWidth="100.0" spacing="10.0">
+         <children>
+            <JFXRadioButton fx:id="btnRadioPending" text="Pending">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </JFXRadioButton>
+            <JFXRadioButton fx:id="btnRadioCompleted" text="Completed">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </JFXRadioButton>
+         </children>
+      </VBox>
+      <Label fx:id="headerLabel" layoutX="177.0" layoutY="24.0" prefHeight="35.0" prefWidth="348.0">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

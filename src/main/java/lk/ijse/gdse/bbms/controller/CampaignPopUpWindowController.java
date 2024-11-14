@@ -60,6 +60,12 @@ public class CampaignPopUpWindowController implements Initializable {
     private DatePicker datePikerEndDate;
 
     @FXML
+    private JFXButton closeBtn;
+
+    @FXML
+    private Label headerLabel;
+
+    @FXML
     private Stage stage;
 
     CampaignModel model = new CampaignModel();
@@ -294,5 +300,14 @@ public class CampaignPopUpWindowController implements Initializable {
                     break;
             }
         }
+    }
+    @FXML
+    void btnCloseOnAction(ActionEvent event) {
+        stage = (Stage) closeBtn.getScene().getWindow();
+        stage.close();
+    }
+
+    public void setHeaderText(String text) {
+        headerLabel.setText(text);
     }
 }
