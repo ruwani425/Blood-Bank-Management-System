@@ -214,6 +214,6 @@ public class HealthCheckUpPageController implements Initializable {
 
     @FXML
     void btnNavigateToDonationPage(ActionEvent event) {
-        homePageViewController.navigateToDonationsPageByButton(healthCheckupDTO.getCheckupId(),donorDTO.getBloodGroup());
+        homePageViewController.navigateToDonationsPageByButton(healthCheckupDTO.getCheckupId(),donorDTO.getBloodGroup(),donorDTO.getDonorId());
     }
 }

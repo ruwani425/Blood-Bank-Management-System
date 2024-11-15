@@ -68,6 +68,7 @@ public class DonationPageController implements Initializable {
     CampaignModel campaignModel = new CampaignModel();
     String checkupId;
     String bloodGroup;
+    String donorId;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -99,7 +100,7 @@ public class DonationPageController implements Initializable {
         colHealthCheckUpId.setCellValueFactory(new PropertyValueFactory<>("Health_checkup_id"));
         colBloodGroup.setCellValueFactory(new PropertyValueFactory<>("Blood_group"));
         colQty.setCellValueFactory(new PropertyValueFactory<>("Qty"));
-        colDateOfDonation.setCellValueFactory(new PropertyValueFactory<>("Date_of_donation"));
+        colDateOfDonation.setCellValueFactory(new PropertyValueFactory<>("dateOfDonation"));
     }
     public void refreshTable() throws SQLException {
         ArrayList<DonationDTO> donationDTOS = donationModel.getAllDonations();
@@ -142,10 +143,11 @@ public class DonationPageController implements Initializable {
                 bloodGroup,
                 qty,
                 donationDate
-        ));
+        ),donorId);
 
         if (isSaved) {
             lblDonationId.setText(donationModel.getNextDonationId());
+            refreshTable();
             new Alert(Alert.AlertType.INFORMATION, "Donation saved successfully!").show();
         } else {
             new Alert(Alert.AlertType.ERROR, "Failed to save donation.").show();
@@ -154,10 +156,11 @@ public class DonationPageController implements Initializable {
 
 
     // Define the setCheckUpId method here
-    public void setDateFromHealthCheckUp(String s, String bloodGroup) {
+    public void setDateFromHealthCheckUp(String s, String bloodGroup,String id) {
         System.out.printf("HealthCheckupDTO initialized in DonationPageController: %s, %s%n", s, bloodGroup);
         this.checkupId = s;
         this.bloodGroup = bloodGroup;
+        this.donorId=id;
         System.out.println("HealthCheckupDTO initialized in DonationPageController: ");
     }
 }

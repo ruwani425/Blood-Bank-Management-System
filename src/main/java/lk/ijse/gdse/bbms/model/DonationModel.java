@@ -12,16 +12,40 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class DonationModel {
-    public boolean addDonation(DonationDTO donationDTO) throws SQLException {
+    DonorModel donorModel=new DonorModel();
 
-//    return CrudUtil.execute("insert into Blood_donation values(?,?,?,?,?,?)","D002","C001","H010","A_POSITIVE",10,"2021-08-20");
-        return CrudUtil.execute("insert into Blood_donation values(?,?,?,?,?,?)",
-                donationDTO.getDonationId(),
-                donationDTO.getCampaignId(),
-                donationDTO.getHelthCheckupId(),
-                donationDTO.getBloodGroup(),
-                donationDTO.getQty(),
-                donationDTO.getDateOfDonation());
+    public boolean addDonation(DonationDTO donationDTO,String donorID) throws SQLException {
+        Connection connection = DBConnection.getInstance().getConnection();
+        connection.setAutoCommit(false);
+
+        try {
+            if (
+             CrudUtil.execute("insert into Blood_donation values(?,?,?,?,?,?)",
+                    donationDTO.getDonationId(),
+                    donationDTO.getCampaignId(),
+                    donationDTO.getHelthCheckupId(),
+                    donationDTO.getBloodGroup(),
+                    donationDTO.getQty(),
+                    donationDTO.getDateOfDonation())){
+                if (
+                donorModel.updateLastDonationDate(donorID, donationDTO.getDateOfDonation())){
+                    connection.commit();
+                    return true;
+                }else{
+                    connection.rollback();
+                    return false;
+                }
+            }else{
+                connection.rollback();
+                return false;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            connection.rollback();
+            return false;
+        } finally {
+            connection.setAutoCommit(true);
+        }
     }
 
     public String getNextDonationId() throws SQLException {

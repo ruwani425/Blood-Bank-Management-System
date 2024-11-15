@@ -85,7 +85,7 @@ public class HomePageViewController implements Initializable {
 //        }
 //    }
 
-    public void navigateToDonationsPageByButton(String s, String bloodGroup){
+    public void navigateToDonationsPageByButton(String s, String bloodGroup,String donorId){
         try {
             homeAnchor.getChildren().clear();
 
@@ -108,7 +108,7 @@ public class HomePageViewController implements Initializable {
             transition.play();
 
             // Now you can use the controller to access any methods or variables in HealthCheckupController
-            controller.setDateFromHealthCheckUp(s,bloodGroup); // Example method call in HealthCheckupController
+            controller.setDateFromHealthCheckUp(s,bloodGroup,donorId); // Example method call in HealthCheckupController
 
         } catch (IOException e) {
             new Alert(Alert.AlertType.ERROR, "Failed to load page!").show();

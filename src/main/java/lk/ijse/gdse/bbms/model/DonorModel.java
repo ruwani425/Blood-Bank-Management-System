@@ -2,6 +2,7 @@ package lk.ijse.gdse.bbms.model;
 import lk.ijse.gdse.bbms.dto.DonorDTO;
 import lk.ijse.gdse.bbms.util.CrudUtil;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -95,4 +96,12 @@ public class DonorModel{
         }
         return null; // Return null if no donor with the given NIC is found
     }
+    public boolean updateLastDonationDate(String donorId, Date lastDonationDate) throws SQLException {
+        return CrudUtil.execute(
+                "UPDATE Donor SET Last_donation_date = ? WHERE Donor_id = ?",
+                lastDonationDate,
+                donorId
+        );
+    }
+
 }
