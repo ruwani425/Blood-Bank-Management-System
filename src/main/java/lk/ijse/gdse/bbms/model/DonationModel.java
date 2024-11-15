@@ -2,12 +2,14 @@ package lk.ijse.gdse.bbms.model;
 
 import lk.ijse.gdse.bbms.db.DBConnection;
 import lk.ijse.gdse.bbms.dto.DonationDTO;
+import lk.ijse.gdse.bbms.dto.DonorDTO;
 import lk.ijse.gdse.bbms.dto.HealthCheckupDTO;
 import lk.ijse.gdse.bbms.util.CrudUtil;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class DonationModel {
     public boolean addDonation(DonationDTO donationDTO) throws SQLException {
@@ -44,4 +46,21 @@ public class DonationModel {
         return "DN001"; // Return the default donation ID if no valid data is found
     }
 
+    public ArrayList<DonationDTO> getAllDonations() throws SQLException {
+        ResultSet rst = CrudUtil.execute("select * from Blood_donation");
+
+        ArrayList<DonationDTO> donationDTOS = new ArrayList<>();
+
+        while (rst.next()) {
+            DonationDTO donationDTO = new DonationDTO(
+                    rst.getString(1),
+                    rst.getString(2),
+                    rst.getString(3),
+                    rst.getString(4),
+                    rst.getInt(5),
+                    rst.getDate(6)
+            );
+            donationDTOS.add(donationDTO);
+        }
+        return donationDTOS;    }
 }

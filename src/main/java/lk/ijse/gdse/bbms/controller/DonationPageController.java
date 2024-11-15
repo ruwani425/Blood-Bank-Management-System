@@ -1,13 +1,20 @@
 package lk.ijse.gdse.bbms.controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import lk.ijse.gdse.bbms.dto.DonationDTO;
+import lk.ijse.gdse.bbms.dto.DonorDTO;
 import lk.ijse.gdse.bbms.dto.HealthCheckupDTO;
 import lk.ijse.gdse.bbms.dto.tm.DonationTM;
+import lk.ijse.gdse.bbms.dto.tm.DonorTM;
 import lk.ijse.gdse.bbms.model.CampaignModel;
 import lk.ijse.gdse.bbms.model.DonationModel;
 
@@ -64,6 +71,14 @@ public class DonationPageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        setCellValueFactory();
+
+        try {
+            refreshTable();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
         try {
             lblDonationId.setText(donationModel.getNextDonationId());
         } catch (SQLException e) {
@@ -75,8 +90,42 @@ public class DonationPageController implements Initializable {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+       // tblDonation.setOnMouseClicked(this::handleRowClick);
     }
 
+    private void setCellValueFactory() {
+        colDonationId.setCellValueFactory(new PropertyValueFactory<>("Donation_id"));
+        colBloodCampaignId.setCellValueFactory(new PropertyValueFactory<>("Blood_campaign_id"));
+        colHealthCheckUpId.setCellValueFactory(new PropertyValueFactory<>("Health_checkup_id"));
+        colBloodGroup.setCellValueFactory(new PropertyValueFactory<>("Blood_group"));
+        colQty.setCellValueFactory(new PropertyValueFactory<>("Qty"));
+        colDateOfDonation.setCellValueFactory(new PropertyValueFactory<>("Date_of_donation"));
+    }
+    public void refreshTable() throws SQLException {
+        ArrayList<DonationDTO> donationDTOS = donationModel.getAllDonations();
+        ObservableList<DonationTM> donationTMS = FXCollections.observableArrayList();
+
+        for (DonationDTO donationDTO : donationDTOS) {
+            DonationTM donationTM = new DonationTM(
+                    donationDTO.getDonationId(),
+                    donationDTO.getCampaignId(),
+                    donationDTO.getHelthCheckupId(),
+                    donationDTO.getBloodGroup(),
+                    donationDTO.getQty(),
+                    donationDTO.getDateOfDonation()
+            );
+            donationTMS.add(donationTM);
+        }
+        tblDonation.setItems(donationTMS);
+    }
+//    private void handleRowClick(MouseEvent event) {
+//        if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
+//            DonorTM selectedDonation = tblDonation.getSelectionModel().getSelectedItem();
+//            if (selectedDonor != null) {
+//                openEditDonorWindow(selectedDonation);
+//            }
+//        }
+//    }
     @FXML
     void btnAddDonationOnAction(ActionEvent event) throws SQLException {
         String campaignId = cmbSelectCampaign.getValue();
