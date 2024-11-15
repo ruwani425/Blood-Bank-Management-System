@@ -14,7 +14,7 @@
    <children>
       <ImageView fitHeight="732.0" fitWidth="1142.0" layoutX="-3.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../lk/ijse/gdse/bbms/assert/bloodCampaignPage.png" />
+            <Image url="@../lk/ijse/gdse/bbms/assert/campaignPage.png" />
          </image>
       </ImageView>
       <TextField fx:id="searchCampaignTxt" layoutX="304.0" layoutY="54.0" onKeyPressed="#searchCampaignData" prefHeight="28.0" prefWidth="210.0" />

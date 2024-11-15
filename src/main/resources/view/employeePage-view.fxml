@@ -21,11 +21,6 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <ImageView fitHeight="20.0" fitWidth="28.0" layoutX="418.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../lk/ijse/gdse/bbms/assert/icons8-search-16%20(2).png" />
-         </image>
-      </ImageView>
       <JFXButton id="bevel" fx:id="addEmployeeBtn" layoutX="456.0" layoutY="26.0" onAction="#popUpNewWindowAddEmployee" prefHeight="41.0" prefWidth="152.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/addEmployeeBtn.css" text="Add Employee">
          <graphic>
             <ImageView fitHeight="21.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">

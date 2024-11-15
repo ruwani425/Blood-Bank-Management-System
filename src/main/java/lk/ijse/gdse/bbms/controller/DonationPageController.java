@@ -1,4 +1,5 @@
 package lk.ijse.gdse.bbms.controller;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,14 +19,15 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class DonationPageController implements Initializable {
+
     @FXML
     private ComboBox<String> cmbSelectCampaign;
 
     @FXML
-    private JFXTextField txtQty;
+    private TextField txtQty;
 
     @FXML
-    private Button btnAdd;
+    private JFXButton btnAdd;
 
     @FXML
     private TableView<DonationTM> tblDonation;
@@ -50,6 +52,10 @@ public class DonationPageController implements Initializable {
 
     @FXML
     private Label lblDonationId;
+
+    @FXML
+    private Label lblBloodGroup;
+
 
     private HealthCheckupDTO healthCheckupDTO;
     private DonationModel donationModel=new DonationModel();

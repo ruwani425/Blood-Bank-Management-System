@@ -1,54 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXTextField?>
-<?import javafx.scene.control.Button?>
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="696.0" prefWidth="1104.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.bbms.controller.DonationPageController">
    <children>
-      <ImageView fitHeight="688.0" fitWidth="1104.0" layoutX="2.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
-      <Label layoutX="849.0" layoutY="31.0" text="Select Campaign">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-      </Label>
-      <ComboBox fx:id="cmbSelectCampaign" layoutX="855.0" layoutY="66.0" prefHeight="28.0" prefWidth="140.0" />
-      <Label layoutX="807.0" layoutY="188.0" text="Qty">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-      </Label>
-      <JFXTextField fx:id="txtQty" layoutX="806.0" layoutY="218.0" />
-      <Button fx:id="btnAdd" layoutX="1003.0" layoutY="288.0" mnemonicParsing="false" onAction="#btnAddDonationOnAction" text="Add">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Button>
-      <TableView fx:id="tblDonation" layoutX="69.0" layoutY="360.0" prefHeight="328.0" prefWidth="1002.0">
+      <ImageView fitHeight="727.0" fitWidth="1117.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../lk/ijse/gdse/bbms/assert/donationPage.png" />
+         </image></ImageView>
+      <TableView fx:id="tblDonation" layoutX="24.0" layoutY="336.0" prefHeight="340.0" prefWidth="1066.0">
         <columns>
           <TableColumn fx:id="colDonationId" prefWidth="165.0" text="Donation Id" />
           <TableColumn fx:id="colBloodCampaignId" prefWidth="153.0" text="Blood_campaign Id" />
             <TableColumn fx:id="colHealthCheckUpId" prefWidth="155.0" text="HealthCheckUp Id" />
             <TableColumn fx:id="colBloodGroup" prefWidth="195.0" text="Blood Group" />
-            <TableColumn fx:id="colQty" prefWidth="165.0" text="Qty" />
-            <TableColumn fx:id="colDateOfDonation" prefWidth="168.0" text="Date of Donation" />
+            <TableColumn fx:id="colQty" prefWidth="195.0" text="Qty" />
+            <TableColumn fx:id="colDateOfDonation" prefWidth="202.0" text="Date of Donation" />
         </columns>
       </TableView>
-      <Label layoutX="92.0" layoutY="224.0" text="Donation Id">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-      </Label>
-      <Label fx:id="lblDonationId" layoutX="230.0" layoutY="218.0" prefHeight="36.0" prefWidth="188.0">
+      <Label fx:id="lblDonationId" layoutX="682.0" layoutY="209.0" prefHeight="30.0" prefWidth="116.0">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
+      <TextField id="bevel" fx:id="txtQty" layoutX="360.0" layoutY="240.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/textFeild.css" />
+      <JFXButton id="bevel" fx:id="btnAdd" layoutX="988.0" layoutY="274.0" onAction="#btnAddDonationOnAction" prefHeight="41.0" prefWidth="150.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/buttonsCss2.css" text="Add" />
+      <ComboBox id="glass" fx:id="cmbSelectCampaign" layoutX="579.0" layoutY="55.0" prefHeight="28.0" prefWidth="118.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/textFeild.css" />
+      <Label fx:id="lblBloodGroup" layoutX="35.0" layoutY="239.0" prefHeight="37.0" prefWidth="177.0" />
    </children>
 </AnchorPane>
