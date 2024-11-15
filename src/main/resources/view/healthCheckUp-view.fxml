@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -16,8 +16,8 @@
             <Image url="@../lk/ijse/gdse/bbms/assert/healthCheckPage.png" />
          </image>
       </ImageView>
-      <JFXButton fx:id="showStatusBtn" layoutX="66.0" layoutY="344.0" onAction="#btnNavigateToDonationPage" prefHeight="229.0" prefWidth="258.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/healthCheckBtnCss.css" text="   " />
-      <JFXButton id="bevel" fx:id="checkStatusBtn" layoutX="383.0" layoutY="329.0" onAction="#btnCheckDonorHealthCheckUpDetail" prefHeight="41.0" prefWidth="150.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/buttons.css" text="Check" />
+      <JFXButton fx:id="showStatusBtn" layoutX="162.0" layoutY="476.0" onAction="#btnNavigateToDonationPage" prefHeight="147.0" prefWidth="164.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/donationBtn.css" text="   " />
+      <JFXButton id="bevel" fx:id="checkStatusBtn" layoutX="375.0" layoutY="258.0" onAction="#btnCheckDonorHealthCheckUpDetail" prefHeight="41.0" prefWidth="150.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/buttonsCss2.css" text="Check" />
       <VBox layoutX="551.0" layoutY="91.0" prefHeight="505.0" prefWidth="523.0" spacing="10.0">
          <children>
             <Label fx:id="healthCheckupIdLbl" prefHeight="40.0" prefWidth="500.0">
@@ -59,10 +59,20 @@
             </Label>
          </children>
       </VBox>
-      <JFXTextField fx:id="txtWeight" layoutX="57.0" layoutY="178.0" prefHeight="28.0" prefWidth="360.0" />
-      <JFXTextField fx:id="txtBloodPressure" layoutX="57.0" layoutY="226.0" prefHeight="28.0" prefWidth="360.0" />
-      <JFXTextField fx:id="txtSugarLevel" layoutX="57.0" layoutY="276.0" prefHeight="28.0" prefWidth="360.0" />
-      <JFXTextField fx:id="txtNicDonor" layoutX="50.0" layoutY="108.0" prefHeight="28.0" prefWidth="360.0" />
-      <Label fx:id="lblHealthCheckUpId" layoutX="50.0" layoutY="52.0" prefHeight="30.0" prefWidth="174.0" />
+      <Label fx:id="lblHealthCheckUpId" layoutX="182.0" layoutY="68.0" prefHeight="30.0" prefWidth="135.0" />
+      <TextField id="bevel" fx:id="txtNicDonor" layoutX="57.0" layoutY="141.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/textFeild.css" />
+      <Label layoutX="57.0" layoutY="110.0" text="Donor Nic :" />
+      <TextField id="bevel" fx:id="txtWeight" layoutX="56.0" layoutY="210.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/textFeild.css" />
+      <Label layoutX="59.0" layoutY="182.0" text="Weight :" />
+      <TextField id="bevel" fx:id="txtBloodPressure" layoutX="282.0" layoutY="141.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/textFeild.css" />
+      <Label layoutX="282.0" layoutY="113.0" text="Blood Pressure :" />
+      <TextField id="bevel" fx:id="txtSugarLevel" layoutX="282.0" layoutY="211.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/textFeild.css" />
+      <Label layoutX="282.0" layoutY="189.0" text="Sugar Level :" />
+      <Label layoutX="57.0" layoutY="73.0" text="Health Check ID :" />
+      <ImageView fitHeight="104.0" fitWidth="115.0" layoutX="198.0" layoutY="362.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../lk/ijse/gdse/bbms/assert/arrow6.gif" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

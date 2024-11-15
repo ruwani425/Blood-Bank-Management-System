@@ -75,27 +75,33 @@ public class DonationPageController implements Initializable {
 
     @FXML
     void btnAddDonationOnAction(ActionEvent event) throws SQLException {
-        System.out.println(checkupId);
-        System.out.println(bloodGroup);
+        if (healthCheckupDTO == null) {
+            System.out.println("Error: healthCheckupDTO is null. Ensure setCheckUpId is called first.");
+            new Alert(Alert.AlertType.ERROR, "Health Checkup details are missing.").show();
+            return;
+        }
+
         String campaignId = cmbSelectCampaign.getValue();
         int qty = Integer.parseInt(txtQty.getText());
         Date donationDate = Date.valueOf(LocalDate.now());
 
-        healthCheckupDTO.setDonation(lblDonationId.getText(),campaignId,checkupId,bloodGroup,qty,donationDate);
+        healthCheckupDTO.setDonation(lblDonationId.getText(), campaignId, checkupId, bloodGroup, qty, donationDate);
         boolean isSaved = donationModel.addDonation(healthCheckupDTO);
 
         if (isSaved) {
-
             lblDonationId.setText(donationModel.getNextDonationId());
-            new Alert(Alert.AlertType.INFORMATION, "Donation saved successfully...!").show();
+            new Alert(Alert.AlertType.INFORMATION, "Donation saved successfully!").show();
         } else {
-            new Alert(Alert.AlertType.ERROR, "Fail to save Donation...!").show();
+            new Alert(Alert.AlertType.ERROR, "Failed to save donation.").show();
         }
     }
 
+
+    // Define the setCheckUpId method here
     public void setCheckUpId(String s, String bloodGroup, HealthCheckupDTO healthCheckupDTO) {
-        this.healthCheckupDTO=healthCheckupDTO;
-        this.checkupId=s;
-        this.bloodGroup=bloodGroup;
+        this.healthCheckupDTO = healthCheckupDTO;
+        this.checkupId = s;
+        this.bloodGroup = bloodGroup;
+        System.out.println("HealthCheckupDTO initialized in DonationPageController: " + this.healthCheckupDTO);
     }
 }

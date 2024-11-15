@@ -3,9 +3,9 @@
     -fx-background-color: linear-gradient(to bottom, #c3c4c4, #fcfcfc); /* Faded gradient */
     -fx-text-fill: #090000; /* Text color */
     -fx-background-radius: 50%; /* Make it a full circle */
-    -fx-pref-height: 100px; /* Button height (same as width for a circle) */
-    -fx-pref-width: 100px; /* Button width (same as height for a circle) */
-    -fx-font-size: 16px; /* Font size */
+    -fx-pref-height: 170px; /* Button height (same as width for a circle) */
+    -fx-pref-width: 170px; /* Button width (same as height for a circle) */
+    -fx-font-size: 24px; /* Font size */
     -fx-font-weight: bold; /* Bold text */
     -fx-padding: 20px; /* Adjust padding to control size */
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 10, 0, 0, 5); /* Subtle shadow */

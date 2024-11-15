@@ -1,12 +1,12 @@
 package lk.ijse.gdse.bbms.controller;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import lk.ijse.gdse.bbms.dto.DonorDTO;
 import lk.ijse.gdse.bbms.dto.HealthCheckupDTO;
 import lk.ijse.gdse.bbms.model.DonorModel;
@@ -53,20 +53,22 @@ public class HealthCheckUpPageController implements Initializable {
     @FXML
     private Label dateOfCheckUpLbl;
 
-    @FXML
-    private JFXTextField txtWeight;
 
     @FXML
-    private JFXTextField txtBloodPressure;
+    private TextField txtNicDonor;
 
     @FXML
-    private JFXTextField txtSugarLevel;
+    private TextField txtWeight;
+
+    @FXML
+    private TextField txtBloodPressure;
+
+    @FXML
+    private TextField txtSugarLevel;
+
 
     @FXML
     private Label lblHealthCheckUpId;
-
-    @FXML
-    private JFXTextField txtNicDonor;
 
     private HomePageViewController homePageViewController;
 
@@ -74,6 +76,7 @@ public class HealthCheckUpPageController implements Initializable {
     private DonorDTO donorDTO;
     private HealthCheckUpModel healthCheckUpModel=new HealthCheckUpModel();
     private HealthCheckupDTO healthCheckupDTO;
+    String colorCode = "#FF0000";
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -109,6 +112,8 @@ public class HealthCheckUpPageController implements Initializable {
         // Check if age is between 18 and 65 and weight is above 50
         if (age < 18 || age > 65 || donorWeight < 50) {
             healthStatusLbl.setText("Not Eligible");
+            healthStatusLbl.setStyle("-fx-text-fill: " + colorCode + ";");
+            setHealthCheckUpDetailsForLables(age,checkUpDate, donorDTO.getDonorId(),bloodPressure,healthCheckID,donorDTO.getLastDonationDate(),sugarLevel,donorWeight);
             saveHealthCheckup(healthCheckID, donorID, healthStatusLbl.getText(), checkUpDate, donorWeight, sugarLevel, bloodPressure);
             return;
         }
@@ -153,20 +158,21 @@ public class HealthCheckUpPageController implements Initializable {
             showStatusBtn.setDisable(false);
         } else {
             healthStatusLbl.setText("Not Eligible");
+            healthStatusLbl.setStyle("-fx-text-fill: " + colorCode + ";");
+            setHealthCheckUpDetailsForLables(age,checkUpDate, donorDTO.getDonorId(),bloodPressure,healthCheckID,donorDTO.getLastDonationDate(),sugarLevel,donorWeight);
             saveHealthCheckup(healthCheckID, donorID, healthStatusLbl.getText(), checkUpDate, donorWeight, sugarLevel, bloodPressure);
         }
+        setHealthCheckUpDetailsForLables(age,checkUpDate, donorDTO.getDonorId(),bloodPressure,healthCheckID,donorDTO.getLastDonationDate(),sugarLevel,donorWeight);
+    }
+    void setHealthCheckUpDetailsForLables(int age, Date checkUpDate, String donorId, String bloodPressure, String healthCheckID, Date lastDonationDate, double sugarLevel, double donorWeight){
         ageLbl.setText("Donor age: " + age + " years old");
-
-        dateOfCheckUpLbl.setText("Last checkup date: " + healthCheckupDTO.getCheckupDate());
-
-        // Set additional donor information
+        dateOfCheckUpLbl.setText("Checkup date: " +checkUpDate);
         donorIdLbl.setText("Donor ID: " + donorDTO.getDonorId());
-        bloodPresureLbl.setText("Donor blood Pressure: " + healthCheckupDTO.getBloodPressure());
-        healthStatusLbl.setText(healthCheckupDTO.getHealthStatus());
-        healthCheckupIdLbl.setText("Donor HealthCheckup ID: " + healthCheckupDTO.getCheckupId());
+        bloodPresureLbl.setText("Donor blood Pressure: " + bloodPressure);
+        healthCheckupIdLbl.setText("Donor HealthCheckup ID: " +healthCheckID);
         lastDonationDateLbl.setText("Last Donation Date: " + donorDTO.getLastDonationDate());
-        sugerLevelLbl.setText("Donor sugar Level: " + healthCheckupDTO.getSugarLevel());
-        weightLbl.setText("Donor weight: " + healthCheckupDTO.getWeight());
+        sugerLevelLbl.setText("Donor sugar Level: " +sugarLevel);
+        weightLbl.setText("Donor weight: " +donorWeight);
     }
 
     private void saveHealthCheckup(String healthCheckID, String donorID, String status, Date checkUpDate, double donorWeight, double sugarLevel, String bloodPressure) {
