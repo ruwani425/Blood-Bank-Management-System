@@ -114,7 +114,6 @@ public class HealthCheckUpPageController implements Initializable {
             healthStatusLbl.setText("Not Eligible");
             healthStatusLbl.setStyle("-fx-text-fill: " + colorCode + ";");
             setHealthCheckUpDetailsForLables(age,checkUpDate, donorDTO.getDonorId(),bloodPressure,healthCheckID,donorDTO.getLastDonationDate(),sugarLevel,donorWeight);
-            saveHealthCheckup(healthCheckID, donorID, healthStatusLbl.getText(), checkUpDate, donorWeight, sugarLevel, bloodPressure);
             return;
         }
 
@@ -156,11 +155,12 @@ public class HealthCheckUpPageController implements Initializable {
             healthCheckupDTO.setWeight(donorWeight);
 
             showStatusBtn.setDisable(false);
+            saveHealthCheckup(healthCheckID, donorID, "ELIGIBLE", checkUpDate, donorWeight, sugarLevel, bloodPressure);
         } else {
             healthStatusLbl.setText("Not Eligible");
+            saveHealthCheckup(healthCheckID, donorID, "NOT_ELIGIBLE", checkUpDate, donorWeight, sugarLevel, bloodPressure);
             healthStatusLbl.setStyle("-fx-text-fill: " + colorCode + ";");
             setHealthCheckUpDetailsForLables(age,checkUpDate, donorDTO.getDonorId(),bloodPressure,healthCheckID,donorDTO.getLastDonationDate(),sugarLevel,donorWeight);
-            saveHealthCheckup(healthCheckID, donorID, healthStatusLbl.getText(), checkUpDate, donorWeight, sugarLevel, bloodPressure);
         }
         setHealthCheckUpDetailsForLables(age,checkUpDate, donorDTO.getDonorId(),bloodPressure,healthCheckID,donorDTO.getLastDonationDate(),sugarLevel,donorWeight);
     }
@@ -175,7 +175,7 @@ public class HealthCheckUpPageController implements Initializable {
         weightLbl.setText("Donor weight: " +donorWeight);
     }
 
-    private void saveHealthCheckup(String healthCheckID, String donorID, String status, Date checkUpDate, double donorWeight, double sugarLevel, String bloodPressure) {
+    private void saveHealthCheckup(String healthCheckID, String donorID, String status, Date checkUpDate, double donorWeight, double sugarLevel, String bloodPressure) throws SQLException {
         healthCheckupDTO = new HealthCheckupDTO(healthCheckID, donorID, status, checkUpDate, donorWeight, sugarLevel, bloodPressure);
         boolean isSaved;
         try {
@@ -186,6 +186,8 @@ public class HealthCheckUpPageController implements Initializable {
         }
 
         if (isSaved) {
+            showStatusBtn.setDisable(false);
+            lblHealthCheckUpId.setText(healthCheckUpModel.getNextHealthCheckUpId());
             new Alert(Alert.AlertType.INFORMATION, "Health Checkup added successfully").show();
         } else {
             new Alert(Alert.AlertType.ERROR, "Failed to save health checkup details").show();
@@ -212,6 +214,6 @@ public class HealthCheckUpPageController implements Initializable {
 
     @FXML
     void btnNavigateToDonationPage(ActionEvent event) {
-        homePageViewController.navigateToDonationsPageByButton("CH001","A_POSITIVE",null);
+        homePageViewController.navigateToDonationsPageByButton(healthCheckupDTO.getCheckupId(),donorDTO.getBloodGroup());
     }
 }

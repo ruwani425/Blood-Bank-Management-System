@@ -56,8 +56,6 @@ public class DonationPageController implements Initializable {
     @FXML
     private Label lblBloodGroup;
 
-
-    private HealthCheckupDTO healthCheckupDTO;
     private DonationModel donationModel=new DonationModel();
 
     CampaignModel campaignModel = new CampaignModel();
@@ -81,18 +79,21 @@ public class DonationPageController implements Initializable {
 
     @FXML
     void btnAddDonationOnAction(ActionEvent event) throws SQLException {
-        if (healthCheckupDTO == null) {
-            System.out.println("Error: healthCheckupDTO is null. Ensure setCheckUpId is called first.");
-            new Alert(Alert.AlertType.ERROR, "Health Checkup details are missing.").show();
-            return;
-        }
-
         String campaignId = cmbSelectCampaign.getValue();
         int qty = Integer.parseInt(txtQty.getText());
         Date donationDate = Date.valueOf(LocalDate.now());
 
-        healthCheckupDTO.setDonation(lblDonationId.getText(), campaignId, checkupId, bloodGroup, qty, donationDate);
-        boolean isSaved = donationModel.addDonation(healthCheckupDTO);
+        System.out.println(campaignId);
+        System.out.println(checkupId);
+
+        boolean isSaved = donationModel.addDonation(new DonationDTO(
+                lblDonationId.getText(),
+                campaignId,
+                checkupId,
+                bloodGroup,
+                qty,
+                donationDate
+        ));
 
         if (isSaved) {
             lblDonationId.setText(donationModel.getNextDonationId());
@@ -104,10 +105,10 @@ public class DonationPageController implements Initializable {
 
 
     // Define the setCheckUpId method here
-    public void setCheckUpId(String s, String bloodGroup, HealthCheckupDTO healthCheckupDTO) {
-        this.healthCheckupDTO = healthCheckupDTO;
+    public void setDateFromHealthCheckUp(String s, String bloodGroup) {
+        System.out.printf("HealthCheckupDTO initialized in DonationPageController: %s, %s%n", s, bloodGroup);
         this.checkupId = s;
         this.bloodGroup = bloodGroup;
-        System.out.println("HealthCheckupDTO initialized in DonationPageController: " + this.healthCheckupDTO);
+        System.out.println("HealthCheckupDTO initialized in DonationPageController: ");
     }
 }

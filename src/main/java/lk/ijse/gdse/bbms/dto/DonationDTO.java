@@ -10,10 +10,10 @@ import java.sql.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DonationDTO {
-    private String Donation_id;
-    private String Blood_campaign_id;
-    private String Health_checkup_id;
-    private String Blood_group;
+    private String donationId;
+    private String campaignId;
+    private String helthCheckupId;
+    private String bloodGroup;
     private int qty;
     private Date dateOfDonation;
 }

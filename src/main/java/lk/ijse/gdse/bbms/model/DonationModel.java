@@ -10,51 +10,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DonationModel {
-    public boolean addDonation(HealthCheckupDTO healthCheckupDTO) throws SQLException {
-        Connection connection = DBConnection.getInstance().getConnection();
-        try {
-            connection.setAutoCommit(false);
-            DonationDTO donationDTO = healthCheckupDTO.getDonation();
+    public boolean addDonation(DonationDTO donationDTO) throws SQLException {
 
-            // Check if donationDTO is null
-            if (donationDTO == null) {
-                System.out.println("DonationDTO is null. Cannot proceed with donation.");
-                return false; // Or handle it as needed
-            }
-
-            boolean isHealthCheckupSaved = CrudUtil.execute("insert into Health_checkup values(?,?,?,?,?,?,?)",
-                    healthCheckupDTO.getCheckupId(),
-                    healthCheckupDTO.getDonorId(),
-                    healthCheckupDTO.getHealthStatus(),
-                    healthCheckupDTO.getCheckupDate(),
-                    healthCheckupDTO.getWeight(),
-                    healthCheckupDTO.getSugarLevel(),
-                    healthCheckupDTO.getBloodPressure());
-
-            if (isHealthCheckupSaved) {
-                boolean isDonorSaved = CrudUtil.execute("insert into Blood_donation values(?,?,?,?,?,?)",
-                        donationDTO.getDonation_id(),
-                        donationDTO.getBlood_campaign_id(),
-                        donationDTO.getHealth_checkup_id(),
-                        donationDTO.getBlood_group(),
-                        donationDTO.getQty(),
-                        donationDTO.getDateOfDonation());
-
-                if (isDonorSaved) {
-                    connection.commit();
-                    return true;
-                }
-            }
-            connection.rollback();
-            return false;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println(e.getMessage());
-            connection.rollback();
-            return false;
-        } finally {
-            connection.setAutoCommit(true);
-        }
+//    return CrudUtil.execute("insert into Blood_donation values(?,?,?,?,?,?)","D002","C001","H010","A_POSITIVE",10,"2021-08-20");
+        return CrudUtil.execute("insert into Blood_donation values(?,?,?,?,?,?)",
+                donationDTO.getDonationId(),
+                donationDTO.getCampaignId(),
+                donationDTO.getHelthCheckupId(),
+                donationDTO.getBloodGroup(),
+                donationDTO.getQty(),
+                donationDTO.getDateOfDonation());
     }
 
     public String getNextDonationId() throws SQLException {
@@ -78,4 +43,5 @@ public class DonationModel {
         }
         return "DN001"; // Return the default donation ID if no valid data is found
     }
+
 }
