@@ -124,4 +124,29 @@ public class BloodTestModel {
     }
 
 
+    public ArrayList<BloodTestDTO> getAllBloodTests() throws SQLException {
+        ResultSet rst = CrudUtil.execute("SELECT * FROM Blood_test WHERE Test_result = 'PASS' OR Test_result = 'FAIL'");
+
+        ArrayList<BloodTestDTO> bloodTestDTOS = new ArrayList<>();
+
+        while (rst.next()) {
+            BloodTestDTO bloodTestDTO = new BloodTestDTO(
+                    rst.getString(1),
+                    rst.getString(2),
+                    rst.getDate(3),
+                    rst.getDate(4),
+                    rst.getString(5),
+                    rst.getDouble(6),
+                    rst.getDate(7),
+                    rst.getString(8),
+                    rst.getFloat(9),
+                    rst.getDouble(10),
+                    rst.getDouble(11),
+                    rst.getString(12),
+                    rst.getString(13)
+            );
+            bloodTestDTOS.add(bloodTestDTO);
+        }
+        return bloodTestDTOS;
+    }
 }

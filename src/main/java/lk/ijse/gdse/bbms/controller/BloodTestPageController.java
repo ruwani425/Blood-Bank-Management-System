@@ -128,7 +128,7 @@ public class BloodTestPageController implements Initializable {
         });
     }
     private void setComboBoxValues() {
-        cmbResult.setItems(FXCollections.observableArrayList("PENDING", "FINISH"));
+        cmbResult.setItems(FXCollections.observableArrayList("PASS", "FAIL"));
     }
 
     private void populateFields(BloodTestTM selectedTest) throws SQLException {
@@ -214,7 +214,33 @@ public class BloodTestPageController implements Initializable {
     }
     @FXML
     void btnFinishedOnAction(ActionEvent event) throws SQLException {
-        getByStatus("FINISH");
+        getByStatus();
+    }
+
+    private void getByStatus() throws SQLException {
+        // Fetch all BloodTest data from the model
+        ArrayList<BloodTestDTO> bloodTestDTOS = bloodTestModel.getAllBloodTests();
+        ObservableList<BloodTestTM> bloodTestTMS = FXCollections.observableArrayList();
+
+        // Map BloodTestDTO objects to BloodTestTM objects
+        for (BloodTestDTO bloodTestDTO : bloodTestDTOS) {
+            BloodTestTM bloodTestTM = new BloodTestTM(
+                    bloodTestDTO.getTestID(),
+                    bloodTestDTO.getDonationID(),
+                    bloodTestDTO.getCollectedDate(),
+                    bloodTestDTO.getTestResult(),
+                    bloodTestDTO.getHaemoglobin(),
+                    bloodTestDTO.getTestDate(),
+                    bloodTestDTO.getReportSerialNum(),
+                    bloodTestDTO.getPlatelets(),
+                    bloodTestDTO.getRedBloodCells(),
+                    bloodTestDTO.getWhiteBloodCells()
+            );
+            bloodTestTMS.add(bloodTestTM);
+        }
+
+        // Set the items to the TableView
+        tblBloodTest.setItems(bloodTestTMS);
     }
 
     @FXML
