@@ -1,6 +1,7 @@
 package lk.ijse.gdse.bbms.model;
 
 import lk.ijse.gdse.bbms.db.DBConnection;
+import lk.ijse.gdse.bbms.dto.BloodTestDTO;
 import lk.ijse.gdse.bbms.dto.DonationDTO;
 import lk.ijse.gdse.bbms.dto.DonorDTO;
 import lk.ijse.gdse.bbms.dto.HealthCheckupDTO;
@@ -12,30 +13,38 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class DonationModel {
-    DonorModel donorModel=new DonorModel();
+    DonorModel donorModel = new DonorModel();
+    BloodTestModel bloodTestModel = new BloodTestModel();
 
-    public boolean addDonation(DonationDTO donationDTO,String donorID) throws SQLException {
+    public boolean addDonation(DonationDTO donationDTO, String donorID) throws SQLException {
         Connection connection = DBConnection.getInstance().getConnection();
         connection.setAutoCommit(false);
 
+        BloodTestDTO bloodTestDTO = getBloodTestDTO(donationDTO);
+
         try {
             if (
-             CrudUtil.execute("insert into Blood_donation values(?,?,?,?,?,?)",
-                    donationDTO.getDonationId(),
-                    donationDTO.getCampaignId(),
-                    donationDTO.getHelthCheckupId(),
-                    donationDTO.getBloodGroup(),
-                    donationDTO.getQty(),
-                    donationDTO.getDateOfDonation())){
-                if (
-                donorModel.updateLastDonationDate(donorID, donationDTO.getDateOfDonation())){
-                    connection.commit();
-                    return true;
-                }else{
+                    CrudUtil.execute("insert into Blood_donation values(?,?,?,?,?,?)",
+                            donationDTO.getDonationId(),
+                            donationDTO.getCampaignId(),
+                            donationDTO.getHelthCheckupId(),
+                            donationDTO.getBloodGroup(),
+                            donationDTO.getQty(),
+                            donationDTO.getDateOfDonation())) {
+                if (bloodTestModel.addBloodTest(bloodTestDTO)) {
+                    if (
+                            donorModel.updateLastDonationDate(donorID, donationDTO.getDateOfDonation())) {
+                        connection.commit();
+                        return true;
+                    } else {
+                        connection.rollback();
+                        return false;
+                    }
+                } else {
                     connection.rollback();
                     return false;
                 }
-            }else{
+            } else {
                 connection.rollback();
                 return false;
             }
@@ -46,6 +55,24 @@ public class DonationModel {
         } finally {
             connection.setAutoCommit(true);
         }
+    }
+
+    private BloodTestDTO getBloodTestDTO(DonationDTO donationDTO) throws SQLException {
+        BloodTestDTO bloodTestDTO = new BloodTestDTO();
+        bloodTestDTO.setDonationID(donationDTO.getDonationId());
+        bloodTestDTO.setTestID(bloodTestModel.getNextBloodTesdtID());
+        bloodTestDTO.setCollectedDate(donationDTO.getDateOfDonation());
+        bloodTestDTO.setExpiryDate(null);
+        bloodTestDTO.setTestResult("PENDING");
+        bloodTestDTO.setHaemoglobin(0);
+        bloodTestDTO.setTestDate(null);
+        bloodTestDTO.setReportSerialNum("PENDING");
+        bloodTestDTO.setPlatelets(0);
+        bloodTestDTO.setRedBloodCells(0);
+        bloodTestDTO.setWhiteBloodCells(0);
+        bloodTestDTO.setReportImageUrl("PENDING");
+        bloodTestDTO.setBloodType(donationDTO.getBloodGroup());
+        return bloodTestDTO;
     }
 
     public String getNextDonationId() throws SQLException {
@@ -86,5 +113,6 @@ public class DonationModel {
             );
             donationDTOS.add(donationDTO);
         }
-        return donationDTOS;    }
+        return donationDTOS;
+    }
 }

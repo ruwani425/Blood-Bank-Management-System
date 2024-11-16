@@ -22,7 +22,34 @@ import java.util.ResourceBundle;
 public class HomePageViewController implements Initializable {
 
     @FXML
-    private ImageView homeBtn,donorsBtn,hospitalBtn,campaignBtn,requestBtn,inventoryBtn,healthCheckupBtn,donationsBtn,historyBtn,btnEmployee;
+    private ImageView homeBtn;
+
+    @FXML
+    private ImageView donorsBtn;
+
+    @FXML
+    private ImageView hospitalBtn;
+
+    @FXML
+    private ImageView bloodStockBtn;
+
+    @FXML
+    private ImageView campaignBtn;
+
+    @FXML
+    private ImageView healthCheckupBtn;
+
+    @FXML
+    private ImageView requestBtn;
+
+    @FXML
+    private ImageView bloodTestBtn;
+
+    @FXML
+    private ImageView inventoryBtn;
+
+    @FXML
+    private ImageView btnEmployee;
 
     @FXML
     private AnchorPane homeAnchor,rootPane;
@@ -30,13 +57,18 @@ public class HomePageViewController implements Initializable {
     HomePageViewController homePageViewController;
 
     @FXML
-    void navigateToCampaignPage(MouseEvent event) {
-        navigateTo("/view/campaignPage-view.fxml");
+    void navigateToBloodStockPage(MouseEvent event) {
+
     }
 
     @FXML
-    void navigateToDonationsPage(MouseEvent event) {
-        navigateTo("/view/donationPage-view.fxml");
+    void navigateToBloodTestPage(MouseEvent event) {
+        navigateTo("/view/bloodTestPage-view.fxml");
+    }
+
+    @FXML
+    void navigateToCampaignPage(MouseEvent event) {
+        navigateTo("/view/campaignPage-view.fxml");
     }
 
     @FXML
@@ -45,8 +77,40 @@ public class HomePageViewController implements Initializable {
     }
 
     @FXML
-    void navigateToHistoryPage(MouseEvent event) {
+    void navigateToEmployeePage(MouseEvent event) {
+        navigateTo("/view/employeePage-view.fxml");
+    }
 
+    @FXML
+    void navigateToHealthChekupPage(MouseEvent event) {
+        try {
+            homeAnchor.getChildren().clear();
+
+            // Create FXMLLoader instance and load the view
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/healthCheckUp-view.fxml"));
+            AnchorPane load = loader.load();
+
+            // Get the HealthCheckupController from the loader
+            HealthCheckUpPageController controller = loader.getController();
+
+            // Set initial position for up-to-down transition
+            load.setTranslateY(-homeAnchor.getHeight());
+
+            homeAnchor.getChildren().add(load);
+
+            // Create the translate transition for up-to-down effect
+            TranslateTransition transition = new TranslateTransition(Duration.millis(1000), load);
+            transition.setFromY(-homeAnchor.getHeight());
+            transition.setToY(0);
+            transition.play();
+
+            // Now you can use the controller to access any methods or variables in HealthCheckupController
+            controller.setHomePageViewController(this); // Example method call in HealthCheckupController
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Failed to load page!").show();
+        }
     }
 
     @FXML
@@ -67,11 +131,6 @@ public class HomePageViewController implements Initializable {
     @FXML
     void navigateToRequestPage(MouseEvent event) {
 
-    }
-
-    @FXML
-    void navigateToEmployeePage(MouseEvent event) {
-        navigateTo("/view/employeePage-view.fxml");
     }
 
 //    public void navigateTo(String fxmlPath) {
@@ -173,37 +232,6 @@ public class HomePageViewController implements Initializable {
             scaleT.setToY(1);
             scaleT.play();
             icon.setEffect(null);
-        }
-    }
-
-    @FXML
-    public void navigateToHealthChekupPage(MouseEvent event) {
-        try {
-            homeAnchor.getChildren().clear();
-
-            // Create FXMLLoader instance and load the view
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/healthCheckUp-view.fxml"));
-            AnchorPane load = loader.load();
-
-            // Get the HealthCheckupController from the loader
-            HealthCheckUpPageController controller = loader.getController();
-
-            // Set initial position for up-to-down transition
-            load.setTranslateY(-homeAnchor.getHeight());
-
-            homeAnchor.getChildren().add(load);
-
-            // Create the translate transition for up-to-down effect
-            TranslateTransition transition = new TranslateTransition(Duration.millis(1000), load);
-            transition.setFromY(-homeAnchor.getHeight());
-            transition.setToY(0);
-            transition.play();
-
-            // Now you can use the controller to access any methods or variables in HealthCheckupController
-            controller.setHomePageViewController(this); // Example method call in HealthCheckupController
-
-        } catch (IOException e) {
-            new Alert(Alert.AlertType.ERROR, "Failed to load page!").show();
         }
     }
 }

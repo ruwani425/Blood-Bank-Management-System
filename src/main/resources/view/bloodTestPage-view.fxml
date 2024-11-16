@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="696.0" prefWidth="1104.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.bbms.controller.BloodTestPageController">
+   <children>
+      <TableView fx:id="tblBloodTest" layoutX="6.0" layoutY="301.0" prefHeight="389.0" prefWidth="1090.0">
+        <columns>
+          <TableColumn fx:id="colTestId" prefWidth="75.0" text="Test ID" />
+          <TableColumn fx:id="colDonationID" prefWidth="99.0" text="Donation ID" />
+            <TableColumn fx:id="coltestdate" prefWidth="120.0" text="Test Date" />
+            <TableColumn fx:id="colCollectedDate" prefWidth="113.0" text="Collected Date" />
+            <TableColumn fx:id="colSerialNum" prefWidth="161.0" text="Report Serial Number" />
+            <TableColumn fx:id="colResult" prefWidth="77.0" text="Result" />
+            <TableColumn fx:id="colHaemoglobin" prefWidth="102.0" text="Haemoglobin" />
+            <TableColumn fx:id="colPlatelets" prefWidth="97.66668701171875" text="Platelets" />
+            <TableColumn fx:id="colRedBloodCells" prefWidth="118.0" text="Red Blood Cells" />
+            <TableColumn fx:id="colWhiteBloodCells" prefWidth="134.0" text="White Blood cells" />
+        </columns>
+      </TableView>
+      <Label layoutX="29.0" layoutY="56.0" text="Test ID :" />
+      <Label fx:id="lblTestId" layoutX="136.0" layoutY="50.0" prefHeight="34.0" prefWidth="89.0" />
+      <Label layoutX="29.0" layoutY="99.0" text="Collected Date :" />
+      <Label fx:id="lblCollectedDate" layoutX="133.0" layoutY="94.0" prefHeight="34.0" prefWidth="89.0" />
+      <Label layoutX="32.0" layoutY="190.0" text="Result :" />
+      <Label layoutX="300.0" layoutY="56.0" text="Haemoglobin :" />
+      <TextField id="bevel" fx:id="txtHaemoglobin" layoutX="449.0" layoutY="60.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/textFeild.css" />
+      <Label layoutX="729.0" layoutY="58.0" text="Platelets :" />
+      <Label layoutX="300.0" layoutY="160.0" text="Report Serial Number :" />
+      <TextField id="bevel" fx:id="txtSerialNum" layoutX="450.0" layoutY="158.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/textFeild.css" />
+      <Label layoutX="300.0" layoutY="118.0" text="Test Date :" />
+      <TextField id="bevel" fx:id="txtPlatelets" layoutX="867.0" layoutY="57.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/textFeild.css" />
+      <Label layoutX="730.0" layoutY="120.0" text="Red Blood Cells :" />
+      <TextField id="bevel" fx:id="txtRedBloodCells" layoutX="868.0" layoutY="116.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/textFeild.css" />
+      <Label layoutX="731.0" layoutY="186.0" text="White Blood Cells :" />
+      <TextField id="bevel" fx:id="txtWhiteBloodCells" layoutX="869.0" layoutY="182.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/textFeild.css" />
+      <Label fx:id="lblTestDate" layoutX="449.0" layoutY="114.0" prefHeight="34.0" prefWidth="89.0" />
+      <Label layoutX="30.0" layoutY="138.0" text="Expiry Date :" />
+      <DatePicker fx:id="datePikerExpiryDate" layoutX="132.0" layoutY="136.0" prefHeight="28.0" prefWidth="147.0" />
+      <Label layoutX="303.0" layoutY="215.0" text="Blood Type :" />
+      <Label fx:id="lblBloodType" layoutX="450.0" layoutY="202.0" prefHeight="34.0" prefWidth="180.0" />
+      <ComboBox id="glass" fx:id="cmbResult" layoutX="133.0" layoutY="184.0" prefHeight="28.0" prefWidth="118.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/textFeild.css" />
+      <Label layoutX="734.0" layoutY="242.0" text="Blood Report  :" />
+      <Button fx:id="btnChooseFile" layoutX="872.0" layoutY="237.0" mnemonicParsing="false" onAction="#btnChooseFileOnFile" prefHeight="28.0" prefWidth="110.0" text="Choose File" />
+      <Button fx:id="pendingBtn" layoutX="9.0" layoutY="263.0" mnemonicParsing="false" onAction="#btnPendingOnAction" prefHeight="28.0" prefWidth="110.0" text="Pending" />
+      <Button fx:id="finishedBtn" layoutX="128.0" layoutY="264.0" mnemonicParsing="false" onAction="#btnFinishedOnAction" prefHeight="28.0" prefWidth="110.0" text="Finished" />
+   </children>
+</AnchorPane>
