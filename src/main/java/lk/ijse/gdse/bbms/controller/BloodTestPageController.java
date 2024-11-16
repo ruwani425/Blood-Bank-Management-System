@@ -44,7 +44,7 @@ public class BloodTestPageController implements Initializable {
     private TableColumn<BloodTestTM, String> colSerialNum;
 
     @FXML
-    private TableColumn<BloodTestTM,Double> colPlatelets;
+    private TableColumn<BloodTestTM,Float> colPlatelets;
 
     @FXML
     private TableColumn<BloodTestTM,Double> colRedBloodCells;

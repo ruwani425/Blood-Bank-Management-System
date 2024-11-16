@@ -9,8 +9,8 @@ CREATE TABLE Donor
     Donor_nic          VARCHAR(20),
     Address            VARCHAR(255),
     E_mail             VARCHAR(100),
-    Blood_group        ENUM('A_POSITIVE', 'A_NEGATIVE', 'B_POSITIVE', 'B_NEGATIVE', 'AB_POSITIVE', 'AB_NEGATIVE', 'O_POSITIVE', 'O_NEGATIVE'),
-    Gender             ENUM('MALE', 'FEMALE', 'OTHER'),
+    Blood_group        ENUM ('A_POSITIVE', 'A_NEGATIVE', 'B_POSITIVE', 'B_NEGATIVE', 'AB_POSITIVE', 'AB_NEGATIVE', 'O_POSITIVE', 'O_NEGATIVE'),
+    Gender             ENUM ('MALE', 'FEMALE', 'OTHER'),
     Dob                DATE,
     Last_donation_date DATE
 );
@@ -22,8 +22,8 @@ CREATE TABLE Health_checkup
     Donor_id        VARCHAR(50),
     Health_status   VARCHAR(50),
     Date_of_checkup DATE,
-    weight          DECIMAL(5,2),
-    sugar_level     DECIMAL(5,2),
+    weight          DECIMAL(5, 2),
+    sugar_level     DECIMAL(5, 2),
     blood_pressure  VARCHAR(20),
     FOREIGN KEY (Donor_id) REFERENCES Donor (Donor_id)
         ON DELETE CASCADE ON UPDATE CASCADE
@@ -37,7 +37,7 @@ CREATE TABLE Blood_campaign
     Address           VARCHAR(255),
     Start_date        DATE,
     End_date          DATE,
-    Status            ENUM('ACTIVE', 'INACTIVE', 'PENDING', 'COMPLETED'),
+    Status            ENUM ('ACTIVE', 'INACTIVE', 'PENDING', 'COMPLETED'),
     Collected_units   INT
 );
 
@@ -47,7 +47,7 @@ CREATE TABLE Inventory
     Inventory_id VARCHAR(50) PRIMARY KEY,
     Item_name    VARCHAR(100),
     Attribute    VARCHAR(100),
-    Status       ENUM('ACTIVE', 'INACTIVE', 'PENDING', 'COMPLETED'),
+    Status       ENUM ('ACTIVE', 'INACTIVE', 'PENDING', 'COMPLETED'),
     Expiry_date  DATE,
     Qty          INT
 );
@@ -75,14 +75,13 @@ CREATE TABLE Supplier_Inventory
         ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-
 -- Blood_donation table with cascades
 CREATE TABLE Blood_donation
 (
     Donation_id       VARCHAR(50) PRIMARY KEY,
     Blood_campaign_id VARCHAR(50),
     Health_checkup_id VARCHAR(50),
-    Blood_group       ENUM('A_POSITIVE', 'A_NEGATIVE', 'B_POSITIVE', 'B_NEGATIVE', 'AB_POSITIVE', 'AB_NEGATIVE', 'O_POSITIVE', 'O_NEGATIVE'),
+    Blood_group       ENUM ('A_POSITIVE', 'A_NEGATIVE', 'B_POSITIVE', 'B_NEGATIVE', 'AB_POSITIVE', 'AB_NEGATIVE', 'O_POSITIVE', 'O_NEGATIVE'),
     Qty               INT,
     Date_of_donation  DATE,
     FOREIGN KEY (Blood_campaign_id) REFERENCES Blood_campaign (Blood_campaign_id)
@@ -90,41 +89,43 @@ CREATE TABLE Blood_donation
     FOREIGN KEY (Health_checkup_id) REFERENCES Health_checkup (Checkup_id)
         ON DELETE CASCADE ON UPDATE CASCADE
 );
+
 CREATE TABLE Blood_test
 (
-    Test_id           VARCHAR(50) PRIMARY KEY,
-    donation_id       VARCHAR(50),
-    Collected_date    DATE,
-    Expiry_date       DATE,
-    Test_result       TEXT,
-    Haemoglobin       DECIMAL(7, 2),  -- Adjusted precision
-    Test_date         DATE,
-    Report_serial_Number VARCHAR(50), -- Standalone attribute, not a foreign key
-    Platelets FLOAT(8),
-    Red_blood_cells   DECIMAL(7, 2),  -- Adjusted precision
-    White_blood_cells DECIMAL(7, 2),  -- Adjusted precision
-    Report_image_URL  VARCHAR(255),  -- Attribute to store the blood report image URL
-    Blood_group       ENUM('A_POSITIVE', 'A_NEGATIVE', 'B_POSITIVE', 'B_NEGATIVE', 'AB_POSITIVE', 'AB_NEGATIVE', 'O_POSITIVE', 'O_NEGATIVE'),
-    blood_qty         DECIMAL(5,2),
+    Test_id              VARCHAR(50) PRIMARY KEY,
+    donation_id          VARCHAR(50),
+    Collected_date       DATE,
+    Expiry_date          DATE,
+    Test_result          VARCHAR(50),
+    Haemoglobin          DECIMAL(7, 2), -- Adjusted precision
+    Test_date            DATE,
+    Report_serial_Number VARCHAR(50),   -- Standalone attribute, not a foreign key
+    Platelets            FLOAT(8),
+    Red_blood_cells      DECIMAL(7, 2), -- Adjusted precision
+    White_blood_cells    DECIMAL(7, 2), -- Adjusted precision
+    Report_image_URL     VARCHAR(255),  -- Attribute to store the blood report image URL
+    Blood_group          ENUM ('A_POSITIVE', 'A_NEGATIVE', 'B_POSITIVE', 'B_NEGATIVE', 'AB_POSITIVE', 'AB_NEGATIVE', 'O_POSITIVE', 'O_NEGATIVE'),
+    blood_qty            DECIMAL(5, 2),
     FOREIGN KEY (donation_id) REFERENCES Blood_donation (Donation_id)
         ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-
 -- Blood_stock table
 CREATE TABLE Blood_stock
 (
-    Blood_id    VARCHAR(50) PRIMARY KEY,
-    Test_id VARCHAR(50),
-    Blood_group ENUM('A POSITIVE', 'A NEGATIVE', 'B POSITIVE', 'B NEGATIVE', 'AB POSITIVE', 'AB NEGATIVE', 'O POSITIVE', 'O NEGATIVE'),
-    Qty         INT,
-    Expiry_date DATE,
-    Is_verified BOOLEAN,
+    Blood_id          VARCHAR(50) PRIMARY KEY,
+    Test_id           VARCHAR(50),
+    Blood_group       ENUM ('A_POSITIVE', 'A_NEGATIVE', 'B_POSITIVE', 'B_NEGATIVE', 'AB_POSITIVE', 'AB_NEGATIVE', 'O_POSITIVE', 'O_NEGATIVE'),
+    Qty               DECIMAL(5, 2),
+    Haemoglobin       DECIMAL(7, 2), -- Adjusted precision
+    Platelets         FLOAT(8),
+    Red_blood_cells   DECIMAL(7, 2), -- Adjusted precision
+    White_blood_cells DECIMAL(7, 2), -- Adjusted precision
+    Expiry_date       DATE,
+    status            VARCHAR(50),
     FOREIGN KEY (Test_id) REFERENCES Blood_test (Test_id)
         ON DELETE CASCADE ON UPDATE CASCADE
 );
-
-
 
 -- Employee table
 CREATE TABLE Employee
@@ -135,7 +136,7 @@ CREATE TABLE Employee
     Address     VARCHAR(255),
     E_mail      VARCHAR(100),
     Role        VARCHAR(50),
-    Status      ENUM('ACTIVE', 'INACTIVE', 'PENDING', 'COMPLETED')
+    Status      ENUM ('ACTIVE', 'INACTIVE', 'PENDING', 'COMPLETED')
 );
 
 -- Hospital table
@@ -168,11 +169,11 @@ CREATE TABLE Blood_request
 (
     Request_id       VARCHAR(50) PRIMARY KEY,
     Hospital_id      VARCHAR(50),
-    Blood_group      ENUM('A POSITIVE', 'A NEGATIVE', 'B POSITIVE', 'B NEGATIVE', 'AB POSITIVE', 'AB NEGATIVE', 'O POSITIVE', 'O NEGATIVE'),
+    Blood_group      ENUM ('A POSITIVE', 'A NEGATIVE', 'B POSITIVE', 'B NEGATIVE', 'AB POSITIVE', 'AB NEGATIVE', 'O POSITIVE', 'O NEGATIVE'),
     Compatibility_id VARCHAR(50),
     Date_of_request  DATE,
     Qty              INT,
-    Status           ENUM('ACTIVE', 'INACTIVE', 'PENDING', 'COMPLETED'),
+    Status           ENUM ('ACTIVE', 'INACTIVE', 'PENDING', 'COMPLETED'),
     FOREIGN KEY (Hospital_id) REFERENCES Hospital (Hospital_id)
         ON DELETE CASCADE ON UPDATE CASCADE
 );

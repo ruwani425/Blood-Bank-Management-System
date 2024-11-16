@@ -58,7 +58,7 @@ public class HomePageViewController implements Initializable {
 
     @FXML
     void navigateToBloodStockPage(MouseEvent event) {
-
+        navigateTo("/view/bloodStockPage-view.fxml");
     }
 
     @FXML

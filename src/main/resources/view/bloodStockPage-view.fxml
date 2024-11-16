@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="696.0" prefWidth="1104.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.bbms.controller.BloodStockPageController">
+   <children>
+      <TableView fx:id="tblBloodStock" layoutX="12.0" layoutY="231.0" prefHeight="420.0" prefWidth="1080.0">
+        <columns>
+          <TableColumn fx:id="colBloodID" prefWidth="85.0" text="Blood ID" />
+          <TableColumn fx:id="colTestID" prefWidth="75.0" text="Test ID" />
+            <TableColumn fx:id="colBloodGroup" prefWidth="113.0" text="Blood Group" />
+            <TableColumn fx:id="colQty" prefWidth="95.0" text="Qty" />
+            <TableColumn fx:id="colHaemoglobin" prefWidth="133.0" text="Haemoglobin" />
+            <TableColumn fx:id="colPlatelets" prefWidth="89.0" text="Platelets" />
+            <TableColumn fx:id="colRedBloodCells" prefWidth="133.0" text="Red Blood Cells" />
+            <TableColumn fx:id="colWhiteBloodCells" prefWidth="145.0" text="White Blood Cells" />
+            <TableColumn fx:id="colExpiryDate" prefWidth="115.0" text="Expiry Date" />
+            <TableColumn fx:id="colStatus" prefWidth="96.0" text="Status" />
+        </columns>
+      </TableView>
+      <Button fx:id="btnVerified" layoutX="13.0" layoutY="197.0" mnemonicParsing="false" onAction="#btnIsVerifiedOnAction" text="Verified" />
+      <Button fx:id="btnExpired" layoutX="93.0" layoutY="198.0" mnemonicParsing="false" onAction="#btnIsExpiredOnAction" text="Expired" />
+   </children>
+</AnchorPane>

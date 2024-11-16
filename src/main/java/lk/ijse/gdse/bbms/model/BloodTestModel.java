@@ -1,15 +1,20 @@
 package lk.ijse.gdse.bbms.model;
 
+import lk.ijse.gdse.bbms.db.DBConnection;
+import lk.ijse.gdse.bbms.dto.BloodStockDTO;
 import lk.ijse.gdse.bbms.dto.BloodTestDTO;
 import lk.ijse.gdse.bbms.dto.DonorDTO;
 import lk.ijse.gdse.bbms.util.CrudUtil;
 
+import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class BloodTestModel {
+    BloodStockModel bloodStockModel=new BloodStockModel();
+
     public String getNextBloodTesdtID() throws SQLException {
         ResultSet rst = CrudUtil.execute("select Test_id from Blood_test order by Test_id desc limit 1");
 
@@ -69,24 +74,63 @@ public class BloodTestModel {
         );
     }
     public boolean updateBloodTest(BloodTestDTO bloodTestDTO) throws SQLException {
-        return CrudUtil.execute(
-                "UPDATE Blood_test SET Collected_date = ?, Expiry_date = ?, Test_result = ?, Haemoglobin = ?, " +
-                        "Test_date = ?, Report_serial_Number = ?, Platelets = ?, Red_blood_cells = ?, White_blood_cells = ?, " +
-                        "Report_image_URL = ?,Blood_group=?,blood_qty=? WHERE Test_id = ?",
-                bloodTestDTO.getCollectedDate(),
-                bloodTestDTO.getExpiryDate(),
-                bloodTestDTO.getTestResult(),
-                bloodTestDTO.getHaemoglobin(),
-                bloodTestDTO.getTestDate(),
-                bloodTestDTO.getReportSerialNum(),
-                bloodTestDTO.getPlatelets(),
-                bloodTestDTO.getRedBloodCells(),
-                bloodTestDTO.getWhiteBloodCells(),
-                bloodTestDTO.getReportImageUrl(),
-                bloodTestDTO.getBloodType(),
-                bloodTestDTO.getBloodQty(),
-                bloodTestDTO.getTestID()
-        );
+        Connection connection = DBConnection.getInstance().getConnection();
+        connection.setAutoCommit(false);
+
+        BloodStockDTO bloodStockDTO=new BloodStockDTO();
+
+        bloodStockDTO.setBloodID(bloodStockModel.getNextBloodId());
+        bloodStockDTO.setTestID(bloodTestDTO.getTestID());
+        bloodStockDTO.setBloodGroup(bloodTestDTO.getBloodType());
+        bloodStockDTO.setRedBloodCells(bloodTestDTO.getRedBloodCells());
+        bloodStockDTO.setWhiteBloodCells(bloodTestDTO.getWhiteBloodCells());
+        bloodStockDTO.setHaemoglobin(bloodTestDTO.getHaemoglobin());
+        bloodStockDTO.setPlatelets(bloodTestDTO.getPlatelets());
+        bloodStockDTO.setExpiryDate(bloodTestDTO.getExpiryDate());
+        bloodStockDTO.setQty(bloodTestDTO.getBloodQty());
+
+        if (bloodTestDTO.getTestResult().equals("PASS")){
+            bloodStockDTO.setStatus("VERIFIED");
+        }else {
+            bloodStockDTO.setStatus("NOT_VERIFIED");
+        }
+
+        try {
+            if (CrudUtil.execute(
+                    "UPDATE Blood_test SET Collected_date = ?, Expiry_date = ?, Test_result = ?, Haemoglobin = ?, " +
+                            "Test_date = ?, Report_serial_Number = ?, Platelets = ?, Red_blood_cells = ?, White_blood_cells = ?, " +
+                            "Report_image_URL = ?,Blood_group=?,blood_qty=? WHERE Test_id = ?",
+                    bloodTestDTO.getCollectedDate(),
+                    bloodTestDTO.getExpiryDate(),
+                    bloodTestDTO.getTestResult(),
+                    bloodTestDTO.getHaemoglobin(),
+                    bloodTestDTO.getTestDate(),
+                    bloodTestDTO.getReportSerialNum(),
+                    bloodTestDTO.getPlatelets(),
+                    bloodTestDTO.getRedBloodCells(),
+                    bloodTestDTO.getWhiteBloodCells(),
+                    bloodTestDTO.getReportImageUrl(),
+                    bloodTestDTO.getBloodType(),
+                    bloodTestDTO.getBloodQty(),
+                    bloodTestDTO.getTestID()
+            )){
+                if (bloodStockModel.addBloodStock(bloodStockDTO)) {
+                    connection.commit();
+                    return true;
+                }else {
+                    connection.rollback();
+                    return false;
+                }
+            }else{
+                connection.rollback();
+                return false;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            connection.setAutoCommit(true);
+        }
     }
     public boolean setStatus(String status, String testID) throws SQLException {
         return CrudUtil.execute(
