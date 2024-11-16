@@ -53,6 +53,9 @@ public class BloodTestPageController implements Initializable {
     private TableColumn<BloodTestTM,Double> colWhiteBloodCells;
 
     @FXML
+    private TableColumn<BloodTestTM,Double> colBloodQty;
+
+    @FXML
     private Label lblTestId;
 
     @FXML
@@ -96,6 +99,9 @@ public class BloodTestPageController implements Initializable {
 
     @FXML
     private Button BtnUpdate;
+
+    @FXML
+    private TextField txtBloodQty;
 
     BloodTestModel bloodTestModel = new BloodTestModel();
 
@@ -155,6 +161,7 @@ public class BloodTestPageController implements Initializable {
         colPlatelets.setCellValueFactory(new PropertyValueFactory<>("platelets"));
         colRedBloodCells.setCellValueFactory(new PropertyValueFactory<>("redBloodCells"));
         colWhiteBloodCells.setCellValueFactory(new PropertyValueFactory<>("whiteBloodCells"));
+        colBloodQty.setCellValueFactory(new PropertyValueFactory<>("bloodQty"));
     }
 
     public void refreshTable() throws SQLException {
@@ -174,7 +181,8 @@ public class BloodTestPageController implements Initializable {
                     bloodTestDTO.getReportSerialNum(),
                     bloodTestDTO.getPlatelets(),
                     bloodTestDTO.getRedBloodCells(),
-                    bloodTestDTO.getWhiteBloodCells()
+                    bloodTestDTO.getWhiteBloodCells(),
+                    bloodTestDTO.getBloodQty()
             );
             bloodTestTMS.add(bloodTestTM);
         }
@@ -199,7 +207,8 @@ public class BloodTestPageController implements Initializable {
                     bloodTestDTO.getReportSerialNum(),
                     bloodTestDTO.getPlatelets(),
                     bloodTestDTO.getRedBloodCells(),
-                    bloodTestDTO.getWhiteBloodCells()
+                    bloodTestDTO.getWhiteBloodCells(),
+                    bloodTestDTO.getBloodQty()
             );
             bloodTestTMS.add(bloodTestTM);
         }
@@ -234,7 +243,8 @@ public class BloodTestPageController implements Initializable {
                     bloodTestDTO.getReportSerialNum(),
                     bloodTestDTO.getPlatelets(),
                     bloodTestDTO.getRedBloodCells(),
-                    bloodTestDTO.getWhiteBloodCells()
+                    bloodTestDTO.getWhiteBloodCells(),
+                    bloodTestDTO.getBloodQty()
             );
             bloodTestTMS.add(bloodTestTM);
         }
@@ -264,7 +274,8 @@ public class BloodTestPageController implements Initializable {
                     Double.parseDouble(txtRedBloodCells.getText()), // RedBloodCells
                     Double.parseDouble(txtWhiteBloodCells.getText()), // WhiteBloodCells
                     null, // ReportImageUrl (optional)
-                    lblBloodType.getText() // BloodGroup
+                    lblBloodType.getText(), // BloodGroup
+                    Double.parseDouble(txtBloodQty.getText())
             );
 
             // Call the update method in the model

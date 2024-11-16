@@ -42,7 +42,8 @@ public class BloodTestModel {
                     rst.getDouble(10),
                     rst.getDouble(11),
                     rst.getString(12),
-                    rst.getString(13)
+                    rst.getString(13),
+                    rst.getDouble(14)
                     );
             bloodTestDTOS.add(bloodTestDTO);
         }
@@ -50,7 +51,7 @@ public class BloodTestModel {
     }
     public boolean addBloodTest(BloodTestDTO bloodTestDTO) throws SQLException {
         return CrudUtil.execute(
-                "insert into Blood_test values (?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                "insert into Blood_test values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
                 bloodTestDTO.getTestID(),
                 bloodTestDTO.getDonationID(),
                 bloodTestDTO.getCollectedDate(),
@@ -63,14 +64,15 @@ public class BloodTestModel {
                 bloodTestDTO.getRedBloodCells(),
                 bloodTestDTO.getWhiteBloodCells(),
                 bloodTestDTO.getReportImageUrl(),
-                bloodTestDTO.getBloodType()
+                bloodTestDTO.getBloodType(),
+                bloodTestDTO.getBloodQty()
         );
     }
     public boolean updateBloodTest(BloodTestDTO bloodTestDTO) throws SQLException {
         return CrudUtil.execute(
                 "UPDATE Blood_test SET Collected_date = ?, Expiry_date = ?, Test_result = ?, Haemoglobin = ?, " +
                         "Test_date = ?, Report_serial_Number = ?, Platelets = ?, Red_blood_cells = ?, White_blood_cells = ?, " +
-                        "Report_image_URL = ?,Blood_group=? WHERE Test_id = ?",
+                        "Report_image_URL = ?,Blood_group=?,blood_qty=? WHERE Test_id = ?",
                 bloodTestDTO.getCollectedDate(),
                 bloodTestDTO.getExpiryDate(),
                 bloodTestDTO.getTestResult(),
@@ -82,6 +84,7 @@ public class BloodTestModel {
                 bloodTestDTO.getWhiteBloodCells(),
                 bloodTestDTO.getReportImageUrl(),
                 bloodTestDTO.getBloodType(),
+                bloodTestDTO.getBloodQty(),
                 bloodTestDTO.getTestID()
         );
     }
@@ -117,7 +120,8 @@ public class BloodTestModel {
                     0.0,  // RedBloodCells (optional: default value)
                     0.0,  // WhiteBloodCells (optional: default value)
                     null, // ReportImageUrl (optional: pass if needed)
-                    bloodGroup // Blood_group
+                    bloodGroup, // Blood_group
+                    0.0
             );
         }
         return null; // Return null if no matching record is found
@@ -143,7 +147,8 @@ public class BloodTestModel {
                     rst.getDouble(10),
                     rst.getDouble(11),
                     rst.getString(12),
-                    rst.getString(13)
+                    rst.getString(13),
+                    rst.getDouble(14)
             );
             bloodTestDTOS.add(bloodTestDTO);
         }

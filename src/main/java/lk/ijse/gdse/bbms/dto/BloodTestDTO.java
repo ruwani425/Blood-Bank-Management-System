@@ -23,4 +23,5 @@ public class BloodTestDTO {
     private double whiteBloodCells;
     private String reportImageUrl; // Attribute to store the report image URL
     private String bloodType;
+    private double bloodQty;
 }

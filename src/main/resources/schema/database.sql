@@ -105,6 +105,7 @@ CREATE TABLE Blood_test
     White_blood_cells DECIMAL(7, 2),  -- Adjusted precision
     Report_image_URL  VARCHAR(255),  -- Attribute to store the blood report image URL
     Blood_group       ENUM('A_POSITIVE', 'A_NEGATIVE', 'B_POSITIVE', 'B_NEGATIVE', 'AB_POSITIVE', 'AB_NEGATIVE', 'O_POSITIVE', 'O_NEGATIVE'),
+    blood_qty         DECIMAL(5,2),
     FOREIGN KEY (donation_id) REFERENCES Blood_donation (Donation_id)
         ON DELETE CASCADE ON UPDATE CASCADE
 );

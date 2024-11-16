@@ -20,4 +20,5 @@ public class BloodTestTM {
     private float platelets;
     private double redBloodCells;
     private double whiteBloodCells;
+    private double bloodQty;
 }
