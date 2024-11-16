@@ -18,7 +18,7 @@ public class BloodTestDTO {
     private double haemoglobin;
     private Date testDate;
     private String reportSerialNum;
-    private double platelets;
+    private float platelets;
     private double redBloodCells;
     private double whiteBloodCells;
     private String reportImageUrl; // Attribute to store the report image URL

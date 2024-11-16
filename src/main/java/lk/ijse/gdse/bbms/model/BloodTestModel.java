@@ -4,6 +4,7 @@ import lk.ijse.gdse.bbms.dto.BloodTestDTO;
 import lk.ijse.gdse.bbms.dto.DonorDTO;
 import lk.ijse.gdse.bbms.util.CrudUtil;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class BloodTestModel {
     }
 
     public ArrayList<BloodTestDTO> getAllBloodTests(String result) throws SQLException {
-        ResultSet rst = CrudUtil.execute("select * from Blood_test where Test_result=?",result);
+        ResultSet rst = CrudUtil.execute("select * from Blood_test where Test_result=?", result);
 
         ArrayList<BloodTestDTO> bloodTestDTOS = new ArrayList<>();
 
@@ -37,7 +38,7 @@ public class BloodTestModel {
                     rst.getDouble(6),
                     rst.getDate(7),
                     rst.getString(8),
-                    rst.getDouble(9),
+                    rst.getFloat(9),
                     rst.getDouble(10),
                     rst.getDouble(11),
                     rst.getString(12),
@@ -67,10 +68,9 @@ public class BloodTestModel {
     }
     public boolean updateBloodTest(BloodTestDTO bloodTestDTO) throws SQLException {
         return CrudUtil.execute(
-                "UPDATE Blood_test SET donation_id = ?, Collected_date = ?, Expiry_date = ?, Test_result = ?, Haemoglobin = ?, " +
+                "UPDATE Blood_test SET Collected_date = ?, Expiry_date = ?, Test_result = ?, Haemoglobin = ?, " +
                         "Test_date = ?, Report_serial_Number = ?, Platelets = ?, Red_blood_cells = ?, White_blood_cells = ?, " +
                         "Report_image_URL = ?,Blood_group=? WHERE Test_id = ?",
-                bloodTestDTO.getDonationID(),
                 bloodTestDTO.getCollectedDate(),
                 bloodTestDTO.getExpiryDate(),
                 bloodTestDTO.getTestResult(),
@@ -81,8 +81,8 @@ public class BloodTestModel {
                 bloodTestDTO.getRedBloodCells(),
                 bloodTestDTO.getWhiteBloodCells(),
                 bloodTestDTO.getReportImageUrl(),
-                bloodTestDTO.getTestID(),
-                bloodTestDTO.getBloodType()
+                bloodTestDTO.getBloodType(),
+                bloodTestDTO.getTestID()
         );
     }
     public boolean setStatus(String status, String testID) throws SQLException {
@@ -92,4 +92,36 @@ public class BloodTestModel {
                 testID
         );
     }
+
+    public BloodTestDTO getBloodTestDetailById(String testID) throws SQLException {
+        // Query the database for the Blood_group and Collected_date based on Test_id
+        ResultSet rst = CrudUtil.execute("SELECT Blood_group, Collected_date FROM Blood_test WHERE Test_id = ?", testID);
+
+        // Check if a result exists
+        if (rst.next()) {
+            // Extract the Blood_group and Collected_date from the result set
+            String bloodGroup = rst.getString("Blood_group");
+            Date collectedDate = rst.getDate("Collected_date");
+
+            // Create and return a BloodTestDTO with the extracted data
+            return new BloodTestDTO(
+                    null, // TestID (optional: pass if needed)
+                    null, // DonationID (optional: pass if needed)
+                    collectedDate, // Collected_date
+                    null, // Expiry_date (optional: pass if needed)
+                    null, // TestResult (optional: pass if needed)
+                    0.0,  // Haemoglobin (optional: default value)
+                    null, // TestDate (optional: pass if needed)
+                    null, // ReportSerialNum (optional: pass if needed)
+                    0.0f,  // Platelets (optional: default value)
+                    0.0,  // RedBloodCells (optional: default value)
+                    0.0,  // WhiteBloodCells (optional: default value)
+                    null, // ReportImageUrl (optional: pass if needed)
+                    bloodGroup // Blood_group
+            );
+        }
+        return null; // Return null if no matching record is found
+    }
+
+
 }

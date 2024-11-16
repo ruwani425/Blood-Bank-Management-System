@@ -17,7 +17,7 @@ public class BloodTestTM {
     private double haemoglobin;
     private Date testDate;
     private String reportSerialNum;
-    private double platelets;
+    private float platelets;
     private double redBloodCells;
     private double whiteBloodCells;
 }

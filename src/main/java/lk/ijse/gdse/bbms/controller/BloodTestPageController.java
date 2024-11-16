@@ -4,14 +4,9 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import lk.ijse.gdse.bbms.dto.BloodTestDTO;
 import lk.ijse.gdse.bbms.dto.tm.BloodTestTM;
 import lk.ijse.gdse.bbms.model.BloodTestModel;
@@ -64,9 +59,6 @@ public class BloodTestPageController implements Initializable {
     private Label lblCollectedDate;
 
     @FXML
-    private Label lblResult;
-
-    @FXML
     private TextField txtHaemoglobin;
 
     @FXML
@@ -102,6 +94,9 @@ public class BloodTestPageController implements Initializable {
     @FXML
     private Button finishedBtn;
 
+    @FXML
+    private Button BtnUpdate;
+
     BloodTestModel bloodTestModel = new BloodTestModel();
 
     @Override
@@ -114,9 +109,41 @@ public class BloodTestPageController implements Initializable {
         try {
             refreshTable();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
+        try {
+            setComboBoxValues();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        // Add event listener for row selection
+        tblBloodTest.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                try {
+                    populateFields(newValue);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
     }
+    private void setComboBoxValues() {
+        cmbResult.setItems(FXCollections.observableArrayList("PENDING", "FINISH"));
+    }
+
+    private void populateFields(BloodTestTM selectedTest) throws SQLException {
+        lblTestId.setText(selectedTest.getTestID());
+        BloodTestDTO bloodTestDetails = bloodTestModel.getBloodTestDetailById(selectedTest.getTestID());
+        lblCollectedDate.setText(String.valueOf(bloodTestDetails.getCollectedDate()));
+        txtHaemoglobin.setText(String.valueOf(selectedTest.getHaemoglobin()));
+        txtSerialNum.setText(selectedTest.getReportSerialNum());
+        txtPlatelets.setText(String.valueOf(selectedTest.getPlatelets()));
+        txtRedBloodCells.setText(String.valueOf(selectedTest.getRedBloodCells()));
+        txtWhiteBloodCells.setText(String.valueOf(selectedTest.getWhiteBloodCells()));
+        lblTestDate.setText(java.time.LocalDate.now().toString());
+        lblBloodType.setText(bloodTestDetails.getBloodType());
+    }
+
     private void setCellValueFactory() {
         colTestId.setCellValueFactory(new PropertyValueFactory<>("testID"));
         colDonationID.setCellValueFactory(new PropertyValueFactory<>("donationID"));
@@ -194,4 +221,40 @@ public class BloodTestPageController implements Initializable {
     void btnPendingOnAction(ActionEvent event) throws SQLException {
         getByStatus("PENDING");
     }
+    @FXML
+    void BtnUpdateBloodTestOnAction(ActionEvent event) throws SQLException {
+        try {
+            // Create BloodTestDTO with all attributes
+            BloodTestDTO bloodTestDTO = new BloodTestDTO(
+                    lblTestId.getText(), // TestID
+                    null, // DonationID (not available in UI)
+                    Date.valueOf(lblCollectedDate.getText()), // CollectedDate
+                    Date.valueOf(datePikerExpiryDate.getValue()), // ExpiryDate
+                    cmbResult.getValue(), // TestResult
+                    Double.parseDouble(txtHaemoglobin.getText()), // Haemoglobin
+                    Date.valueOf(lblTestDate.getText()), // TestDate
+                    txtSerialNum.getText(), // ReportSerialNum
+                    Float.parseFloat(txtPlatelets.getText()), // Platelets (modified to float)
+                    Double.parseDouble(txtRedBloodCells.getText()), // RedBloodCells
+                    Double.parseDouble(txtWhiteBloodCells.getText()), // WhiteBloodCells
+                    null, // ReportImageUrl (optional)
+                    lblBloodType.getText() // BloodGroup
+            );
+
+            // Call the update method in the model
+            boolean isUpdate = bloodTestModel.updateBloodTest(bloodTestDTO);
+
+            // Handle the result
+            if (isUpdate) {
+                refreshTable();
+                new Alert(Alert.AlertType.INFORMATION, "Blood Test updated successfully...!").show();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Failed to update Blood Test...!").show();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Error while updating: " + e.getMessage()).show();
+        }
+    }
+
 }

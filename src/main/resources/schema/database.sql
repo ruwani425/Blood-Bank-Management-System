@@ -90,21 +90,20 @@ CREATE TABLE Blood_donation
     FOREIGN KEY (Health_checkup_id) REFERENCES Health_checkup (Checkup_id)
         ON DELETE CASCADE ON UPDATE CASCADE
 );
--- Blood_test table with cascades
 CREATE TABLE Blood_test
 (
     Test_id           VARCHAR(50) PRIMARY KEY,
     donation_id       VARCHAR(50),
-    Collected_date         DATE,
-    Expiry_date DATE,
+    Collected_date    DATE,
+    Expiry_date       DATE,
     Test_result       TEXT,
-    Haemoglobin       DECIMAL(5, 2),  -- Adjust precision as needed
+    Haemoglobin       DECIMAL(7, 2),  -- Adjusted precision
     Test_date         DATE,
     Report_serial_Number VARCHAR(50), -- Standalone attribute, not a foreign key
-    Platelets         DECIMAL(5,2),
-    Red_blood_cells   DECIMAL(5,2),
-    White_blood_cells  DECIMAL(5,2),
-    Report_image_URL     VARCHAR(255),  -- Attribute to store the blood report image URL
+    Platelets FLOAT(8),
+    Red_blood_cells   DECIMAL(7, 2),  -- Adjusted precision
+    White_blood_cells DECIMAL(7, 2),  -- Adjusted precision
+    Report_image_URL  VARCHAR(255),  -- Attribute to store the blood report image URL
     Blood_group       ENUM('A_POSITIVE', 'A_NEGATIVE', 'B_POSITIVE', 'B_NEGATIVE', 'AB_POSITIVE', 'AB_NEGATIVE', 'O_POSITIVE', 'O_NEGATIVE'),
     FOREIGN KEY (donation_id) REFERENCES Blood_donation (Donation_id)
         ON DELETE CASCADE ON UPDATE CASCADE

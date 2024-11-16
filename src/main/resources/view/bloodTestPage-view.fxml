@@ -11,7 +11,7 @@
 
 <AnchorPane prefHeight="696.0" prefWidth="1104.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.bbms.controller.BloodTestPageController">
    <children>
-      <TableView fx:id="tblBloodTest" layoutX="6.0" layoutY="301.0" prefHeight="389.0" prefWidth="1090.0">
+      <TableView fx:id="tblBloodTest" layoutX="6.0" layoutY="335.0" prefHeight="353.0" prefWidth="1090.0">
         <columns>
           <TableColumn fx:id="colTestId" prefWidth="75.0" text="Test ID" />
           <TableColumn fx:id="colDonationID" prefWidth="99.0" text="Donation ID" />
@@ -49,7 +49,8 @@
       <ComboBox id="glass" fx:id="cmbResult" layoutX="133.0" layoutY="184.0" prefHeight="28.0" prefWidth="118.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/textFeild.css" />
       <Label layoutX="734.0" layoutY="242.0" text="Blood Report  :" />
       <Button fx:id="btnChooseFile" layoutX="872.0" layoutY="237.0" mnemonicParsing="false" onAction="#btnChooseFileOnFile" prefHeight="28.0" prefWidth="110.0" text="Choose File" />
-      <Button fx:id="pendingBtn" layoutX="9.0" layoutY="263.0" mnemonicParsing="false" onAction="#btnPendingOnAction" prefHeight="28.0" prefWidth="110.0" text="Pending" />
-      <Button fx:id="finishedBtn" layoutX="128.0" layoutY="264.0" mnemonicParsing="false" onAction="#btnFinishedOnAction" prefHeight="28.0" prefWidth="110.0" text="Finished" />
+      <Button fx:id="pendingBtn" layoutX="7.0" layoutY="304.0" mnemonicParsing="false" onAction="#btnPendingOnAction" prefHeight="28.0" prefWidth="110.0" text="Pending" />
+      <Button fx:id="finishedBtn" layoutX="125.0" layoutY="304.0" mnemonicParsing="false" onAction="#btnFinishedOnAction" prefHeight="28.0" prefWidth="110.0" text="Finished" />
+      <Button fx:id="BtnUpdate" layoutX="989.0" layoutY="290.0" mnemonicParsing="false" onAction="#BtnUpdateBloodTestOnAction" prefHeight="36.0" prefWidth="105.0" text="Update" />
    </children>
 </AnchorPane>
