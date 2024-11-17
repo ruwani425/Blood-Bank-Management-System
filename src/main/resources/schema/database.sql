@@ -132,11 +132,11 @@ CREATE TABLE Employee
 (
     employee_id VARCHAR(50) PRIMARY KEY,
     Name        VARCHAR(100),
-    nfc         VARCHAR(20),
+    nic         VARCHAR(20),
     Address     VARCHAR(255),
     E_mail      VARCHAR(100),
     Role        VARCHAR(50),
-    Status      ENUM ('ACTIVE', 'INACTIVE', 'PENDING', 'COMPLETED')
+    Status      ENUM ('ACTIVE', 'INACTIVE', 'SUSPENDED')
 );
 
 -- Hospital table

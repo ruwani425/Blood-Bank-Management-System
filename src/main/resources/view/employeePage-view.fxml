@@ -2,6 +2,8 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -30,5 +32,16 @@
             </ImageView>
          </graphic>
       </JFXButton>
+      <TableView fx:id="tblEmployee" layoutX="46.0" layoutY="182.0" prefHeight="474.0" prefWidth="1040.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/tableStyle.css">
+        <columns>
+          <TableColumn fx:id="colEmployeeID" prefWidth="132.33333587646484" text="Employee ID" />
+          <TableColumn fx:id="colEmployeeName" prefWidth="131.66666412353516" text="Name" />
+            <TableColumn fx:id="colNic" prefWidth="109.33334350585938" text="Nic" />
+            <TableColumn fx:id="colAddress" prefWidth="174.33334350585938" text="Address" />
+            <TableColumn fx:id="colEmail" prefWidth="191.66665649414062" text="E-mail" />
+            <TableColumn fx:id="colRole" prefWidth="165.66668701171875" text="Role" />
+            <TableColumn fx:id="colStatus" prefWidth="138.3333740234375" text="Status" />
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>
