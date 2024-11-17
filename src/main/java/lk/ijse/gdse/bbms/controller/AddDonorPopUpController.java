@@ -6,10 +6,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.layout.Border;
 import javafx.stage.Stage;
 import lk.ijse.gdse.bbms.dto.DonorDTO;
 import lk.ijse.gdse.bbms.dto.tm.DonorTM;
 import lk.ijse.gdse.bbms.model.DonorModel;
+import lk.ijse.gdse.bbms.util.Validation;
 
 import java.net.URL;
 import java.sql.Date;
@@ -96,20 +98,39 @@ public class AddDonorPopUpController implements Initializable {
 
     @FXML
     void btnAddDonorOnAction(ActionEvent event) throws SQLException {
+        // Regular expressions for validation
+        String nameRegex = "^[A-Za-z\\s]{3,50}$"; // Only letters and spaces, 3-50 characters
+        String emailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"; // Standard email format
+        String nicRegex = "^[0-9]{9}[vVxX]|[0-9]{12}$"; // Sri Lankan NIC format
+        String addressRegex = "^.{5,100}$"; // At least 5 characters
+        String dobRegex = "^\\d{4}-\\d{2}-\\d{2}$"; // Date in yyyy-MM-dd format
+
+        // Validate each field
+        boolean isNameValid = Validation.validateTextField(txtDonorName, nameRegex, txtDonorName.getText());
+        boolean isEmailValid = Validation.validateTextField(txtDonorEmail, emailRegex, txtDonorEmail.getText());
+        boolean isNicValid = Validation.validateTextField(txtDonorNic, nicRegex, txtDonorNic.getText());
+        boolean isAddressValid = Validation.validateTextField(txtDonorAddress, addressRegex, txtDonorAddress.getText());
+
+        // Ensure all fields are valid
+        if (!isNameValid || !isEmailValid || !isNicValid || !isAddressValid) {
+            new Alert(Alert.AlertType.ERROR, "Please correct the highlighted fields.").show();
+            return;
+        }
+
+        // Continue with donor saving if all validations pass
         String name = txtDonorName.getText();
         String email = txtDonorEmail.getText();
         String nic = txtDonorNic.getText();
         String bloodGroup = txtDonorBloodGroup.getSelectionModel().getSelectedItem().toString();
         String gender = txtDonorGender.getSelectionModel().getSelectedItem().toString();
         Date dob = Date.valueOf(txtDonorDob.getValue().toString());
-        String address=txtDonorAddress.getText();
+        String address = txtDonorAddress.getText();
         String id = lblDonorId.getText();
 
-        DonorDTO donorDTO = new DonorDTO(id,name,nic,address,email,bloodGroup,gender,dob,null);
+        DonorDTO donorDTO = new DonorDTO(id, name, nic, address, email, bloodGroup, gender, dob, null);
         boolean isSaved = model.addDonor(donorDTO);
 
         if (isSaved) {
-
             try {
                 lblDonorId.setText(model.getNextDonorId());
             } catch (SQLException e) {
@@ -123,6 +144,37 @@ public class AddDonorPopUpController implements Initializable {
         }
         clearFields();
     }
+
+
+//    @FXML
+//    void btnAddDonorOnAction(ActionEvent event) throws SQLException {
+//        String name = txtDonorName.getText();
+//        String email = txtDonorEmail.getText();
+//        String nic = txtDonorNic.getText();
+//        String bloodGroup = txtDonorBloodGroup.getSelectionModel().getSelectedItem().toString();
+//        String gender = txtDonorGender.getSelectionModel().getSelectedItem().toString();
+//        Date dob = Date.valueOf(txtDonorDob.getValue().toString());
+//        String address=txtDonorAddress.getText();
+//        String id = lblDonorId.getText();
+//
+//        DonorDTO donorDTO = new DonorDTO(id,name,nic,address,email,bloodGroup,gender,dob,null);
+//        boolean isSaved = model.addDonor(donorDTO);
+//
+//        if (isSaved) {
+//
+//            try {
+//                lblDonorId.setText(model.getNextDonorId());
+//            } catch (SQLException e) {
+//                throw new RuntimeException(e);
+//            }
+//
+//            donorPageViewController.refreshTable();
+//            new Alert(Alert.AlertType.INFORMATION, "Donor saved successfully...!").show();
+//        } else {
+//            new Alert(Alert.AlertType.ERROR, "Fail to save Donor...!").show();
+//        }
+//        clearFields();
+//    }
 
     @FXML
     void btnDeleteDonorOnAction(ActionEvent event) throws SQLException {
@@ -201,7 +253,19 @@ public class AddDonorPopUpController implements Initializable {
         txtDonorBloodGroup.getSelectionModel().clearSelection();
         txtDonorGender.getSelectionModel().clearSelection();
         lblDonorId.setText(model.getNextDonorId());
+
+        // Reset borders to default
+        resetFieldBorder(txtDonorName);
+        resetFieldBorder(txtDonorEmail);
+        resetFieldBorder(txtDonorNic);
+        resetFieldBorder(txtDonorAddress);
     }
+
+    // Method to reset the border of a text field
+    private void resetFieldBorder(TextField textField) {
+        textField.setBorder(Border.EMPTY);
+    }
+
 
     public void btnCloseOnAction(ActionEvent actionEvent) {
         stage = (Stage) closeBtn.getScene().getWindow();
