@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-
 
 <AnchorPane prefHeight="691.0" prefWidth="1096.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.bbms.controller.BloodRequestController">
    <children>
@@ -33,6 +32,6 @@
       <Label fx:id="lblRequestDate" layoutX="595.0" layoutY="52.0" prefHeight="40.0" prefWidth="140.0" />
       <ComboBox id="glass" fx:id="cmbHospital" layoutX="157.0" layoutY="120.0" prefHeight="28.0" prefWidth="118.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/textFeild.css" />
       <ComboBox id="glass" fx:id="cmbStatus" layoutX="883.0" layoutY="63.0" prefHeight="28.0" prefWidth="118.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/textFeild.css" />
-      <Button fx:id="btnAddRequest" layoutX="951.0" layoutY="222.0" mnemonicParsing="false" onAction="#btnAddrequestOnAction" prefHeight="28.0" prefWidth="77.0" text="Add" />
+      <JFXButton id="bevel" fx:id="btnAddRequest" layoutX="981.0" layoutY="221.0" onAction="#btnAddrequestOnAction" prefHeight="33.0" prefWidth="119.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/buttonsCss2.css" text="Add" textAlignment="JUSTIFY" textFill="#4f91fc" wrapText="true" />
    </children>
 </AnchorPane>

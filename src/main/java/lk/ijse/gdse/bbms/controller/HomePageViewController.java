@@ -129,7 +129,34 @@ public class HomePageViewController implements Initializable {
 
     @FXML
     void navigateToRequestPage(MouseEvent event) {
-        navigateTo("/view/bloodRequest-view.fxml");
+        try {
+            homeAnchor.getChildren().clear();
+
+            // Create FXMLLoader instance and load the view
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/bloodRequest-view.fxml"));
+            AnchorPane load = loader.load();
+
+            // Get the HealthCheckupController from the loader
+            BloodRequestController controller = loader.getController();
+
+            // Set initial position for up-to-down transition
+            load.setTranslateY(-homeAnchor.getHeight());
+
+            homeAnchor.getChildren().add(load);
+
+            // Create the translate transition for up-to-down effect
+            TranslateTransition transition = new TranslateTransition(Duration.millis(1000), load);
+            transition.setFromY(-homeAnchor.getHeight());
+            transition.setToY(0);
+            transition.play();
+
+            controller.setHomePageViewController(this);
+            // Now you can use the controller to access any methods or variables in HealthCheckupController
+          //  controller.setDateFromHealthCheckUp(s,bloodGroup,donorId); // Example method call in HealthCheckupController
+
+        } catch (IOException e) {
+            new Alert(Alert.AlertType.ERROR, "Failed to load page!").show();
+        }
     }
 
 //    public void navigateTo(String fxmlPath) {
@@ -232,6 +259,36 @@ public class HomePageViewController implements Initializable {
             scaleT.setToY(1);
             scaleT.play();
             icon.setEffect(null);
+        }
+    }
+    public void navigateWithRequestId(String requestId) {
+        try {
+            homeAnchor.getChildren().clear();
+
+            // Create FXMLLoader instance and load the view
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/bloodStockPage-view.fxml"));
+            AnchorPane load = loader.load();
+
+            // Get the HealthCheckupController from the loader
+            BloodStockPageController controller = loader.getController();
+
+            // Set initial position for up-to-down transition
+            load.setTranslateY(-homeAnchor.getHeight());
+
+            homeAnchor.getChildren().add(load);
+
+            // Create the translate transition for up-to-down effect
+            TranslateTransition transition = new TranslateTransition(Duration.millis(1000), load);
+            transition.setFromY(-homeAnchor.getHeight());
+            transition.setToY(0);
+            transition.play();
+
+            controller.setRequestID(requestId);
+            // Now you can use the controller to access any methods or variables in HealthCheckupController
+            //  controller.setDateFromHealthCheckUp(s,bloodGroup,donorId); // Example method call in HealthCheckupController
+
+        } catch (IOException e) {
+            new Alert(Alert.AlertType.ERROR, "Failed to load page!").show();
         }
     }
 }

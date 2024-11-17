@@ -1,17 +1,28 @@
 package lk.ijse.gdse.bbms.controller;
 
+import com.jfoenix.controls.JFXButton;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import lk.ijse.gdse.bbms.dto.BloodRequestDTO;
 import lk.ijse.gdse.bbms.dto.tm.BloodRequestTM;
+import lk.ijse.gdse.bbms.dto.tm.DonorTM;
 import lk.ijse.gdse.bbms.model.BloodRequestModel;
 import lk.ijse.gdse.bbms.model.HospitalModel;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -62,10 +73,15 @@ public class BloodRequestController implements Initializable {
     private ComboBox<String> cmbStatus;
 
     @FXML
-    private Button btnAddRequest;
+    private JFXButton btnAddRequest;
 
     BloodRequestModel bloodRequestModel = new BloodRequestModel();
     private HospitalModel hospitalModel = new HospitalModel();
+    HomePageViewController homePageViewController;
+
+    public void setHomePageViewController(HomePageViewController homePageViewController) {
+        this.homePageViewController = homePageViewController;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -91,6 +107,20 @@ public class BloodRequestController implements Initializable {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        tblRequest.setOnMouseClicked(this::handleRowClick);
+    }
+
+    private void handleRowClick(MouseEvent event) {
+        if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
+            BloodRequestTM selectedBloodRequest = tblRequest.getSelectionModel().getSelectedItem();
+            if (selectedBloodRequest != null) {
+                openBloodIssueWindow(selectedBloodRequest);
+            }
+        }
+    }
+
+    private void openBloodIssueWindow(BloodRequestTM selectedBloodRequest) {
+        homePageViewController.navigateWithRequestId(selectedBloodRequest.getRequestId());
     }
 
     private void setCellValueFactory() {
@@ -166,6 +196,8 @@ public class BloodRequestController implements Initializable {
 
             // Optionally clear the fields after saving
             clearFields();
+            refreshTable();
+
         } catch (SQLException e) {
             e.printStackTrace();
             new Alert(Alert.AlertType.ERROR, "Database error occurred!").show();
@@ -173,7 +205,6 @@ public class BloodRequestController implements Initializable {
             new Alert(Alert.AlertType.ERROR, "Invalid quantity value! Please enter a valid number.").show();
         }
     }
-
     private void clearFields() {
         try {
             // Clear text fields and combo boxes
@@ -194,5 +225,21 @@ public class BloodRequestController implements Initializable {
             new Alert(Alert.AlertType.ERROR, "Failed to reset fields!").show();
         }
     }
+    public void refreshTable() throws SQLException {
+        ArrayList<BloodRequestDTO> bloodRequestDTOS = bloodRequestModel.getAllRequests();
+        ObservableList<BloodRequestTM> bloodRequestTMS = FXCollections.observableArrayList();
 
+        for (BloodRequestDTO bloodRequestDTO : bloodRequestDTOS) {
+            BloodRequestTM bloodRequestTM = new BloodRequestTM(
+                    bloodRequestDTO.getRequestId(),
+                    bloodRequestDTO.getHospitalId(),
+                    bloodRequestDTO.getBloodType(),
+                    bloodRequestDTO.getDateOfRequest(),
+                    bloodRequestDTO.getQty(),
+                    bloodRequestDTO.getStatus()
+            );
+            bloodRequestTMS.add(bloodRequestTM);
+        }
+        tblRequest.setItems(bloodRequestTMS);
+    }
 }

@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane prefHeight="696.0" prefWidth="1104.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.bbms.controller.BloodStockPageController">
    <children>
-      <TableView fx:id="tblBloodStock" layoutX="12.0" layoutY="231.0" prefHeight="420.0" prefWidth="1080.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/tableStyle.css">
+      <TableView fx:id="tblBloodStock" layoutX="12.0" layoutY="95.0" prefHeight="289.0" prefWidth="1080.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/tableStyle.css">
         <columns>
           <TableColumn fx:id="colBloodID" prefWidth="85.0" text="Blood ID" />
           <TableColumn fx:id="colTestID" prefWidth="75.0" text="Test ID" />
@@ -21,7 +22,18 @@
             <TableColumn fx:id="colStatus" prefWidth="96.0" text="Status" />
         </columns>
       </TableView>
-      <Button fx:id="btnVerified" layoutX="13.0" layoutY="197.0" mnemonicParsing="false" onAction="#btnIsVerifiedOnAction" text="Verified" />
-      <Button fx:id="btnExpired" layoutX="93.0" layoutY="198.0" mnemonicParsing="false" onAction="#btnIsExpiredOnAction" text="Expired" />
+      <Button fx:id="btnVerified" layoutX="13.0" layoutY="59.0" mnemonicParsing="false" onAction="#btnIsVerifiedOnAction" text="Verified" />
+      <Button fx:id="btnExpired" layoutX="93.0" layoutY="60.0" mnemonicParsing="false" onAction="#btnIsExpiredOnAction" text="Expired" />
+      <TableView fx:id="tblBloodIssue" layoutX="22.0" layoutY="448.0" prefHeight="200.0" prefWidth="408.0">
+         <columns>
+            <TableColumn fx:id="colIssueBloodId" prefWidth="75.0" text="Blood ID" />
+            <TableColumn fx:id="colIssueExpireDate" prefWidth="97.0" text="Expire Date" />
+            <TableColumn fx:id="colIssueBloodGroup" prefWidth="119.0" text="Blood Group" />
+            <TableColumn fx:id="colIssueQty" prefWidth="116.0" text="Quantity" />
+         </columns>
+      </TableView>
+      <Label layoutX="30.0" layoutY="414.0" text="Request ID :" />
+      <Label fx:id="lblRequestID" layoutX="109.0" layoutY="401.0" prefHeight="42.0" prefWidth="103.0" />
+      <Button fx:id="btnIssue" layoutX="467.0" layoutY="615.0" mnemonicParsing="false" onAction="#btnIssueOnAction" text="Issue" />
    </children>
 </AnchorPane>

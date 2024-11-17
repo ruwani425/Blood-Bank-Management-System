@@ -6,10 +6,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import lk.ijse.gdse.bbms.dto.BloodStockDTO;
+import lk.ijse.gdse.bbms.dto.tm.BloodIssueTM;
 import lk.ijse.gdse.bbms.dto.tm.BloodStockTM;
 import lk.ijse.gdse.bbms.model.BloodStockModel;
 
@@ -60,10 +62,34 @@ public class BloodStockPageController implements Initializable {
     @FXML
     private Button btnExpired;
 
+    @FXML
+    private TableView<BloodIssueTM> tblBloodIssue;
+
+    @FXML
+    private TableColumn<BloodIssueTM, String> colIssueBloodId;
+
+    @FXML
+    private TableColumn<BloodIssueTM, Date> colIssueExpireDate;
+
+    @FXML
+    private TableColumn<BloodIssueTM, String> colIssueBloodGroup;
+
+    @FXML
+    private TableColumn<BloodIssueTM, Double> colIssueQty;
+
+    @FXML
+    private Label lblRequestID;
+
+    @FXML
+    private Button btnIssue;
+
+    private String requestID;
+
     BloodStockModel bloodStockModel=new BloodStockModel();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        getExpiredBlood();
         setCellValueFactory();
         try {
             refreshTable();
@@ -71,6 +97,13 @@ public class BloodStockPageController implements Initializable {
             e.printStackTrace();
         }
     }
+
+    public void setRequestID(String requestID) {
+        this.requestID = requestID;
+        lblRequestID.setText(requestID);
+        System.out.println(requestID);
+    }
+
     private void setCellValueFactory() {
         colBloodID.setCellValueFactory(new PropertyValueFactory<>("bloodID"));
         colTestID.setCellValueFactory(new PropertyValueFactory<>("testID"));
@@ -109,8 +142,7 @@ public class BloodStockPageController implements Initializable {
         tblBloodStock.setItems(bloodStockTMS);
     }
 
-    @FXML
-    void btnIsExpiredOnAction(ActionEvent event) {
+    public void getExpiredBlood(){
         try {
             // Fetch expired data directly from the database
             ArrayList<BloodStockDTO> bloodStockDTOS = bloodStockModel.getExpiredBloodStocks();
@@ -138,6 +170,11 @@ public class BloodStockPageController implements Initializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    void btnIsExpiredOnAction(ActionEvent event) {
+      getExpiredBlood();
     }
 
 
@@ -175,4 +212,8 @@ public class BloodStockPageController implements Initializable {
         }
     }
 
+    @FXML
+    void btnIssueOnAction(ActionEvent event) {
+
+    }
 }

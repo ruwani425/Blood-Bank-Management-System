@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import lk.ijse.gdse.bbms.util.Validation;
 
 import java.io.IOException;
 import java.net.URL;
@@ -41,11 +42,25 @@ public class LoginPageViewController implements Initializable {
 
     @FXML
     void navigateToHomePage(ActionEvent event) throws IOException {
+
+        String passwordRegex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@#$%^&+=!])[A-Za-z\\d@#$%^&+=!]{8,}$";
+        String usernameRegex = "^[a-zA-Z0-9][a-zA-Z0-9._]{2,19}$";
+
         String validUsername = "admin";
-        String validPassword = "1234";
+        String validPassword = "Strong@123";
 
         String enteredUsername = userNameTxt.getText();
         String enteredPassword = passwordTxt.getText();
+
+        boolean isValidate=Validation.validateTextField(userNameTxt,usernameRegex,enteredUsername);
+        boolean isValidatePassword=Validation.validateTextField(passwordTxt,passwordRegex,enteredPassword);
+
+        if(isValidate && isValidatePassword){
+            System.out.println("Password is valid");
+        }else {
+            System.out.println("Password is invalid");
+            return;
+        }
 
         if (validUsername.equals(enteredUsername) && validPassword.equals(enteredPassword)) {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/homePage-view.fxml"));
