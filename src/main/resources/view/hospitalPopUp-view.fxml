@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
@@ -18,7 +19,6 @@
       <Label layoutX="334.0" layoutY="225.0" text="Type :" />
       <TextField id="bevel" fx:id="txtAddress" layoutX="37.0" layoutY="164.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/textFeild.css" />
       <TextField id="bevel" fx:id="txtContactNumber" layoutX="37.0" layoutY="237.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/textFeild.css" />
-      <TextField id="bevel" fx:id="txtType" layoutX="330.0" layoutY="249.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/textFeild.css" />
       <TextField id="bevel" fx:id="txtName" layoutX="330.0" layoutY="108.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/textFeild.css" />
       <TextField id="bevel" fx:id="txtEmail" layoutX="330.0" layoutY="182.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/textFeild.css" />
       <Label fx:id="lblHospitalId" layoutX="125.0" layoutY="76.0" prefHeight="30.0" prefWidth="57.0" />
@@ -30,5 +30,6 @@
             <JFXButton id="bevel" fx:id="closeBtn" onAction="#btnCloseOnAction" prefHeight="33.0" prefWidth="119.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/buttonsCss2.css" text="Close" textAlignment="JUSTIFY" textFill="#4f91fc" wrapText="true" />
          </children>
       </HBox>
+      <ComboBox id="glass" fx:id="cmbHospitalType" layoutX="335.0" layoutY="253.0" prefHeight="28.0" prefWidth="118.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/textFeild.css" />
    </children>
 </AnchorPane>
