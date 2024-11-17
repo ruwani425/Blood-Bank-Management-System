@@ -83,4 +83,16 @@ public class HospitalModel {
         }
         return null; // Return null if no hospital with the given ID is found
     }
+
+    public ArrayList<String> getAllHospitalIDs() throws SQLException {
+        ResultSet rst = CrudUtil.execute("select Hospital_id from Hospital");
+
+        ArrayList<String> hospitalIds = new ArrayList<>();
+
+        while (rst.next()) {
+            hospitalIds.add(rst.getString("Hospital_id")); // Add each Hospital ID to the list
+        }
+        return hospitalIds;
+    }
+
 }

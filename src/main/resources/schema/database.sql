@@ -169,10 +169,9 @@ CREATE TABLE Blood_request
 (
     Request_id       VARCHAR(50) PRIMARY KEY,
     Hospital_id      VARCHAR(50),
-    Blood_group      ENUM ('A POSITIVE', 'A NEGATIVE', 'B POSITIVE', 'B NEGATIVE', 'AB POSITIVE', 'AB NEGATIVE', 'O POSITIVE', 'O NEGATIVE'),
-    Compatibility_id VARCHAR(50),
+    Blood_group      ENUM ('A_POSITIVE', 'A_NEGATIVE', 'B_POSITIVE', 'B_NEGATIVE', 'AB_POSITIVE', 'AB_NEGATIVE', 'O_POSITIVE', 'O_NEGATIVE'),
     Date_of_request  DATE,
-    Qty              INT,
+    Qty              DECIMAL(5,2),
     Status           ENUM ('ACTIVE', 'INACTIVE', 'PENDING', 'COMPLETED'),
     FOREIGN KEY (Hospital_id) REFERENCES Hospital (Hospital_id)
         ON DELETE CASCADE ON UPDATE CASCADE

@@ -129,7 +129,7 @@ public class HomePageViewController implements Initializable {
 
     @FXML
     void navigateToRequestPage(MouseEvent event) {
-
+        navigateTo("/view/bloodRequest-view.fxml");
     }
 
 //    public void navigateTo(String fxmlPath) {
