@@ -32,7 +32,7 @@
             </ImageView>
          </graphic>
       </JFXButton>
-      <TableView fx:id="tblCampaign" layoutX="33.0" layoutY="208.0" prefHeight="457.0" prefWidth="1062.0">
+      <TableView fx:id="tblCampaign" layoutX="33.0" layoutY="208.0" prefHeight="457.0" prefWidth="1062.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/tableStyle.css">
         <columns>
           <TableColumn fx:id="colCampId" prefWidth="117.0" text="Campaign Id" />
           <TableColumn fx:id="colCampName" prefWidth="129.0" text="Name" />

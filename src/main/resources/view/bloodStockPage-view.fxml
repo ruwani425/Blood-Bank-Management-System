@@ -5,10 +5,9 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane prefHeight="696.0" prefWidth="1104.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.bbms.controller.BloodStockPageController">
    <children>
-      <TableView fx:id="tblBloodStock" layoutX="12.0" layoutY="231.0" prefHeight="420.0" prefWidth="1080.0">
+      <TableView fx:id="tblBloodStock" layoutX="12.0" layoutY="231.0" prefHeight="420.0" prefWidth="1080.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/tableStyle.css">
         <columns>
           <TableColumn fx:id="colBloodID" prefWidth="85.0" text="Blood ID" />
           <TableColumn fx:id="colTestID" prefWidth="75.0" text="Test ID" />

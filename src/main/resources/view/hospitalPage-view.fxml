@@ -12,7 +12,7 @@
 
 <AnchorPane prefHeight="696.0" prefWidth="1104.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.bbms.controller.HospitalPageController">
    <children>
-      <TableView fx:id="tblHospital" layoutX="14.0" layoutY="250.0" prefHeight="432.0" prefWidth="1080.0">
+      <TableView fx:id="tblHospital" layoutX="14.0" layoutY="250.0" prefHeight="432.0" prefWidth="1080.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/tableStyle.css">
         <columns>
           <TableColumn fx:id="colHospitalID" prefWidth="181.0" text="Hospital ID" />
           <TableColumn fx:id="colHospitalName" prefWidth="185.0" text="Name" />
