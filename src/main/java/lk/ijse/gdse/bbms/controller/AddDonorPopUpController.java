@@ -198,30 +198,77 @@ public class AddDonorPopUpController implements Initializable {
         clearFields();
     }
 
+//    @FXML
+//    void btnUpdateDonorOnAction(ActionEvent event) throws SQLException {
+//        String name = txtDonorName.getText();
+//        String email = txtDonorEmail.getText();
+//        String nic = txtDonorNic.getText();
+//        String bloodGroup = txtDonorBloodGroup.getSelectionModel().getSelectedItem().toString();
+//        String gender = txtDonorGender.getSelectionModel().getSelectedItem().toString();
+//        Date dob = Date.valueOf(txtDonorDob.getValue().toString());
+//        String address=txtDonorAddress.getText();
+//        String id = lblDonorId.getText();
+//
+//        DonorDTO donorDTO = new DonorDTO(id,name,nic,address,email,bloodGroup,gender,dob,null);
+//        boolean isUpdate = model.updateDonor(donorDTO);
+//
+//        if (isUpdate) {
+//            donorPageViewController.refreshTable();
+//            new Alert(Alert.AlertType.INFORMATION, "Donor updated successfully...!").show();
+//            stage = (Stage) btnUpdate.getScene().getWindow();
+//            stage.close();
+//        } else {
+//            new Alert(Alert.AlertType.ERROR, "Fail to update Donor...!").show();
+//        }
+//        clearFields();
+//    }
+
     @FXML
     void btnUpdateDonorOnAction(ActionEvent event) throws SQLException {
+        // Regular expressions for validation
+        String nameRegex = "^[A-Za-z\\s]{3,50}$"; // Only letters and spaces, 3-50 characters
+        String emailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"; // Standard email format
+        String nicRegex = "^[0-9]{9}[vVxX]|[0-9]{12}$"; // Sri Lankan NIC format
+        String addressRegex = "^.{5,100}$"; // At least 5 characters
+
+        // Validate each field
+        boolean isNameValid = Validation.validateTextField(txtDonorName, nameRegex, txtDonorName.getText());
+        boolean isEmailValid = Validation.validateTextField(txtDonorEmail, emailRegex, txtDonorEmail.getText());
+        boolean isNicValid = Validation.validateTextField(txtDonorNic, nicRegex, txtDonorNic.getText());
+        boolean isAddressValid = Validation.validateTextField(txtDonorAddress, addressRegex, txtDonorAddress.getText());
+
+        // Ensure all fields are valid
+        if (!isNameValid || !isEmailValid || !isNicValid || !isAddressValid) {
+            new Alert(Alert.AlertType.ERROR, "Please correct the highlighted fields.").show();
+            return;
+        }
+
+        // Proceed with donor update if all validations pass
         String name = txtDonorName.getText();
         String email = txtDonorEmail.getText();
         String nic = txtDonorNic.getText();
         String bloodGroup = txtDonorBloodGroup.getSelectionModel().getSelectedItem().toString();
         String gender = txtDonorGender.getSelectionModel().getSelectedItem().toString();
         Date dob = Date.valueOf(txtDonorDob.getValue().toString());
-        String address=txtDonorAddress.getText();
+        String address = txtDonorAddress.getText();
         String id = lblDonorId.getText();
 
-        DonorDTO donorDTO = new DonorDTO(id,name,nic,address,email,bloodGroup,gender,dob,null);
+        DonorDTO donorDTO = new DonorDTO(id, name, nic, address, email, bloodGroup, gender, dob, null);
         boolean isUpdate = model.updateDonor(donorDTO);
 
         if (isUpdate) {
             donorPageViewController.refreshTable();
             new Alert(Alert.AlertType.INFORMATION, "Donor updated successfully...!").show();
-            stage = (Stage) btnUpdate.getScene().getWindow();
+
+            // Reset the form and close the stage
+            clearFields();
+            Stage stage = (Stage) btnUpdate.getScene().getWindow();
             stage.close();
         } else {
             new Alert(Alert.AlertType.ERROR, "Fail to update Donor...!").show();
         }
-        clearFields();
     }
+
 
     public void setDonorData(DonorTM donor) {
         btnAdd.setDisable(true);
