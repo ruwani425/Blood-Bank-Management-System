@@ -87,21 +87,98 @@ public class HealthCheckUpPageController implements Initializable {
             throw new RuntimeException(e);
         }
     }
-
     @FXML
     void btnCheckDonorHealthCheckUpDetail(ActionEvent event) throws SQLException {
+        // Regular expressions for validation
+        String nicRegex = "^[0-9]{9}[vVxX]|[0-9]{12}$"; // Valid NIC format (9 digits + V or 12 digits)
+        String bloodPressureRegex = "^\\d{1,3}/\\d{1,3}$"; // Blood pressure format: systolic/diastolic
+        String weightRegex = "^[1-9][0-9]*([.][0-9]{1,2})?$"; // Weight as a positive decimal number
+        String sugarLevelRegex = "^[0-9]+(\\.[0-9]{1,2})?$"; // Sugar level as a positive number with optional decimals
+
+        // Get input values
         String healthCheckID = lblHealthCheckUpId.getText();
         Date checkUpDate = Date.valueOf(LocalDate.now());
-        double donorWeight = Double.parseDouble(txtWeight.getText());
-        double sugarLevel = Double.parseDouble(txtSugarLevel.getText());
-        String bloodPressure = txtBloodPressure.getText();
         String donorNic = txtNicDonor.getText();
+        String bloodPressure = txtBloodPressure.getText();
+        double donorWeight = 0;
+        double sugarLevel = 0;
+
+        StringBuilder errorMessage = new StringBuilder(); // Accumulate error messages
+
+        boolean validInput = true;
+
+        // Validate donor NIC
+        if (!donorNic.matches(nicRegex)) {
+            txtNicDonor.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
+            errorMessage.append("Invalid Donor NIC format. Please enter a valid NIC (9 digits + V or 12 digits).\n");
+            validInput = false;
+        } else {
+            txtNicDonor.setStyle(""); // Reset border color
+        }
+
+        // Validate blood pressure (systolic/diastolic)
+        if (!bloodPressure.matches(bloodPressureRegex)) {
+            txtBloodPressure.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
+            errorMessage.append("Invalid Blood Pressure format. Please use systolic/diastolic format (e.g., 110/68).\n");
+            validInput = false;
+        } else {
+            txtBloodPressure.setStyle(""); // Reset border color
+        }
+
+        // Split blood pressure into systolic and diastolic
+        String[] bpParts = bloodPressure.split("/");
+        int systolic = 0;
+        int diastolic = 0;
+        try {
+            systolic = Integer.parseInt(bpParts[0].trim());
+            diastolic = Integer.parseInt(bpParts[1].trim());
+        } catch (NumberFormatException e) {
+            validInput = false;
+        }
+
+        // Validate weight
+        try {
+            donorWeight = Double.parseDouble(txtWeight.getText());
+            if (donorWeight <= 0) {
+                txtWeight.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
+                errorMessage.append("Weight must be a positive number.\n");
+                validInput = false;
+            } else {
+                txtWeight.setStyle(""); // Reset border color
+            }
+        } catch (NumberFormatException e) {
+            txtWeight.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
+            errorMessage.append("Invalid weight format. Please enter a valid weight.\n");
+            validInput = false;
+        }
+
+        // Validate sugar level
+        try {
+            sugarLevel = Double.parseDouble(txtSugarLevel.getText());
+            if (sugarLevel < 0) {
+                txtSugarLevel.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
+                errorMessage.append("Sugar level cannot be negative.\n");
+                validInput = false;
+            } else {
+                txtSugarLevel.setStyle(""); // Reset border color
+            }
+        } catch (NumberFormatException e) {
+            txtSugarLevel.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
+            errorMessage.append("Invalid sugar level format. Please enter a valid sugar level.\n");
+            validInput = false;
+        }
+
+        // If there are any validation errors, show a single alert with all messages
+        if (!validInput) {
+            showAlert("Validation Errors", errorMessage.toString());
+            return; // Return early if input is invalid
+        }
+
+        // Retrieve donor details by NIC
         donorDTO = donorModel.getDonorByNic(donorNic);
-
-
         if (donorDTO == null) {
             clearLabels();
-            sugerLevelLbl.setText("No donor found with the given National Id Number.");
+            sugerLevelLbl.setText("No donor found with the given National ID Number.");
             return;
         }
 
@@ -113,16 +190,11 @@ public class HealthCheckUpPageController implements Initializable {
         if (age < 18 || age > 65 || donorWeight < 50) {
             healthStatusLbl.setText("Not Eligible");
             healthStatusLbl.setStyle("-fx-text-fill: " + colorCode + ";");
-            setHealthCheckUpDetailsForLables(age,checkUpDate, donorDTO.getDonorId(),bloodPressure,healthCheckID,donorDTO.getLastDonationDate(),sugarLevel,donorWeight);
+            setHealthCheckUpDetailsForLables(age, checkUpDate, donorDTO.getDonorId(), bloodPressure, healthCheckID, donorDTO.getLastDonationDate(), sugarLevel, donorWeight);
             return;
         }
 
-        // Blood pressure separate into systolic and diastolic values
-        String[] bpParts = bloodPressure.split("/");
-        int systolic = Integer.parseInt(bpParts[0].trim());
-        int diastolic = Integer.parseInt(bpParts[1].trim());
-
-        // Additional conditions for eligibility
+        // Additional conditions for eligibility (blood pressure and sugar level)
         boolean isEligible = false;
         if (sugarLevel >= 100 && sugarLevel <= 140) {
             if ((age >= 18 && age <= 39) && gender.equalsIgnoreCase("female") && systolic <= 110 && diastolic <= 68) {
@@ -142,10 +214,10 @@ public class HealthCheckUpPageController implements Initializable {
 
         if (isEligible) {
             showStatusBtn.setDisable(false);
-            healthStatusLbl.setText("The Donor was eligible for a blood Donation");
+            healthStatusLbl.setText("The Donor is eligible for a blood Donation");
             showStatusBtn.setText("Pass");
 
-            healthCheckupDTO=new HealthCheckupDTO();
+            healthCheckupDTO = new HealthCheckupDTO();
             healthCheckupDTO.setHealthStatus(healthStatusLbl.getText());
             healthCheckupDTO.setCheckupDate(checkUpDate);
             healthCheckupDTO.setCheckupId(healthCheckID);
@@ -154,16 +226,102 @@ public class HealthCheckUpPageController implements Initializable {
             healthCheckupDTO.setDonorId(donorID);
             healthCheckupDTO.setWeight(donorWeight);
 
-            showStatusBtn.setDisable(false);
             saveHealthCheckup(healthCheckID, donorID, "ELIGIBLE", checkUpDate, donorWeight, sugarLevel, bloodPressure);
         } else {
             healthStatusLbl.setText("Not Eligible");
             saveHealthCheckup(healthCheckID, donorID, "NOT_ELIGIBLE", checkUpDate, donorWeight, sugarLevel, bloodPressure);
             healthStatusLbl.setStyle("-fx-text-fill: " + colorCode + ";");
-            setHealthCheckUpDetailsForLables(age,checkUpDate, donorDTO.getDonorId(),bloodPressure,healthCheckID,donorDTO.getLastDonationDate(),sugarLevel,donorWeight);
+            setHealthCheckUpDetailsForLables(age, checkUpDate, donorDTO.getDonorId(), bloodPressure, healthCheckID, donorDTO.getLastDonationDate(), sugarLevel, donorWeight);
         }
-        setHealthCheckUpDetailsForLables(age,checkUpDate, donorDTO.getDonorId(),bloodPressure,healthCheckID,donorDTO.getLastDonationDate(),sugarLevel,donorWeight);
+        setHealthCheckUpDetailsForLables(age, checkUpDate, donorDTO.getDonorId(), bloodPressure, healthCheckID, donorDTO.getLastDonationDate(), sugarLevel, donorWeight);
     }
+
+    // Utility method to show alerts
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+//    @FXML
+//    void btnCheckDonorHealthCheckUpDetail(ActionEvent event) throws SQLException {
+//        String healthCheckID = lblHealthCheckUpId.getText();
+//        Date checkUpDate = Date.valueOf(LocalDate.now());
+//        double donorWeight = Double.parseDouble(txtWeight.getText());
+//        double sugarLevel = Double.parseDouble(txtSugarLevel.getText());
+//        String bloodPressure = txtBloodPressure.getText();
+//        String donorNic = txtNicDonor.getText();
+//        donorDTO = donorModel.getDonorByNic(donorNic);
+//
+//
+//        if (donorDTO == null) {
+//            clearLabels();
+//            sugerLevelLbl.setText("No donor found with the given National Id Number.");
+//            return;
+//        }
+//
+//        String donorID = donorDTO.getDonorId();
+//        int age = Period.between(donorDTO.getDob().toLocalDate(), LocalDate.now()).getYears();
+//        String gender = donorDTO.getGender();
+//
+//        // Check if age is between 18 and 65 and weight is above 50
+//        if (age < 18 || age > 65 || donorWeight < 50) {
+//            healthStatusLbl.setText("Not Eligible");
+//            healthStatusLbl.setStyle("-fx-text-fill: " + colorCode + ";");
+//            setHealthCheckUpDetailsForLables(age,checkUpDate, donorDTO.getDonorId(),bloodPressure,healthCheckID,donorDTO.getLastDonationDate(),sugarLevel,donorWeight);
+//            return;
+//        }
+//
+//        // Blood pressure separate into systolic and diastolic values
+//        String[] bpParts = bloodPressure.split("/");
+//        int systolic = Integer.parseInt(bpParts[0].trim());
+//        int diastolic = Integer.parseInt(bpParts[1].trim());
+//
+//        // Additional conditions for eligibility
+//        boolean isEligible = false;
+//        if (sugarLevel >= 100 && sugarLevel <= 140) {
+//            if ((age >= 18 && age <= 39) && gender.equalsIgnoreCase("female") && systolic <= 110 && diastolic <= 68) {
+//                isEligible = true;
+//            } else if ((age >= 18 && age <= 39) && gender.equalsIgnoreCase("male") && systolic <= 119 && diastolic <= 70) {
+//                isEligible = true;
+//            } else if ((age >= 40 && age <= 50) && gender.equalsIgnoreCase("female") && systolic <= 122 && diastolic <= 74) {
+//                isEligible = true;
+//            } else if ((age >= 40 && age <= 50) && gender.equalsIgnoreCase("male") && systolic <= 124 && diastolic <= 77) {
+//                isEligible = true;
+//            } else if ((age >= 60 && age <= 65) && gender.equalsIgnoreCase("female") && systolic <= 139 && diastolic <= 68) {
+//                isEligible = true;
+//            } else if ((age >= 60 && age <= 65) && gender.equalsIgnoreCase("male") && systolic <= 133 && diastolic <= 69) {
+//                isEligible = true;
+//            }
+//        }
+//
+//        if (isEligible) {
+//            showStatusBtn.setDisable(false);
+//            healthStatusLbl.setText("The Donor was eligible for a blood Donation");
+//            showStatusBtn.setText("Pass");
+//
+//            healthCheckupDTO=new HealthCheckupDTO();
+//            healthCheckupDTO.setHealthStatus(healthStatusLbl.getText());
+//            healthCheckupDTO.setCheckupDate(checkUpDate);
+//            healthCheckupDTO.setCheckupId(healthCheckID);
+//            healthCheckupDTO.setBloodPressure(bloodPressure);
+//            healthCheckupDTO.setSugarLevel(sugarLevel);
+//            healthCheckupDTO.setDonorId(donorID);
+//            healthCheckupDTO.setWeight(donorWeight);
+//
+//            showStatusBtn.setDisable(false);
+//            saveHealthCheckup(healthCheckID, donorID, "ELIGIBLE", checkUpDate, donorWeight, sugarLevel, bloodPressure);
+//        } else {
+//            healthStatusLbl.setText("Not Eligible");
+//            saveHealthCheckup(healthCheckID, donorID, "NOT_ELIGIBLE", checkUpDate, donorWeight, sugarLevel, bloodPressure);
+//            healthStatusLbl.setStyle("-fx-text-fill: " + colorCode + ";");
+//            setHealthCheckUpDetailsForLables(age,checkUpDate, donorDTO.getDonorId(),bloodPressure,healthCheckID,donorDTO.getLastDonationDate(),sugarLevel,donorWeight);
+//        }
+//        setHealthCheckUpDetailsForLables(age,checkUpDate, donorDTO.getDonorId(),bloodPressure,healthCheckID,donorDTO.getLastDonationDate(),sugarLevel,donorWeight);
+//    }
+
     void setHealthCheckUpDetailsForLables(int age, Date checkUpDate, String donorId, String bloodPressure, String healthCheckID, Date lastDonationDate, double sugarLevel, double donorWeight){
         ageLbl.setText("Donor age: " + age + " years old");
         dateOfCheckUpLbl.setText("Checkup date: " +checkUpDate);
