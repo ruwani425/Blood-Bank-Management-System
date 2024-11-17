@@ -13,7 +13,6 @@ import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.util.Duration;
 import javafx.animation.TranslateTransition;
-import lk.ijse.gdse.bbms.dto.HealthCheckupDTO;
 
 import java.io.IOException;
 import java.net.URL;
@@ -120,7 +119,7 @@ public class HomePageViewController implements Initializable {
 
     @FXML
     void navigateToHospitalPage(MouseEvent event) {
-
+        navigateTo("/view/hospitalPage-view.fxml");
     }
 
     @FXML
@@ -191,6 +190,7 @@ public class HomePageViewController implements Initializable {
             transition.play();
 
         } catch (IOException e) {
+            e.printStackTrace();
             new Alert(Alert.AlertType.ERROR, "Failed to load page!").show();
         }
     }

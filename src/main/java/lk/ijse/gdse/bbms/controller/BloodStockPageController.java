@@ -109,14 +109,70 @@ public class BloodStockPageController implements Initializable {
         tblBloodStock.setItems(bloodStockTMS);
     }
 
-
     @FXML
     void btnIsExpiredOnAction(ActionEvent event) {
+        try {
+            // Fetch expired data directly from the database
+            ArrayList<BloodStockDTO> bloodStockDTOS = bloodStockModel.getExpiredBloodStocks();
+            ObservableList<BloodStockTM> bloodStockTMS = FXCollections.observableArrayList();
 
+            for (BloodStockDTO bloodStockDTO : bloodStockDTOS) {
+                BloodStockTM bloodStockTM = new BloodStockTM(
+                        bloodStockDTO.getBloodID(),
+                        bloodStockDTO.getTestID(),
+                        bloodStockDTO.getBloodGroup(),
+                        bloodStockDTO.getQty(),
+                        bloodStockDTO.getHaemoglobin(),
+                        bloodStockDTO.getPlatelets(),
+                        bloodStockDTO.getRedBloodCells(),
+                        bloodStockDTO.getWhiteBloodCells(),
+                        bloodStockDTO.getExpiryDate(),
+                        bloodStockDTO.getStatus()
+                );
+
+                bloodStockTMS.add(bloodStockTM);
+            }
+
+            tblBloodStock.setItems(bloodStockTMS);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
+
 
     @FXML
     void btnIsVerifiedOnAction(ActionEvent event) {
+        try {
+            // Fetch verified data
+            ArrayList<BloodStockDTO> bloodStockDTOS = bloodStockModel.getAllBloodStocks("VERIFIED");
+            ObservableList<BloodStockTM> bloodStockTMS = FXCollections.observableArrayList();
 
+            for (BloodStockDTO bloodStockDTO : bloodStockDTOS) {
+                BloodStockTM bloodStockTM = new BloodStockTM(
+                        bloodStockDTO.getBloodID(),
+                        bloodStockDTO.getTestID(),
+                        bloodStockDTO.getBloodGroup(),
+                        bloodStockDTO.getQty(),
+                        bloodStockDTO.getHaemoglobin(),
+                        bloodStockDTO.getPlatelets(),
+                        bloodStockDTO.getRedBloodCells(),
+                        bloodStockDTO.getWhiteBloodCells(),
+                        bloodStockDTO.getExpiryDate(),
+                        bloodStockDTO.getStatus()
+                );
+
+                // Add only verified data
+                if (bloodStockDTO.getStatus().equalsIgnoreCase("VERIFIED")) {
+                    bloodStockTMS.add(bloodStockTM);
+                }
+            }
+
+            tblBloodStock.setItems(bloodStockTMS);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
+
 }

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="696.0" prefWidth="1104.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.bbms.controller.HospitalPageController">
+   <children>
+      <TableView fx:id="tblHospital" layoutX="14.0" layoutY="250.0" prefHeight="432.0" prefWidth="1080.0">
+        <columns>
+          <TableColumn fx:id="colHospitalID" prefWidth="181.0" text="Hospital ID" />
+          <TableColumn fx:id="colHospitalName" prefWidth="185.0" text="Name" />
+            <TableColumn fx:id="colAddress" prefWidth="241.0" text="Address" />
+            <TableColumn fx:id="colContactNum" prefWidth="203.0" text="Contact Number" />
+            <TableColumn fx:id="colEmail" minWidth="0.0" prefWidth="139.0" text="E mail" />
+            <TableColumn fx:id="colType" prefWidth="130.0" text="Type" />
+        </columns>
+      </TableView>
+      <JFXButton id="bevel" fx:id="addHospitalbtn" layoutX="399.0" layoutY="56.0" onAction="#popUpWindowAddHospital" prefHeight="41.0" prefWidth="150.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/buttons.css" text="Add">
+         <graphic>
+            <ImageView fitHeight="21.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../lk/ijse/gdse/bbms/assert/icons8-add-500.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <TextField fx:id="txtSearchBar" layoutX="179.0" layoutY="56.0" onKeyPressed="#searchDataHospital" prefHeight="28.0" prefWidth="210.0" />
+      <Label layoutX="120.0" layoutY="61.0" text="search">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

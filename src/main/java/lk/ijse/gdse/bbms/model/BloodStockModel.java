@@ -57,11 +57,42 @@ public class BloodStockModel {
                 bloodStockDTO.getStatus()
         );
     }
-    public boolean setStatus(String status, String bloodId) throws SQLException {
-        return CrudUtil.execute(
-                "UPDATE Blood_stock SET status = ? WHERE Blood_id = ?",
-                status,
-                bloodId
+    public boolean updateBloodStockStatus() throws SQLException {
+        // Update all records where expiry date is before the current date
+        int rowsUpdated = CrudUtil.execute(
+                "UPDATE Blood_stock SET status = 'EXPIRED' WHERE Expiry_date < CURDATE()"
         );
+        // Return true if at least one record was updated, false otherwise
+        return rowsUpdated > 0;
+    }
+
+    public ArrayList<BloodStockDTO> getExpiredBloodStocks() throws SQLException {
+        // Fetch records with Expiry_date < CURDATE()
+        ResultSet rst = CrudUtil.execute("SELECT * FROM Blood_stock WHERE Expiry_date < CURDATE()");
+
+        ArrayList<BloodStockDTO> bloodStockDTOS = new ArrayList<>();
+
+        while (rst.next()) {
+            // Update the status of the expired record to 'EXPIRED'
+            CrudUtil.execute(
+                    "UPDATE Blood_stock SET status = 'EXPIRED' WHERE Blood_id = ?",
+                    rst.getString(1) // Blood_id
+            );
+
+            // Add the record to the list
+            bloodStockDTOS.add(new BloodStockDTO(
+                    rst.getString(1),   // bloodID
+                    rst.getString(2),   // testID
+                    rst.getString(3),   // bloodGroup
+                    rst.getInt(4),      // qty
+                    rst.getDouble(5),   // haemoglobin
+                    rst.getFloat(6),    // platelets
+                    rst.getDouble(7),   // redBloodCells
+                    rst.getDouble(8),   // whiteBloodCells
+                    rst.getDate(9),     // expiryDate
+                    "EXPIRED"           // status (updated to EXPIRED)
+            ));
+        }
+        return bloodStockDTOS;
     }
 }
