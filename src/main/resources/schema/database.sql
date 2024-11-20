@@ -46,7 +46,6 @@ CREATE TABLE Inventory
 (
     Inventory_id VARCHAR(50) PRIMARY KEY,
     Item_name    VARCHAR(100),
-    Attribute    VARCHAR(100),
     Status       ENUM ('ACTIVE', 'INACTIVE', 'PENDING', 'COMPLETED'),
     Expiry_date  DATE,
     Qty          INT

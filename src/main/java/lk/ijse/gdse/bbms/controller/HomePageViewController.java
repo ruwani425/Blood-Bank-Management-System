@@ -124,7 +124,7 @@ public class HomePageViewController implements Initializable {
 
     @FXML
     void navigateToInventoryPage(MouseEvent event) {
-
+        navigateTo("/view/inventoryPage-view.fxml");
     }
 
     @FXML
