@@ -6,10 +6,17 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane prefHeight="660.0" prefWidth="1170.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.bbms.controller.BloodRequestController">
    <children>
+      <ImageView fitHeight="720.0" fitWidth="1195.0" layoutX="-2.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../lk/ijse/gdse/bbms/assert/whiteBackGround4.png" />
+         </image>
+      </ImageView>
       <TableView fx:id="tblRequest" layoutX="11.0" layoutY="260.0" prefHeight="378.0" prefWidth="1123.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/tableStyle.css">
         <columns>
           <TableColumn fx:id="colRequestID" prefWidth="169.0" text="BloodRequest ID" />
