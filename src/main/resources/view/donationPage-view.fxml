@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="696.0" prefWidth="1104.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.bbms.controller.DonationPageController">
+<AnchorPane prefHeight="688.0" prefWidth="1190.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.bbms.controller.DonationPageController">
    <children>
       <ImageView fitHeight="727.0" fitWidth="1117.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -33,7 +33,7 @@
          </font>
       </Label>
       <TextField id="bevel" fx:id="txtQty" layoutX="360.0" layoutY="240.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/textFeild.css" />
-      <JFXButton id="bevel" fx:id="btnAdd" layoutX="988.0" layoutY="274.0" onAction="#btnAddDonationOnAction" prefHeight="41.0" prefWidth="150.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/buttonsCss2.css" text="Add" />
+      <JFXButton id="bevel" fx:id="btnAdd" layoutX="1006.0" layoutY="299.0" onAction="#btnAddDonationOnAction" prefHeight="28.0" prefWidth="78.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/blueButtonCss.css" text="Add" />
       <ComboBox id="glass" fx:id="cmbSelectCampaign" layoutX="579.0" layoutY="55.0" prefHeight="28.0" prefWidth="118.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/textFeild.css" />
       <Label fx:id="lblBloodGroup" layoutX="35.0" layoutY="239.0" prefHeight="37.0" prefWidth="177.0" />
    </children>

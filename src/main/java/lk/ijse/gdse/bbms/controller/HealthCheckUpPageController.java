@@ -95,7 +95,6 @@ public class HealthCheckUpPageController implements Initializable {
         String weightRegex = "^[1-9][0-9]*([.][0-9]{1,2})?$"; // Weight as a positive decimal number
         String sugarLevelRegex = "^[0-9]+(\\.[0-9]{1,2})?$"; // Sugar level as a positive number with optional decimals
 
-        // Get input values
         String healthCheckID = lblHealthCheckUpId.getText();
         Date checkUpDate = Date.valueOf(LocalDate.now());
         String donorNic = txtNicDonor.getText();
@@ -103,29 +102,26 @@ public class HealthCheckUpPageController implements Initializable {
         double donorWeight = 0;
         double sugarLevel = 0;
 
-        StringBuilder errorMessage = new StringBuilder(); // Accumulate error messages
+        StringBuilder errorMessage = new StringBuilder();
 
         boolean validInput = true;
 
-        // Validate donor NIC
         if (!donorNic.matches(nicRegex)) {
             txtNicDonor.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
             errorMessage.append("Invalid Donor NIC format. Please enter a valid NIC (9 digits + V or 12 digits).\n");
             validInput = false;
         } else {
-            txtNicDonor.setStyle(""); // Reset border color
+            txtNicDonor.setStyle("");
         }
 
-        // Validate blood pressure (systolic/diastolic)
         if (!bloodPressure.matches(bloodPressureRegex)) {
             txtBloodPressure.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
             errorMessage.append("Invalid Blood Pressure format. Please use systolic/diastolic format (e.g., 110/68).\n");
             validInput = false;
         } else {
-            txtBloodPressure.setStyle(""); // Reset border color
+            txtBloodPressure.setStyle("");
         }
 
-        // Split blood pressure into systolic and diastolic
         String[] bpParts = bloodPressure.split("/");
         int systolic = 0;
         int diastolic = 0;
@@ -136,7 +132,6 @@ public class HealthCheckUpPageController implements Initializable {
             validInput = false;
         }
 
-        // Validate weight
         try {
             donorWeight = Double.parseDouble(txtWeight.getText());
             if (donorWeight <= 0) {
@@ -144,7 +139,7 @@ public class HealthCheckUpPageController implements Initializable {
                 errorMessage.append("Weight must be a positive number.\n");
                 validInput = false;
             } else {
-                txtWeight.setStyle(""); // Reset border color
+                txtWeight.setStyle("");
             }
         } catch (NumberFormatException e) {
             txtWeight.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
@@ -152,7 +147,6 @@ public class HealthCheckUpPageController implements Initializable {
             validInput = false;
         }
 
-        // Validate sugar level
         try {
             sugarLevel = Double.parseDouble(txtSugarLevel.getText());
             if (sugarLevel < 0) {
@@ -160,7 +154,7 @@ public class HealthCheckUpPageController implements Initializable {
                 errorMessage.append("Sugar level cannot be negative.\n");
                 validInput = false;
             } else {
-                txtSugarLevel.setStyle(""); // Reset border color
+                txtSugarLevel.setStyle("");
             }
         } catch (NumberFormatException e) {
             txtSugarLevel.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
@@ -168,13 +162,11 @@ public class HealthCheckUpPageController implements Initializable {
             validInput = false;
         }
 
-        // If there are any validation errors, show a single alert with all messages
         if (!validInput) {
             showAlert("Validation Errors", errorMessage.toString());
-            return; // Return early if input is invalid
+            return;
         }
 
-        // Retrieve donor details by NIC
         donorDTO = donorModel.getDonorByNic(donorNic);
         if (donorDTO == null) {
             clearLabels();
@@ -186,7 +178,6 @@ public class HealthCheckUpPageController implements Initializable {
         int age = Period.between(donorDTO.getDob().toLocalDate(), LocalDate.now()).getYears();
         String gender = donorDTO.getGender();
 
-        // Check if age is between 18 and 65 and weight is above 50
         if (age < 18 || age > 65 || donorWeight < 50) {
             healthStatusLbl.setText("Not Eligible");
             healthStatusLbl.setStyle("-fx-text-fill: " + colorCode + ";");
@@ -194,7 +185,6 @@ public class HealthCheckUpPageController implements Initializable {
             return;
         }
 
-        // Additional conditions for eligibility (blood pressure and sugar level)
         boolean isEligible = false;
         if (sugarLevel >= 100 && sugarLevel <= 140) {
             if ((age >= 18 && age <= 39) && gender.equalsIgnoreCase("female") && systolic <= 110 && diastolic <= 68) {
@@ -236,7 +226,6 @@ public class HealthCheckUpPageController implements Initializable {
         setHealthCheckUpDetailsForLables(age, checkUpDate, donorDTO.getDonorId(), bloodPressure, healthCheckID, donorDTO.getLastDonationDate(), sugarLevel, donorWeight);
     }
 
-    // Utility method to show alerts
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
@@ -357,7 +346,6 @@ public class HealthCheckUpPageController implements Initializable {
         this.homePageViewController = homePageViewController;
     }
 
-    // Method to clear all labels
     private void clearLabels() {
         ageLbl.setText("");
         dateOfCheckUpLbl.setText("");

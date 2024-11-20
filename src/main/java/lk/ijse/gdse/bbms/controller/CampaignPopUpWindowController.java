@@ -90,22 +90,17 @@ public class CampaignPopUpWindowController implements Initializable {
     }
 
     private void populateCampaignStatus() {
-        // Initialize the ToggleGroup
         ToggleGroup statusGroup = new ToggleGroup();
         btnRadioActive.setToggleGroup(statusGroup);
         btnRadioInactive.setToggleGroup(statusGroup);
         btnRadioPending.setToggleGroup(statusGroup);
         btnRadioCompleted.setToggleGroup(statusGroup);
 
-        // Fetch the campaign status from the database or set a default if needed
-        String campaignStatus = dto.getStatus(); // Method to retrieve status from DB
-
-        // Check if campaignStatus is null
+        String campaignStatus = dto.getStatus();
         if (campaignStatus == null) {
-            campaignStatus = "PENDING"; // Set default status if null
+            campaignStatus = "PENDING";
         }
 
-        // Set the selected radio button based on the retrieved status
         switch (campaignStatus) {
             case "ACTIVE":
                 btnRadioActive.setSelected(true);
@@ -120,8 +115,7 @@ public class CampaignPopUpWindowController implements Initializable {
                 btnRadioCompleted.setSelected(true);
                 break;
             default:
-                // Optional: handle cases where the status is unexpected
-                btnRadioPending.setSelected(true); // Set a default if necessary
+                btnRadioPending.setSelected(true);
                 break;
         }
     }
@@ -137,7 +131,6 @@ public class CampaignPopUpWindowController implements Initializable {
         Date startDate = Date.valueOf(datePikerStartDate.getValue().toString());
         Date endDate =  Date.valueOf(datePikerEndDate.getValue().toString());
 
-        // Initialize the ToggleGroup for the radio buttons
         ToggleGroup statusGroup = new ToggleGroup();
         btnRadioActive.setToggleGroup(statusGroup);
         btnRadioInactive.setToggleGroup(statusGroup);
@@ -145,7 +138,6 @@ public class CampaignPopUpWindowController implements Initializable {
         btnRadioCompleted.setToggleGroup(statusGroup);
 
 
-        // Get status from selected radio button
         String status = null;
         if (btnRadioActive.isSelected()) {
             status = "ACTIVE";
@@ -185,9 +177,8 @@ public class CampaignPopUpWindowController implements Initializable {
         datePikerStartDate.setValue(null);
         datePikerEndDate.setValue(null);
 
-        // Clear the selected radio button in the ToggleGroup
         ToggleGroup statusGroup = btnRadioActive.getToggleGroup();
-        statusGroup.selectToggle(null); // Deselects any selected radio button
+        statusGroup.selectToggle(null);
         lblCampaignId.setText(model.getNextCampaignId());
     }
 
@@ -222,7 +213,6 @@ public class CampaignPopUpWindowController implements Initializable {
         Date startDate = Date.valueOf(datePikerStartDate.getValue().toString());
         Date endDate =  Date.valueOf(datePikerEndDate.getValue().toString());
 
-        // Initialize the ToggleGroup for the radio buttons
         ToggleGroup statusGroup = new ToggleGroup();
         btnRadioActive.setToggleGroup(statusGroup);
         btnRadioInactive.setToggleGroup(statusGroup);
@@ -230,7 +220,6 @@ public class CampaignPopUpWindowController implements Initializable {
         btnRadioCompleted.setToggleGroup(statusGroup);
 
 
-        // Get status from selected radio button
         String status = null;
         if (btnRadioActive.isSelected()) {
             status = "ACTIVE";
@@ -269,7 +258,6 @@ public class CampaignPopUpWindowController implements Initializable {
         txtCampaignName.setText(CampaignTM.getCampaign_name());
         txtCampaignAddress.setText(CampaignTM.getAddress());
 
-        // Set startDate and endDate in date pickers
         if (CampaignTM.getStartDate() != null) {
             LocalDate startDate = CampaignTM.getStartDate().toLocalDate();
             datePikerStartDate.setValue(startDate);
@@ -278,7 +266,6 @@ public class CampaignPopUpWindowController implements Initializable {
             LocalDate endDate = CampaignTM.getEndDate().toLocalDate();
             datePikerEndDate.setValue(endDate);
         }
-        // Set status radio button based on campaign status
         String status = CampaignTM.getStatus();
         if (status != null) {
             ToggleGroup statusGroup = btnRadioActive.getToggleGroup();
@@ -296,7 +283,7 @@ public class CampaignPopUpWindowController implements Initializable {
                     statusGroup.selectToggle(btnRadioCompleted);
                     break;
                 default:
-                    statusGroup.selectToggle(null); // No selection if status is unrecognized
+                    statusGroup.selectToggle(null);
                     break;
             }
         }

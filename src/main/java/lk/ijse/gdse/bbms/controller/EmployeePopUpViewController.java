@@ -112,26 +112,23 @@ void btnAddEmployeeOnAction(ActionEvent event) {
     String addressRegex = "^.{5,100}$"; // Address should be between 5 and 100 characters
     String roleRegex = "^[A-Za-z\\s]{3,50}$"; // Role should be between 3 and 50 characters
 
-    // Validate each field using the regular expressions
     boolean isNameValid = Validation.validateTextField(txtEmployeeName, nameRegex, txtEmployeeName.getText());
     boolean isEmailValid = Validation.validateTextField(txtEmpEmail, emailRegex, txtEmpEmail.getText());
     boolean isNicValid = Validation.validateTextField(txtNic, nicRegex, txtNic.getText());
     boolean isAddressValid = Validation.validateTextField(txtEmpAddress, addressRegex, txtEmpAddress.getText());
     boolean isRoleValid = Validation.validateTextField(txtEmpRole, roleRegex, txtEmpRole.getText());
 
-    // Check if all text fields are valid (no validation for ComboBox)
     if (!isNameValid || !isEmailValid || !isNicValid || !isAddressValid || !isRoleValid) {
         new Alert(Alert.AlertType.ERROR, "Please correct the highlighted fields.").show();
-        return; // Stop execution if validation fails
+        return;
     }
 
-    // If validation passes, create the employee DTO and add employee
     String name = txtEmployeeName.getText();
     String email = txtEmpEmail.getText();
     String nic = txtNic.getText();
     String address = txtEmpAddress.getText();
     String role = txtEmpRole.getText();
-    String status = cmbEmpStatus.getValue(); // No validation for ComboBox here
+    String status = cmbEmpStatus.getValue();
     String employeeId = lblEmpId.getText();
 
     EmployeeDTO employeeDTO = new EmployeeDTO(employeeId, name, nic, address, email, role, status);
@@ -140,7 +137,7 @@ void btnAddEmployeeOnAction(ActionEvent event) {
         if (isAdded) {
             lblEmpId.setText(model.getNextEmployeeId());
             new Alert(Alert.AlertType.INFORMATION, "Employee added successfully!").show();
-            employeePageController.refreshTable();  // Refresh table after adding
+            employeePageController.refreshTable();
             clearFields();
         } else {
             new Alert(Alert.AlertType.ERROR, "Failed to add employee!").show();
@@ -161,7 +158,7 @@ void btnAddEmployeeOnAction(ActionEvent event) {
                 boolean isDeleted = model.deleteEmployee(employeeId);
                 if (isDeleted) {
                     new Alert(Alert.AlertType.INFORMATION, "Employee deleted successfully!").show();
-                    employeePageController.refreshTable(); // Refresh table after deletion
+                    employeePageController.refreshTable();
                     closeWindow();
                 } else {
                     new Alert(Alert.AlertType.ERROR, "Failed to delete employee!").show();
@@ -205,33 +202,29 @@ void btnAddEmployeeOnAction(ActionEvent event) {
 
     @FXML
     void btnUpdateEmployeeOnAction(ActionEvent event) {
-        // Define regular expressions for validation
-        String nameRegex = "^[A-Za-z\\s]{3,50}$"; // Only letters and spaces, 3-50 characters
-        String emailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"; // Standard email format
-        String nicRegex = "^[0-9]{9}[vVxX]|[0-9]{12}$"; // Sri Lankan NIC format
-        String addressRegex = "^.{5,100}$"; // Address should be between 5 and 100 characters
-        String roleRegex = "^[A-Za-z\\s]{3,50}$"; // Role should be between 3 and 50 characters
+        String nameRegex = "^[A-Za-z\\s]{3,50}$";
+        String emailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+        String nicRegex = "^[0-9]{9}[vVxX]|[0-9]{12}$";
+        String addressRegex = "^.{5,100}$";
+        String roleRegex = "^[A-Za-z\\s]{3,50}$";
 
-        // Validate each field using the regular expressions
         boolean isNameValid = Validation.validateTextField(txtEmployeeName, nameRegex, txtEmployeeName.getText());
         boolean isEmailValid = Validation.validateTextField(txtEmpEmail, emailRegex, txtEmpEmail.getText());
         boolean isNicValid = Validation.validateTextField(txtNic, nicRegex, txtNic.getText());
         boolean isAddressValid = Validation.validateTextField(txtEmpAddress, addressRegex, txtEmpAddress.getText());
         boolean isRoleValid = Validation.validateTextField(txtEmpRole, roleRegex, txtEmpRole.getText());
 
-        // Check if all text fields are valid (no validation for ComboBox)
         if (!isNameValid || !isEmailValid || !isNicValid || !isAddressValid || !isRoleValid) {
             new Alert(Alert.AlertType.ERROR, "Please correct the highlighted fields.").show();
-            return; // Stop execution if validation fails
+            return;
         }
 
-        // If validation passes, create the employee DTO and update employee
         String name = txtEmployeeName.getText();
         String email = txtEmpEmail.getText();
         String nic = txtNic.getText();
         String address = txtEmpAddress.getText();
         String role = txtEmpRole.getText();
-        String status = cmbEmpStatus.getValue(); // No validation for ComboBox here
+        String status = cmbEmpStatus.getValue();
         String employeeId = lblEmpId.getText();
 
         EmployeeDTO employeeDTO = new EmployeeDTO(employeeId, name, nic, address, email, role, status);
@@ -239,7 +232,7 @@ void btnAddEmployeeOnAction(ActionEvent event) {
             boolean isUpdated = model.updateEmployee(employeeDTO);
             if (isUpdated) {
                 new Alert(Alert.AlertType.INFORMATION, "Employee updated successfully!").show();
-                employeePageController.refreshTable(); // Refresh table after update
+                employeePageController.refreshTable();
                 closeWindow();
             } else {
                 new Alert(Alert.AlertType.ERROR, "Failed to update employee!").show();
@@ -254,13 +247,11 @@ void btnAddEmployeeOnAction(ActionEvent event) {
         closeWindow();
     }
 
-    // Close the current window
     private void closeWindow() {
         Stage stage = (Stage) closeBtn.getScene().getWindow();
         stage.close();
     }
 
-    // Set employee data in the form (for update/delete)
     public void setEmployeeData(EmployeeTM employee) {
         lblEmpId.setText(employee.getEmployeeID());
         txtEmployeeName.setText(employee.getName());
@@ -274,7 +265,6 @@ void btnAddEmployeeOnAction(ActionEvent event) {
         btnDelete.setDisable(false);
     }
 
-    // Clear all form fields
     private void clearFields() {
         txtEmployeeName.clear();
         txtNic.clear();

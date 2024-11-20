@@ -133,10 +133,8 @@ public class BloodRequestController implements Initializable {
     }
     private void loadBloodRequests() {
         try {
-            // Fetch the list of Blood Requests from the database
             ArrayList<BloodRequestDTO> bloodRequestList = bloodRequestModel.getAllRequests();
 
-            // Convert DTOs to TM objects
             ObservableList<BloodRequestTM> observableList = FXCollections.observableArrayList();
             for (BloodRequestDTO dto : bloodRequestList) {
                 observableList.add(new BloodRequestTM(
@@ -149,7 +147,6 @@ public class BloodRequestController implements Initializable {
                 ));
             }
 
-            // Set data to the table
             tblRequest.setItems(observableList);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -169,7 +166,6 @@ public class BloodRequestController implements Initializable {
     @FXML
     void btnAddrequestOnAction(ActionEvent event) {
         try {
-            // Get input values from the UI components
             String requestId = lblRequestID.getText();
             String hospitalId = cmbHospital.getSelectionModel().getSelectedItem();
             String bloodType = cmbBloodGroup.getSelectionModel().getSelectedItem();
@@ -177,24 +173,19 @@ public class BloodRequestController implements Initializable {
             double qty = Double.parseDouble(txtBloodQty.getText());
             String status = cmbStatus.getSelectionModel().getSelectedItem();
 
-            // Create a BloodRequestDTO with the collected values
             BloodRequestDTO bloodRequestDTO = new BloodRequestDTO(
                     requestId, hospitalId, bloodType, dateOfRequest, qty, status
             );
 
-            // Save the Blood Request
             boolean isSaved = bloodRequestModel.addBloodRequest(bloodRequestDTO);
 
             if (isSaved) {
-                // If saved successfully, refresh the request ID and show a success message
                 lblRequestID.setText(bloodRequestModel.getNextRequestId());
                 new Alert(Alert.AlertType.INFORMATION, "Blood request saved successfully!").show();
             } else {
-                // Show an error message if the operation failed
                 new Alert(Alert.AlertType.ERROR, "Failed to save blood request!").show();
             }
 
-            // Optionally clear the fields after saving
             clearFields();
             refreshTable();
 
@@ -207,16 +198,13 @@ public class BloodRequestController implements Initializable {
     }
     private void clearFields() {
         try {
-            // Clear text fields and combo boxes
             txtBloodQty.clear();
             cmbHospital.getSelectionModel().clearSelection();
             cmbBloodGroup.getSelectionModel().clearSelection();
             cmbStatus.getSelectionModel().clearSelection();
 
-            // Set the next request ID
             lblRequestID.setText(bloodRequestModel.getNextRequestId());
 
-            // Set the current date to the date label
             LocalDate currentDate = LocalDate.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             lblRequestDate.setText(currentDate.format(formatter));

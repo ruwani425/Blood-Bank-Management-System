@@ -166,21 +166,16 @@ public class CampaignPageController implements Initializable {
 
     @FXML
     void searchCampaignData(KeyEvent event) {
-        // Create a filtered list based on the campaign data in the table
         FilteredList<CampaignTM> filteredData = new FilteredList<>(tblCampaign.getItems(), b -> true);
 
-        // Add a listener to the search text field
         searchCampaignTxt.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredData.setPredicate(campaignTM -> {
-                // If the search field is empty, show all items
                 if (newValue == null || newValue.isBlank()) {
                     return true;
                 }
 
-                // Convert the search keyword to lowercase for case-insensitive comparison
                 String searchKeyword = newValue.toLowerCase();
 
-                // Perform comparison for relevant fields
                 return campaignTM.getBlood_campaign_id().toLowerCase().contains(searchKeyword) ||
                         campaignTM.getCampaign_name().toLowerCase().contains(searchKeyword) ||
                         campaignTM.getAddress().toLowerCase().contains(searchKeyword) ||
@@ -191,7 +186,6 @@ public class CampaignPageController implements Initializable {
             });
         });
 
-        // Update the TableView with the filtered data
         tblCampaign.setItems(filteredData);
     }
 }

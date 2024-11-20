@@ -38,14 +38,14 @@
 }
 
 .table-view .table-row-cell:selected {
-    -fx-background-color: #f85c82; /* Change background color for selected row */
+    -fx-background-color: #2196F3; /* Change background color for selected row */
     -fx-text-fill: white; /* Change text color for selected row */
     -fx-padding: 20 15; /* Keep padding consistent on selection */
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 0, 1); /* Embossed effect for selected row */
 }
 
 .table-view .table-row-cell:hover {
-    -fx-background-color: #e6afcc; /* Change background color for hovered row */
+    -fx-background-color: #BBDEFB; /* Change background color for hovered row */
     -fx-padding: 20 15; /* Keep padding consistent on hover */
 }
 
@@ -79,8 +79,8 @@
 
 /* Button styling */
 .button {
-    -fx-background-color: #ba4d4d; /* Button background color */
-    -fx-text-fill: #e86666; /* Button text color */
+    -fx-background-color: #4CAF50; /* Button background color */
+    -fx-text-fill: white; /* Button text color */
     -fx-font-weight: bold; /* Make button text bold */
     -fx-padding: 10; /* Padding for button */
     -fx-border-radius: 5; /* Rounded corners */

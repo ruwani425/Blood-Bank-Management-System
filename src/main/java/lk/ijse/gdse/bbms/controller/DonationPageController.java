@@ -91,7 +91,6 @@ public class DonationPageController implements Initializable {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-       // tblDonation.setOnMouseClicked(this::handleRowClick);
     }
 
     private void setCellValueFactory() {
@@ -155,7 +154,6 @@ public class DonationPageController implements Initializable {
     }
 
 
-    // Define the setCheckUpId method here
     public void setDateFromHealthCheckUp(String s, String bloodGroup,String id) {
         System.out.printf("HealthCheckupDTO initialized in DonationPageController: %s, %s%n", s, bloodGroup);
         this.checkupId = s;

@@ -105,19 +105,16 @@ public class AddDonorPopUpController implements Initializable {
         String addressRegex = "^.{5,100}$"; // At least 5 characters
         String dobRegex = "^\\d{4}-\\d{2}-\\d{2}$"; // Date in yyyy-MM-dd format
 
-        // Validate each field
         boolean isNameValid = Validation.validateTextField(txtDonorName, nameRegex, txtDonorName.getText());
         boolean isEmailValid = Validation.validateTextField(txtDonorEmail, emailRegex, txtDonorEmail.getText());
         boolean isNicValid = Validation.validateTextField(txtDonorNic, nicRegex, txtDonorNic.getText());
         boolean isAddressValid = Validation.validateTextField(txtDonorAddress, addressRegex, txtDonorAddress.getText());
 
-        // Ensure all fields are valid
         if (!isNameValid || !isEmailValid || !isNicValid || !isAddressValid) {
             new Alert(Alert.AlertType.ERROR, "Please correct the highlighted fields.").show();
             return;
         }
 
-        // Continue with donor saving if all validations pass
         String name = txtDonorName.getText();
         String email = txtDonorEmail.getText();
         String nic = txtDonorNic.getText();
@@ -231,19 +228,16 @@ public class AddDonorPopUpController implements Initializable {
         String nicRegex = "^[0-9]{9}[vVxX]|[0-9]{12}$"; // Sri Lankan NIC format
         String addressRegex = "^.{5,100}$"; // At least 5 characters
 
-        // Validate each field
         boolean isNameValid = Validation.validateTextField(txtDonorName, nameRegex, txtDonorName.getText());
         boolean isEmailValid = Validation.validateTextField(txtDonorEmail, emailRegex, txtDonorEmail.getText());
         boolean isNicValid = Validation.validateTextField(txtDonorNic, nicRegex, txtDonorNic.getText());
         boolean isAddressValid = Validation.validateTextField(txtDonorAddress, addressRegex, txtDonorAddress.getText());
 
-        // Ensure all fields are valid
         if (!isNameValid || !isEmailValid || !isNicValid || !isAddressValid) {
             new Alert(Alert.AlertType.ERROR, "Please correct the highlighted fields.").show();
             return;
         }
 
-        // Proceed with donor update if all validations pass
         String name = txtDonorName.getText();
         String email = txtDonorEmail.getText();
         String nic = txtDonorNic.getText();
@@ -260,7 +254,6 @@ public class AddDonorPopUpController implements Initializable {
             donorPageViewController.refreshTable();
             new Alert(Alert.AlertType.INFORMATION, "Donor updated successfully...!").show();
 
-            // Reset the form and close the stage
             clearFields();
             Stage stage = (Stage) btnUpdate.getScene().getWindow();
             stage.close();
@@ -301,14 +294,12 @@ public class AddDonorPopUpController implements Initializable {
         txtDonorGender.getSelectionModel().clearSelection();
         lblDonorId.setText(model.getNextDonorId());
 
-        // Reset borders to default
         resetFieldBorder(txtDonorName);
         resetFieldBorder(txtDonorEmail);
         resetFieldBorder(txtDonorNic);
         resetFieldBorder(txtDonorAddress);
     }
 
-    // Method to reset the border of a text field
     private void resetFieldBorder(TextField textField) {
         textField.setBorder(Border.EMPTY);
     }

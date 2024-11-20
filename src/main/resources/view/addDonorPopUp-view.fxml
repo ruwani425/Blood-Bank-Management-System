@@ -18,12 +18,12 @@
             <Image url="@../lk/ijse/gdse/bbms/assert/donorForm.png" />
          </image></ImageView>
       <DatePicker fx:id="txtDonorDob" layoutX="400.0" layoutY="273.0" prefHeight="28.0" prefWidth="208.0" style="-fx-background-color: #cd0ead;" />
-      <HBox alignment="TOP_RIGHT" layoutX="323.0" layoutY="454.0" prefHeight="35.0" prefWidth="341.0" spacing="4.0">
+      <HBox alignment="TOP_RIGHT" layoutX="369.0" layoutY="450.0" prefHeight="35.0" prefWidth="295.0" spacing="4.0">
          <children>
-            <JFXButton id="bevel" fx:id="btnDelete" onAction="#btnDeleteDonorOnAction" prefHeight="30.0" prefWidth="130.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/buttonsCss2.css" text="Delete" />
-            <JFXButton id="bevel" fx:id="btnUpdate" onAction="#btnUpdateDonorOnAction" prefHeight="33.0" prefWidth="100.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/buttonsCss2.css" text="Update" />
-            <JFXButton id="bevel" fx:id="btnAdd" onAction="#btnAddDonorOnAction" prefHeight="33.0" prefWidth="119.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/buttonsCss2.css" text="Add" textAlignment="JUSTIFY" textFill="#4f91fc" wrapText="true" />
-            <JFXButton id="bevel" fx:id="closeBtn" onAction="#btnCloseOnAction" prefHeight="33.0" prefWidth="119.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/buttonsCss2.css" text="Close" textAlignment="JUSTIFY" textFill="#4f91fc" wrapText="true" />
+            <JFXButton id="bevel" fx:id="btnDelete" onAction="#btnDeleteDonorOnAction" prefHeight="15.0" prefWidth="70.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/blueButtonCss.css" text="Delete" />
+            <JFXButton id="bevel" fx:id="btnUpdate" onAction="#btnUpdateDonorOnAction" prefHeight="15.0" prefWidth="70.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/blueButtonCss.css" text="Update" />
+            <JFXButton id="bevel" fx:id="btnAdd" onAction="#btnAddDonorOnAction" prefHeight="15.0" prefWidth="70.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/blueButtonCss.css" text="Add" textAlignment="JUSTIFY" textFill="#4f91fc" wrapText="true" />
+            <JFXButton id="bevel" fx:id="closeBtn" onAction="#btnCloseOnAction" prefHeight="15.0" prefWidth="70.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/blueButtonCss.css" text="Close" textAlignment="JUSTIFY" textFill="#4f91fc" wrapText="true" />
          </children>
       </HBox>
       <ComboBox id="glass" fx:id="txtDonorBloodGroup" layoutX="81.0" layoutY="328.0" prefHeight="28.0" prefWidth="118.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/textFeild.css" />

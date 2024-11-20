@@ -1,4 +1,5 @@
 package lk.ijse.gdse.bbms.controller;
+import com.jfoenix.controls.JFXButton;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -89,16 +90,16 @@ public class BloodTestPageController implements Initializable {
     private ComboBox<String> cmbResult;
 
     @FXML
-    private Button btnChooseFile;
+    private JFXButton BtnUpdate;
 
     @FXML
-    private Button pendingBtn;
+    private JFXButton pendingBtn;
 
     @FXML
-    private Button finishedBtn;
+    private JFXButton finishedBtn;
 
     @FXML
-    private Button BtnUpdate;
+    private JFXButton btnChooseFile;
 
     @FXML
     private TextField txtBloodQty;
@@ -165,11 +166,9 @@ public class BloodTestPageController implements Initializable {
     }
 
     public void refreshTable() throws SQLException {
-        // Fetch all BloodTest data from the model
         ArrayList<BloodTestDTO> bloodTestDTOS = bloodTestModel.getAllBloodTests("PENDING");
         ObservableList<BloodTestTM> bloodTestTMS = FXCollections.observableArrayList();
 
-        // Map BloodTestDTO objects to BloodTestTM objects
         for (BloodTestDTO bloodTestDTO : bloodTestDTOS) {
             BloodTestTM bloodTestTM = new BloodTestTM(
                     bloodTestDTO.getTestID(),
@@ -187,15 +186,12 @@ public class BloodTestPageController implements Initializable {
             bloodTestTMS.add(bloodTestTM);
         }
 
-        // Set the items to the TableView
         tblBloodTest.setItems(bloodTestTMS);
     }
     public void getByStatus(String result) throws SQLException {
-        // Fetch all BloodTest data from the model
         ArrayList<BloodTestDTO> bloodTestDTOS = bloodTestModel.getAllBloodTests(result);
         ObservableList<BloodTestTM> bloodTestTMS = FXCollections.observableArrayList();
 
-        // Map BloodTestDTO objects to BloodTestTM objects
         for (BloodTestDTO bloodTestDTO : bloodTestDTOS) {
             BloodTestTM bloodTestTM = new BloodTestTM(
                     bloodTestDTO.getTestID(),
@@ -213,7 +209,6 @@ public class BloodTestPageController implements Initializable {
             bloodTestTMS.add(bloodTestTM);
         }
 
-        // Set the items to the TableView
         tblBloodTest.setItems(bloodTestTMS);
     }
 
@@ -227,11 +222,9 @@ public class BloodTestPageController implements Initializable {
     }
 
     private void getByStatus() throws SQLException {
-        // Fetch all BloodTest data from the model
         ArrayList<BloodTestDTO> bloodTestDTOS = bloodTestModel.getAllBloodTests();
         ObservableList<BloodTestTM> bloodTestTMS = FXCollections.observableArrayList();
 
-        // Map BloodTestDTO objects to BloodTestTM objects
         for (BloodTestDTO bloodTestDTO : bloodTestDTOS) {
             BloodTestTM bloodTestTM = new BloodTestTM(
                     bloodTestDTO.getTestID(),
@@ -260,7 +253,6 @@ public class BloodTestPageController implements Initializable {
     @FXML
     void BtnUpdateBloodTestOnAction(ActionEvent event) throws SQLException {
         try {
-            // Create BloodTestDTO with all attributes
             BloodTestDTO bloodTestDTO = new BloodTestDTO(
                     lblTestId.getText(), // TestID
                     null, // DonationID (not available in UI)
@@ -278,10 +270,8 @@ public class BloodTestPageController implements Initializable {
                     Double.parseDouble(txtBloodQty.getText())
             );
 
-            // Call the update method in the model
             boolean isUpdate = bloodTestModel.updateBloodTest(bloodTestDTO);
 
-            // Handle the result
             if (isUpdate) {
                 refreshTable();
                 new Alert(Alert.AlertType.INFORMATION, "Blood Test updated successfully...!").show();

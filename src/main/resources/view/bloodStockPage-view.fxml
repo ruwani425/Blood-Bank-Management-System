@@ -1,29 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="696.0" prefWidth="1104.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.bbms.controller.BloodStockPageController">
+<AnchorPane prefHeight="660.0" prefWidth="1175.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.bbms.controller.BloodStockPageController">
    <children>
-      <TableView fx:id="tblBloodStock" layoutX="12.0" layoutY="95.0" prefHeight="289.0" prefWidth="1080.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/tableStyle.css">
+      <TableView fx:id="tblBloodStock" layoutX="6.0" layoutY="95.0" prefHeight="289.0" prefWidth="1117.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/tableStyle.css">
         <columns>
-          <TableColumn fx:id="colBloodID" prefWidth="85.0" text="Blood ID" />
-          <TableColumn fx:id="colTestID" prefWidth="75.0" text="Test ID" />
-            <TableColumn fx:id="colBloodGroup" prefWidth="113.0" text="Blood Group" />
-            <TableColumn fx:id="colQty" prefWidth="95.0" text="Qty" />
-            <TableColumn fx:id="colHaemoglobin" prefWidth="133.0" text="Haemoglobin" />
-            <TableColumn fx:id="colPlatelets" prefWidth="89.0" text="Platelets" />
-            <TableColumn fx:id="colRedBloodCells" prefWidth="133.0" text="Red Blood Cells" />
-            <TableColumn fx:id="colWhiteBloodCells" prefWidth="145.0" text="White Blood Cells" />
-            <TableColumn fx:id="colExpiryDate" prefWidth="115.0" text="Expiry Date" />
-            <TableColumn fx:id="colStatus" prefWidth="96.0" text="Status" />
+          <TableColumn fx:id="colBloodID" prefWidth="91.66666412353516" text="Blood ID" />
+          <TableColumn fx:id="colTestID" prefWidth="99.33333587646484" text="Test ID" />
+            <TableColumn fx:id="colBloodGroup" prefWidth="109.66665649414062" text="Blood Group" />
+            <TableColumn fx:id="colQty" prefWidth="78.66668701171875" text="Qty" />
+            <TableColumn fx:id="colHaemoglobin" prefWidth="132.0" text="Haemoglobin" />
+            <TableColumn fx:id="colPlatelets" prefWidth="129.0" text="Platelets" />
+            <TableColumn fx:id="colRedBloodCells" prefWidth="126.3333740234375" text="Red Blood Cells" />
+            <TableColumn fx:id="colWhiteBloodCells" prefWidth="139.0" text="White Blood Cells" />
+            <TableColumn fx:id="colExpiryDate" prefWidth="106.00006103515625" text="Expiry Date" />
+            <TableColumn fx:id="colStatus" prefWidth="81.3333740234375" text="Status" />
         </columns>
       </TableView>
-      <Button fx:id="btnVerified" layoutX="13.0" layoutY="59.0" mnemonicParsing="false" onAction="#btnIsVerifiedOnAction" text="Verified" />
-      <Button fx:id="btnExpired" layoutX="93.0" layoutY="60.0" mnemonicParsing="false" onAction="#btnIsExpiredOnAction" text="Expired" />
       <TableView fx:id="tblBloodIssue" layoutX="22.0" layoutY="448.0" prefHeight="200.0" prefWidth="431.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/tableStyle.css">
          <columns>
             <TableColumn fx:id="colIssueBloodId" prefWidth="90.0" text="Blood ID" />
@@ -34,6 +32,8 @@
       </TableView>
       <Label layoutX="30.0" layoutY="414.0" text="Request ID :" />
       <Label fx:id="lblRequestID" layoutX="109.0" layoutY="401.0" prefHeight="42.0" prefWidth="103.0" />
-      <Button fx:id="btnIssue" layoutX="467.0" layoutY="615.0" mnemonicParsing="false" onAction="#btnIssueOnAction" text="Issue" />
+      <JFXButton id="glass" fx:id="btnVerified" layoutX="14.0" layoutY="60.0" onAction="#btnIsVerifiedOnAction" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/whiteBtn.css" text="Verified" />
+      <JFXButton id="glass" fx:id="btnExpired" layoutX="86.0" layoutY="60.0" onAction="#btnIsExpiredOnAction" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/whiteBtn.css" text="Expired" />
+      <JFXButton id="bevel" fx:id="btnIssue" layoutX="480.0" layoutY="609.0" onAction="#btnIssueOnAction" prefHeight="18.0" prefWidth="66.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/blueButtonCss.css" text="Issue" />
    </children>
 </AnchorPane>

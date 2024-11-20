@@ -7,7 +7,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.bbms.controller.EmployeePopUpViewController">
    <children>
       <Label layoutX="35.0" layoutY="67.0" text="Employee ID :" />
@@ -20,12 +19,12 @@
       <Label fx:id="lblEmpId" layoutX="128.0" layoutY="64.0" prefHeight="27.0" prefWidth="94.0" />
       <TextField id="bevel" fx:id="txtEmpAddress" layoutX="33.0" layoutY="258.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/textFeild.css" />
       <ComboBox id="glass" fx:id="cmbEmpStatus" layoutX="370.0" layoutY="258.0" prefHeight="28.0" prefWidth="118.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/textFeild.css" />
-      <HBox alignment="TOP_RIGHT" layoutX="247.0" layoutY="372.0" prefHeight="35.0" prefWidth="341.0" spacing="4.0">
+      <HBox alignment="TOP_RIGHT" layoutX="288.0" layoutY="372.0" prefHeight="35.0" prefWidth="300.0" spacing="4.0">
          <children>
-            <JFXButton id="bevel" fx:id="btnDelete" onAction="#btnDeleteEmployeeOnAction" prefHeight="30.0" prefWidth="130.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/buttonsCss2.css" text="Delete" />
-            <JFXButton id="bevel" fx:id="btnUpdate" onAction="#btnUpdateEmployeeOnAction" prefHeight="33.0" prefWidth="100.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/buttonsCss2.css" text="Update" />
-            <JFXButton id="bevel" fx:id="btnAdd" onAction="#btnAddEmployeeOnAction" prefHeight="33.0" prefWidth="119.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/buttonsCss2.css" text="Add" textAlignment="JUSTIFY" textFill="#4f91fc" wrapText="true" />
-            <JFXButton id="bevel" fx:id="closeBtn" onAction="#btnCloseOnAction" prefHeight="33.0" prefWidth="119.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/buttonsCss2.css" text="Close" textAlignment="JUSTIFY" textFill="#4f91fc" wrapText="true" />
+            <JFXButton id="bevel" fx:id="btnDelete" onAction="#btnDeleteEmployeeOnAction" prefHeight="25.0" prefWidth="70.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/blueButtonCss.css" text="Delete" />
+            <JFXButton id="bevel" fx:id="btnUpdate" onAction="#btnUpdateEmployeeOnAction" prefHeight="25.0" prefWidth="70.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/blueButtonCss.css" text="Update" />
+            <JFXButton id="bevel" fx:id="btnAdd" onAction="#btnAddEmployeeOnAction" prefHeight="25.0" prefWidth="70.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/blueButtonCss.css" text="Add" textAlignment="JUSTIFY" textFill="#4f91fc" wrapText="true" />
+            <JFXButton id="bevel" fx:id="closeBtn" onAction="#btnCloseOnAction" prefHeight="25.0" prefWidth="70.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/blueButtonCss.css" text="Close" textAlignment="JUSTIFY" textFill="#4f91fc" wrapText="true" />
          </children>
       </HBox>
       <TextField id="bevel" fx:id="txtEmployeeName" layoutX="33.0" layoutY="139.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/textFeild.css" />

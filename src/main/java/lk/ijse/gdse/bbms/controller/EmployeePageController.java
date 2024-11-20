@@ -97,6 +97,7 @@ public class EmployeePageController implements Initializable {
             stage.setResizable(false);
             stage.setScene(new Scene(root));
             stage.initModality(Modality.WINDOW_MODAL);
+            stage.initStyle(StageStyle.UNDECORATED); // Remove the black toolbar
             stage.initOwner(((Node) event.getSource()).getScene().getWindow());
             stage.showAndWait();
         } catch (IOException e) {
@@ -104,7 +105,6 @@ public class EmployeePageController implements Initializable {
         }
     }
 
-    // Method to populate the table with employee data
     private void setCellValueFactory() {
         colEmployeeID.setCellValueFactory(new PropertyValueFactory<>("employeeID"));
         colEmployeeName.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -134,7 +134,6 @@ public class EmployeePageController implements Initializable {
         tblEmployee.setItems(employeeTMS);
     }
 
-    // Handle row click for editing an employee
     private void handleRowClick(MouseEvent event) throws IOException {
         if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
             EmployeeTM selectedEmployee = tblEmployee.getSelectionModel().getSelectedItem();
@@ -144,7 +143,6 @@ public class EmployeePageController implements Initializable {
         }
     }
 
-    // Open edit window for selected employee
     private void openEditEmployeeWindow(EmployeeTM employee) throws IOException {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/employeePopUp-view.fxml"));
@@ -155,7 +153,7 @@ public class EmployeePageController implements Initializable {
             controller.setEmployeeData(employee);
 
             Stage stage = new Stage();
-            stage.initStyle(StageStyle.UNDECORATED); // Remove the black toolbar
+            stage.initStyle(StageStyle.UNDECORATED);
             stage.setResizable(false);
             stage.setScene(new Scene(root));
             stage.initModality(Modality.WINDOW_MODAL);
@@ -166,7 +164,6 @@ public class EmployeePageController implements Initializable {
         }
     }
 
-    // Filter employee list based on search input
     @FXML
     void searchDataEmployees(KeyEvent event) {
         FilteredList<EmployeeTM> filteredData = new FilteredList<>(tblEmployee.getItems(), b -> true);

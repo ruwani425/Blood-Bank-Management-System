@@ -1,5 +1,6 @@
 package lk.ijse.gdse.bbms.controller;
 
+import com.jfoenix.controls.JFXButton;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -57,10 +58,10 @@ public class BloodStockPageController implements Initializable {
     private TableColumn<BloodStockTM,String> colStatus;
 
     @FXML
-    private Button btnVerified;
+    private JFXButton btnVerified;
 
     @FXML
-    private Button btnExpired;
+    private JFXButton btnExpired;
 
     @FXML
     private TableView<BloodIssueTM> tblBloodIssue;
@@ -81,7 +82,7 @@ public class BloodStockPageController implements Initializable {
     private Label lblRequestID;
 
     @FXML
-    private Button btnIssue;
+    private JFXButton btnIssue;
 
     private String requestID;
 
@@ -117,11 +118,9 @@ public class BloodStockPageController implements Initializable {
         colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
     }
     public void refreshTable() throws SQLException {
-        // Fetch all BloodStock data from the model
         ArrayList<BloodStockDTO> bloodStockDTOS = bloodStockModel.getAllBloodStocks("VERIFIED");
         ObservableList<BloodStockTM> bloodStockTMS = FXCollections.observableArrayList();
 
-        // Map BloodStockDTO objects to BloodStockTM objects
         for (BloodStockDTO bloodStockDTO : bloodStockDTOS) {
             BloodStockTM bloodStockTM = new BloodStockTM(
                     bloodStockDTO.getBloodID(),
@@ -138,13 +137,11 @@ public class BloodStockPageController implements Initializable {
             bloodStockTMS.add(bloodStockTM);
         }
 
-        // Set the items to the TableView
         tblBloodStock.setItems(bloodStockTMS);
     }
 
     public void getExpiredBlood(){
         try {
-            // Fetch expired data directly from the database
             ArrayList<BloodStockDTO> bloodStockDTOS = bloodStockModel.getExpiredBloodStocks();
             ObservableList<BloodStockTM> bloodStockTMS = FXCollections.observableArrayList();
 
@@ -181,7 +178,6 @@ public class BloodStockPageController implements Initializable {
     @FXML
     void btnIsVerifiedOnAction(ActionEvent event) {
         try {
-            // Fetch verified data
             ArrayList<BloodStockDTO> bloodStockDTOS = bloodStockModel.getAllBloodStocks("VERIFIED");
             ObservableList<BloodStockTM> bloodStockTMS = FXCollections.observableArrayList();
 
@@ -199,7 +195,6 @@ public class BloodStockPageController implements Initializable {
                         bloodStockDTO.getStatus()
                 );
 
-                // Add only verified data
                 if (bloodStockDTO.getStatus().equalsIgnoreCase("VERIFIED")) {
                     bloodStockTMS.add(bloodStockTM);
                 }
