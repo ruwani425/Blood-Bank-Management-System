@@ -8,16 +8,15 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
-
 <AnchorPane prefHeight="367.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.bbms.controller.InventoryPopUpFormController">
    <children>
       <TextField id="bevel" fx:id="txtName" layoutX="314.0" layoutY="75.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/textFeild.css" />
       <TextField id="bevel" fx:id="txtQty" layoutX="42.0" layoutY="226.0" prefHeight="30.0" prefWidth="121.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/textFeild.css" />
-      <DatePicker fx:id="datePikcerExpiry" layoutX="308.0" layoutY="179.0" prefHeight="28.0" prefWidth="121.0" />
+      <DatePicker fx:id="datePikcerExpiry" layoutX="315.0" layoutY="150.0" prefHeight="28.0" prefWidth="175.0" />
       <ComboBox id="glass" fx:id="cmbStatus" layoutX="43.0" layoutY="150.0" prefHeight="28.0" prefWidth="118.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/textFeild.css" />
       <Label fx:id="lblInventoryID" layoutX="138.0" layoutY="45.0" prefHeight="30.0" prefWidth="67.0" />
       <Label layoutX="317.0" layoutY="53.0" text="Name :" />
-      <Label layoutX="310.0" layoutY="142.0" text="Expiry Date :" />
+      <Label layoutX="315.0" layoutY="124.0" text="Expiry Date :" />
       <Label layoutX="43.0" layoutY="193.0" text="Qty :" />
       <Label layoutX="43.0" layoutY="109.0" text="Status :" />
       <Label layoutX="43.0" layoutY="51.0" text="Inventory ID :" />
@@ -29,5 +28,9 @@
             <JFXButton id="bevel" fx:id="closeBtn" onAction="#btnCloseOnAction" prefHeight="25.0" prefWidth="70.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/blueButtonCss.css" text="Close" textAlignment="JUSTIFY" textFill="#4f91fc" wrapText="true" />
          </children>
       </HBox>
+      <Label layoutX="317.0" layoutY="192.0" text="supplier :" />
+      <ComboBox id="glass" fx:id="cmbSupplier" layoutX="315.0" layoutY="221.0" onAction="#cmbSupplierOnAction" prefHeight="28.0" prefWidth="118.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/textFeild.css" />
+      <Label layoutX="320.0" layoutY="270.0" text="supplier Name:" />
+      <Label fx:id="lblSupplierName" layoutX="423.0" layoutY="266.0" prefHeight="28.0" prefWidth="77.0" />
    </children>
 </AnchorPane>

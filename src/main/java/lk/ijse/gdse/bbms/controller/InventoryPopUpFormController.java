@@ -10,8 +10,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import lk.ijse.gdse.bbms.dto.InventoryDTO;
+import lk.ijse.gdse.bbms.dto.SupplierDTO;
 import lk.ijse.gdse.bbms.dto.tm.InventoryTM;
 import lk.ijse.gdse.bbms.model.InventoryModel;
+import lk.ijse.gdse.bbms.model.SupplierModel;
 
 import java.sql.Date;
 import java.sql.SQLException;
@@ -45,9 +47,17 @@ public class InventoryPopUpFormController {
     @FXML
     private JFXButton closeBtn;
 
+    @FXML
+    private ComboBox<String> cmbSupplier;
+
+    @FXML
+    private Label lblSupplierName;
+
+
     Stage stage=new Stage();
 
     private final InventoryModel inventoryModel = new InventoryModel();
+    private final SupplierModel supplierModel = new SupplierModel();
 
     private InventoryPageController inventoryPageController;
 
@@ -59,15 +69,16 @@ public class InventoryPopUpFormController {
     public void initialize() {
         try {
             lblInventoryID.setText(inventoryModel.getNextInventoryId());
-            populateStatuses();
+            init();
         } catch (SQLException e) {
             e.printStackTrace();
             new Alert(Alert.AlertType.ERROR, "Error generating Inventory ID.").show();
         }
     }
 
-    private void populateStatuses() {
+    private void init() throws SQLException {
         cmbStatus.getItems().addAll("AVAILABLE", "RESERVED", "EXPIRED", "DAMAGED");
+        cmbSupplier.getItems().addAll(supplierModel.getAllSupplierIDs());
     }
 
     @FXML
@@ -81,7 +92,7 @@ public class InventoryPopUpFormController {
         InventoryDTO inventoryDTO = new InventoryDTO(inventoryId, itemName, status, expiryDate, qty);
 
         try {
-            boolean isAdded = inventoryModel.addInventoryItem(inventoryDTO);
+            boolean isAdded = inventoryModel.addInventoryItem(inventoryDTO,cmbSupplier.getValue());
             if (isAdded) {
                 inventoryPageController.refreshTable();
                 new Alert(Alert.AlertType.INFORMATION, "Inventory item added successfully!").show();
@@ -164,5 +175,11 @@ public class InventoryPopUpFormController {
         btnAdd.setDisable(true);
         btnUpdate.setDisable(false);
         btnDelete.setDisable(false);
+    }
+
+    @FXML
+    void cmbSupplierOnAction(ActionEvent event) throws SQLException {
+        SupplierDTO supplierDTO =supplierModel.getSupplierById(cmbSupplier.getValue());
+        lblSupplierName.setText(supplierDTO.getSupplierName());
     }
 }

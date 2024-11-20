@@ -29,18 +29,19 @@
             <TableColumn fx:id="colStatus" prefWidth="81.3333740234375" text="Status" />
         </columns>
       </TableView>
-      <TableView fx:id="tblBloodIssue" layoutX="22.0" layoutY="448.0" prefHeight="200.0" prefWidth="431.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/tableStyle.css">
+      <TableView fx:id="tblBloodIssue" layoutX="22.0" layoutY="448.0" prefHeight="200.0" prefWidth="535.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/tableStyle.css">
          <columns>
             <TableColumn fx:id="colIssueBloodId" prefWidth="90.0" text="Blood ID" />
             <TableColumn fx:id="colIssueExpireDate" prefWidth="108.00003051757812" text="Expire Date" />
             <TableColumn fx:id="colIssueBloodGroup" prefWidth="104.99996948242188" text="Blood Group" />
             <TableColumn fx:id="colIssueQty" prefWidth="125.0" text="Quantity" />
+            <TableColumn fx:id="colAction" prefWidth="85.0" text="Action" />
          </columns>
       </TableView>
       <Label layoutX="30.0" layoutY="414.0" text="Request ID :" />
       <Label fx:id="lblRequestID" layoutX="109.0" layoutY="401.0" prefHeight="42.0" prefWidth="103.0" />
       <JFXButton id="glass" fx:id="btnVerified" layoutX="14.0" layoutY="60.0" onAction="#btnIsVerifiedOnAction" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/whiteBtn.css" text="Verified" />
       <JFXButton id="glass" fx:id="btnExpired" layoutX="86.0" layoutY="60.0" onAction="#btnIsExpiredOnAction" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/whiteBtn.css" text="Expired" />
-      <JFXButton id="bevel" fx:id="btnIssue" layoutX="480.0" layoutY="609.0" onAction="#btnIssueOnAction" prefHeight="18.0" prefWidth="66.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/blueButtonCss.css" text="Issue" />
+      <JFXButton id="bevel" fx:id="btnIssue" layoutX="574.0" layoutY="609.0" onAction="#btnIssueOnAction" prefHeight="18.0" prefWidth="66.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/blueButtonCss.css" text="Issue" />
    </children>
 </AnchorPane>

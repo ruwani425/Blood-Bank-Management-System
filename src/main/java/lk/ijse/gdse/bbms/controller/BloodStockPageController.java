@@ -11,9 +11,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import lk.ijse.gdse.bbms.dto.BloodStockDTO;
 import lk.ijse.gdse.bbms.dto.tm.BloodIssueTM;
 import lk.ijse.gdse.bbms.dto.tm.BloodStockTM;
+import lk.ijse.gdse.bbms.dto.tm.DonorTM;
 import lk.ijse.gdse.bbms.model.BloodStockModel;
 
 import java.net.URL;
@@ -79,6 +82,9 @@ public class BloodStockPageController implements Initializable {
     private TableColumn<BloodIssueTM, Double> colIssueQty;
 
     @FXML
+    private TableColumn<BloodIssueTM, JFXButton> colAction;
+
+    @FXML
     private Label lblRequestID;
 
     @FXML
@@ -87,6 +93,8 @@ public class BloodStockPageController implements Initializable {
     private String requestID;
 
     BloodStockModel bloodStockModel=new BloodStockModel();
+    ObservableList<BloodIssueTM> bloodIssueTMS = FXCollections.observableArrayList();
+    ArrayList<BloodStockDTO>issuedBlood=new ArrayList<>();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -97,6 +105,7 @@ public class BloodStockPageController implements Initializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        tblBloodStock.setOnMouseClicked(this::handleRowClick);
     }
 
     public void setRequestID(String requestID) {
@@ -116,7 +125,42 @@ public class BloodStockPageController implements Initializable {
         colWhiteBloodCells.setCellValueFactory(new PropertyValueFactory<>("whiteBloodCells"));
         colExpiryDate.setCellValueFactory(new PropertyValueFactory<>("expiryDate"));
         colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+
+        colAction.setCellValueFactory(new PropertyValueFactory<>("button"));
+        colIssueBloodGroup.setCellValueFactory(new PropertyValueFactory<>("bloodGroup"));
+        colIssueBloodId.setCellValueFactory(new PropertyValueFactory<>("bloodIssueID"));
+        colIssueExpireDate.setCellValueFactory(new PropertyValueFactory<>("expiry"));
+        colIssueQty.setCellValueFactory(new PropertyValueFactory<>("bloodQty"));
     }
+
+    private void handleRowClick(MouseEvent event) {
+        if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
+            BloodStockTM selectedItem = tblBloodStock.getSelectionModel().getSelectedItem();
+            if (selectedItem != null) {
+                addIssueItem(new BloodIssueTM(selectedItem.getBloodID(),selectedItem.getBloodGroup(),selectedItem.getQty(),selectedItem.getExpiryDate(),null));
+            }
+        }
+    }
+
+    private void addIssueItem(BloodIssueTM bloodIssueTM) {
+        // Initialize button with action
+        var button = new JFXButton("Delete");
+        button.setStyle("-fx-background-color: #ff4d4d; -fx-text-fill: white;"); // Optional styling
+        button.setOnAction(event -> {
+            // Remove the item from both the table and the ObservableList
+            bloodIssueTMS.remove(bloodIssueTM);
+            tblBloodIssue.getItems().remove(bloodIssueTM);
+            System.out.println("Deleted row with Blood Issue ID: " + bloodIssueTM.getBloodIssueID());
+        });
+        issuedBlood.add(bloodIssueTM);
+        System.out.println(issuedBlood.toString());
+        bloodIssueTM.setButton(button);
+
+        // Add the item to the data source and the table
+        bloodIssueTMS.add(bloodIssueTM);
+        tblBloodIssue.getItems().add(bloodIssueTM);
+    }
+
     public void refreshTable() throws SQLException {
         ArrayList<BloodStockDTO> bloodStockDTOS = bloodStockModel.getAllBloodStocks("VERIFIED");
         ObservableList<BloodStockTM> bloodStockTMS = FXCollections.observableArrayList();

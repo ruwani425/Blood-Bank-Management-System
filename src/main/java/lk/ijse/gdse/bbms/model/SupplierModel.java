@@ -70,11 +70,11 @@ public class SupplierModel {
 
         if (rst.next()) {
             return new SupplierDTO(
-                    rst.getString("Supplier_id"),
-                    rst.getString("Supplier_name"),
-                    rst.getString("Address"),
-                    rst.getString("Email"),
-                    rst.getString("Description")
+                    rst.getString(1),
+                    rst.getString(2),
+                    rst.getString(3),
+                    rst.getString(4),
+                    rst.getString(5)
             );
         }
         return null; // Return null if no supplier with the given ID is found

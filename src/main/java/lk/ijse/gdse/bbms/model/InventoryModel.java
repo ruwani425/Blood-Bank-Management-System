@@ -1,8 +1,10 @@
 package lk.ijse.gdse.bbms.model;
 
+import lk.ijse.gdse.bbms.db.DBConnection;
 import lk.ijse.gdse.bbms.dto.InventoryDTO;
 import lk.ijse.gdse.bbms.util.CrudUtil;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -39,15 +41,37 @@ public class InventoryModel {
         return inventoryList;
     }
 
-    public boolean addInventoryItem(InventoryDTO inventoryDTO) throws SQLException {
-        return CrudUtil.execute(
-                "INSERT INTO Inventory VALUES (?,?,?,?,?)",
-                inventoryDTO.getInventoryId(),
-                inventoryDTO.getItemName(),
-                inventoryDTO.getStatus(),
-                inventoryDTO.getExpiryDate(),
-                inventoryDTO.getQty()
-        );
+    public boolean addInventoryItem(InventoryDTO inventoryDTO, String supplierId) throws SQLException {
+        Connection connection = DBConnection.getInstance().getConnection();
+        connection.setAutoCommit(false);
+
+        try {
+            if (CrudUtil.execute(
+                    "INSERT INTO Inventory VALUES (?,?,?,?,?)",
+                    inventoryDTO.getInventoryId(),
+                    inventoryDTO.getItemName(),
+                    inventoryDTO.getStatus(),
+                    inventoryDTO.getExpiryDate(),
+                    inventoryDTO.getQty()
+            )) {
+                if (CrudUtil.execute("INSERT INTO Supplier_Inventory VALUES (?,?)", supplierId, inventoryDTO.getInventoryId())) {
+                    connection.commit();
+                    return true;
+                }else {
+                    connection.rollback();
+                    return false;
+                }
+            }else {
+                connection.rollback();
+                return false;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            connection.rollback();
+            return false;
+        } finally {
+            connection.setAutoCommit(true);
+        }
     }
 
     public boolean deleteInventoryItem(String inventoryId) throws SQLException {
