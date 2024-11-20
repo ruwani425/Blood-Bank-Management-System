@@ -51,7 +51,10 @@ public class HomePageViewController implements Initializable {
     private ImageView btnEmployee;
 
     @FXML
-    private AnchorPane homeAnchor,rootPane;
+    AnchorPane homeAnchor;
+
+    @FXML
+    private AnchorPane rootPane;
 
     HomePageViewController homePageViewController;
 
@@ -121,11 +124,39 @@ public class HomePageViewController implements Initializable {
     void navigateToHospitalPage(MouseEvent event) {
         navigateTo("/view/hospitalPage-view.fxml");
     }
-
+//
+//    @FXML
+//    void navigateToInventoryPage(MouseEvent event) {
+//        navigateTo("/view/inventoryPage-view.fxml");
+//    }
     @FXML
     void navigateToInventoryPage(MouseEvent event) {
-        navigateTo("/view/inventoryPage-view.fxml");
+        try {
+            homeAnchor.getChildren().clear();
+
+            // Load the inventory page
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/inventoryPage-view.fxml"));
+            AnchorPane inventoryPage = loader.load();
+
+            // Set the controller reference
+            InventoryPageController controller = loader.getController();
+            controller.setHomePageViewController(this);
+
+            // Add the inventory page to the anchor
+            homeAnchor.getChildren().add(inventoryPage);
+
+            // Optional: Set up transitions
+            TranslateTransition transition = new TranslateTransition(Duration.millis(1000), inventoryPage);
+            transition.setFromY(-homeAnchor.getHeight());
+            transition.setToY(0);
+            transition.play();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Failed to load Inventory Page!").show();
+        }
     }
+
 
     @FXML
     void navigateToRequestPage(MouseEvent event) {

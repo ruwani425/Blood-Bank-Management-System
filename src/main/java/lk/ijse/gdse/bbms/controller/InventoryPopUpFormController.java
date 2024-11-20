@@ -3,10 +3,18 @@ package lk.ijse.gdse.bbms.controller;
 import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+import lk.ijse.gdse.bbms.dto.InventoryDTO;
+import lk.ijse.gdse.bbms.dto.tm.InventoryTM;
+import lk.ijse.gdse.bbms.model.InventoryModel;
+
+import java.sql.Date;
+import java.sql.SQLException;
 
 public class InventoryPopUpFormController {
 
@@ -20,7 +28,7 @@ public class InventoryPopUpFormController {
     private DatePicker datePikcerExpiry;
 
     @FXML
-    private ComboBox<?> cmbStatus;
+    private ComboBox<String> cmbStatus;
 
     @FXML
     private Label lblInventoryID;
@@ -37,24 +45,124 @@ public class InventoryPopUpFormController {
     @FXML
     private JFXButton closeBtn;
 
+    Stage stage=new Stage();
+
+    private final InventoryModel inventoryModel = new InventoryModel();
+
+    private InventoryPageController inventoryPageController;
+
+    public void setInventoryPageController(InventoryPageController inventoryPageController) {
+        this.inventoryPageController = inventoryPageController;
+    }
+
+    @FXML
+    public void initialize() {
+        try {
+            lblInventoryID.setText(inventoryModel.getNextInventoryId());
+            populateStatuses();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Error generating Inventory ID.").show();
+        }
+    }
+
+    private void populateStatuses() {
+        cmbStatus.getItems().addAll("AVAILABLE", "RESERVED", "EXPIRED", "DAMAGED");
+    }
+
     @FXML
     void btnAddInventoryOnAction(ActionEvent event) {
+        String inventoryId = lblInventoryID.getText();
+        String itemName = txtName.getText();
+        String status = cmbStatus.getValue();
+        Date expiryDate = Date.valueOf(datePikcerExpiry.getValue());
+        int qty = Integer.parseInt(txtQty.getText());
 
+        InventoryDTO inventoryDTO = new InventoryDTO(inventoryId, itemName, status, expiryDate, qty);
+
+        try {
+            boolean isAdded = inventoryModel.addInventoryItem(inventoryDTO);
+            if (isAdded) {
+                inventoryPageController.refreshTable();
+                new Alert(Alert.AlertType.INFORMATION, "Inventory item added successfully!").show();
+                clearFields();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Failed to add Inventory item.").show();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Error occurred while adding Inventory item.").show();
+        }
     }
 
     @FXML
     void btnCloseOnAction(ActionEvent event) {
-
+        Stage stage = (Stage) closeBtn.getScene().getWindow();
+        stage.close();
     }
 
     @FXML
     void btnDeleteInventoryOnAction(ActionEvent event) {
+        String inventoryId = lblInventoryID.getText();
 
+        try {
+            boolean isDeleted = inventoryModel.deleteInventoryItem(inventoryId);
+            if (isDeleted) {
+                inventoryPageController.refreshTable();
+                new Alert(Alert.AlertType.INFORMATION, "Inventory item deleted successfully!").show();
+                stage = (Stage) btnDelete.getScene().getWindow();
+                stage.close();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Failed to delete Inventory item.").show();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Error occurred while deleting Inventory item.").show();
+        }
     }
 
     @FXML
     void btnUpdateInventoryOnAction(ActionEvent event) {
+        String inventoryId = lblInventoryID.getText();
+        String itemName = txtName.getText();
+        String status = cmbStatus.getValue();
+        Date expiryDate = Date.valueOf(datePikcerExpiry.getValue());
+        int qty = Integer.parseInt(txtQty.getText());
 
+        InventoryDTO inventoryDTO = new InventoryDTO(inventoryId, itemName, status, expiryDate, qty);
+
+        try {
+            boolean isUpdated = inventoryModel.updateInventoryItem(inventoryDTO);
+            if (isUpdated) {
+                inventoryPageController.refreshTable();
+                new Alert(Alert.AlertType.INFORMATION, "Inventory item updated successfully!").show();
+                stage = (Stage) btnDelete.getScene().getWindow();
+                stage.close();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Failed to update Inventory item.").show();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Error occurred while updating Inventory item.").show();
+        }
     }
 
+    private void clearFields() throws SQLException {
+        txtName.clear();
+        txtQty.clear();
+        cmbStatus.setValue(null);
+        datePikcerExpiry.setValue(null);
+        lblInventoryID.setText(inventoryModel.getNextInventoryId());
+    }
+    public void setInventoryData(InventoryTM selectedItem) {
+        lblInventoryID.setText(selectedItem.getInventoryId());
+        txtName.setText(selectedItem.getItemName());
+        cmbStatus.setValue(selectedItem.getStatus());
+        datePikcerExpiry.setValue(selectedItem.getExpiryDate().toLocalDate());
+        txtQty.setText(String.valueOf(selectedItem.getQty()));
+
+        btnAdd.setDisable(true);
+        btnUpdate.setDisable(false);
+        btnDelete.setDisable(false);
+    }
 }

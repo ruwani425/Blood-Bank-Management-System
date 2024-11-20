@@ -8,7 +8,6 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane prefHeight="675.0" prefWidth="1182.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.bbms.controller.SupplierPageController">
    <children>
       <ImageView fitHeight="724.0" fitWidth="1194.0" pickOnBounds="true" preserveRatio="true">
@@ -25,7 +24,7 @@
             <TableColumn fx:id="colDescription" prefWidth="193.0" text="Description" />
         </columns>
       </TableView>
-      <TextField fx:id="txtSearchBar" layoutX="37.0" layoutY="38.0" onKeyPressed="#searchDataDonors" prefHeight="28.0" prefWidth="210.0" promptText="search..." />
+      <TextField fx:id="txtSearchBar" layoutX="37.0" layoutY="38.0" onKeyPressed="#searchDataSuppliers" prefHeight="28.0" prefWidth="210.0" promptText="search..." />
       <JFXButton id="bevel" fx:id="btnAddSupplier" layoutX="260.0" layoutY="34.0" onAction="#popUpWindowAddSupplier" prefHeight="36.0" prefWidth="82.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/blueButtonCss.css" text="Add">
          <graphic>
             <ImageView fitHeight="26.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">

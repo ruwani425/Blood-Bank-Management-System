@@ -15,7 +15,7 @@
             <Image url="@../lk/ijse/gdse/bbms/assert/whiteBackGround.png" />
          </image>
       </ImageView>
-      <TableView fx:id="tblInventory" layoutX="36.0" layoutY="259.0" prefHeight="314.0" prefWidth="1090.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/tableStyle.css">
+      <TableView fx:id="tblInventory" layoutX="36.0" layoutY="183.0" prefHeight="492.0" prefWidth="1090.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/tableStyle.css">
         <columns>
           <TableColumn fx:id="colInventoryID" prefWidth="169.0" text="Inventory ID" />
           <TableColumn fx:id="colInventoryName" prefWidth="199.0" text="Name" />
@@ -24,7 +24,7 @@
             <TableColumn fx:id="colQty" prefWidth="211.0" text="Qty" />
         </columns>
       </TableView>
-      <TextField fx:id="txtSearchBar" layoutX="27.0" layoutY="28.0" onKeyPressed="#searchDataDonors" prefHeight="28.0" prefWidth="210.0" promptText="search..." />
+      <TextField fx:id="txtSearchBar" layoutX="27.0" layoutY="28.0" onKeyPressed="#searchDataInventory" prefHeight="28.0" prefWidth="210.0" promptText="search..." />
       <JFXButton id="bevel" fx:id="btnAddInventory" layoutX="250.0" layoutY="24.0" onAction="#popUpNewWindowAddInventory" prefHeight="36.0" prefWidth="82.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/blueButtonCss.css" text="Add">
          <graphic>
             <ImageView fitHeight="26.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
@@ -34,7 +34,7 @@
             </ImageView>
          </graphic>
       </JFXButton>
-      <JFXButton id="bevel" fx:id="btnAddSupplier" layoutX="1000.0" layoutY="214.0" onAction="#navigateToSupplierPage" prefHeight="34.0" prefWidth="120.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/blueButtonCss.css" text="Supplier">
+      <JFXButton id="bevel" fx:id="btnAddSupplier" layoutX="1000.0" layoutY="131.0" onAction="#navigateToSupplierPage" prefHeight="34.0" prefWidth="120.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/blueButtonCss.css" text="Supplier">
          <graphic>
             <ImageView fitHeight="21.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                <image>
