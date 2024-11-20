@@ -124,7 +124,6 @@ public class CampaignPageController implements Initializable {
 
             CampaignPopUpWindowController addCampaignPopUpController = fxmlLoader.getController();
             addCampaignPopUpController.setCampainPageController(this);
-            addCampaignPopUpController.setHeaderText("Add New Campaign");
 
             Stage stage = new Stage();
             stage.initStyle(StageStyle.UNDECORATED); // Remove the black toolbar
@@ -147,7 +146,6 @@ public class CampaignPageController implements Initializable {
 
             CampaignPopUpWindowController controller = fxmlLoader.getController();
             controller.setCampainPageController(this);
-            controller.setHeaderText("Edit Campaign Details");
 
             controller.setCampaignData(campaignTM);
 

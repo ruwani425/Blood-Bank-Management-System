@@ -48,10 +48,10 @@ public class CampaignPopUpWindowController implements Initializable {
     private Label lblCampaignId;
 
     @FXML
-    private JFXTextField txtCampaignName;
+    private TextField txtCampaignName;
 
     @FXML
-    private JFXTextField txtCampaignAddress;
+    private TextField txtCampaignAddress;
 
     @FXML
     private DatePicker datePikerStartDate;
@@ -61,9 +61,6 @@ public class CampaignPopUpWindowController implements Initializable {
 
     @FXML
     private JFXButton closeBtn;
-
-    @FXML
-    private Label headerLabel;
 
     @FXML
     private Stage stage;
@@ -292,9 +289,5 @@ public class CampaignPopUpWindowController implements Initializable {
     void btnCloseOnAction(ActionEvent event) {
         stage = (Stage) closeBtn.getScene().getWindow();
         stage.close();
-    }
-
-    public void setHeaderText(String text) {
-        headerLabel.setText(text);
     }
 }

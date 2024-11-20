@@ -27,7 +27,7 @@ public class AddDonorPopUpController implements Initializable {
     public JFXButton closeBtn;
 
     @FXML
-    private JFXTextField txtDonorAddress;
+    private TextField txtDonorAddress;
 
     @FXML
     private DatePicker txtDonorDob;
@@ -42,13 +42,13 @@ public class AddDonorPopUpController implements Initializable {
     private JFXButton btnAdd;
 
     @FXML
-    private JFXTextField txtDonorEmail;
+    private TextField txtDonorName;
 
     @FXML
-    private JFXTextField txtDonorNic;
+    private TextField txtDonorEmail;
 
     @FXML
-    private JFXTextField txtDonorName;
+    private TextField txtDonorNic;
 
     @FXML
     private ComboBox<String> txtDonorBloodGroup;
@@ -58,9 +58,6 @@ public class AddDonorPopUpController implements Initializable {
 
     @FXML
     private Label lblDonorId;
-
-    @FXML
-    private Label headerLbl;
 
     @FXML
     private Stage stage;
@@ -91,9 +88,6 @@ public class AddDonorPopUpController implements Initializable {
     }
     private void populateDonorBloodGroup() {
         txtDonorBloodGroup.getItems().addAll("A_POSITIVE","A_NEGATIVE","B_POSITIVE","B_NEGATIVE","AB_POSITIVE","AB_NEGATIVE","O_POSITIVE","O_NEGATIVE");
-    }
-    public void setHeaderText(String text) {
-        headerLbl.setText(text);
     }
 
     @FXML

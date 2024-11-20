@@ -115,7 +115,6 @@ public class DonorPageViewController implements Initializable {
             Parent root = fxmlLoader.load();
             AddDonorPopUpController addDonorPopUpController = fxmlLoader.getController();
             addDonorPopUpController.setDonorPageViewController(this);
-            addDonorPopUpController.setHeaderText("Add New Donor");
 
             Stage stage = new Stage();
             stage.initStyle(StageStyle.UNDECORATED); // Remove the black toolbar
@@ -149,7 +148,6 @@ public class DonorPageViewController implements Initializable {
             AddDonorPopUpController controller = fxmlLoader.getController();
             controller.setDonorPageViewController(this);
             controller.setDonorData(donor);
-            controller.setHeaderText("Edit Donors");
 
             Stage stage = new Stage();
             stage.initStyle(StageStyle.UNDECORATED); // Remove the black toolbar
