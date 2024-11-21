@@ -54,7 +54,7 @@ public class InventoryPopUpFormController {
     private Label lblSupplierName;
 
 
-    Stage stage=new Stage();
+    Stage stage = new Stage();
 
     private final InventoryModel inventoryModel = new InventoryModel();
     private final SupplierModel supplierModel = new SupplierModel();
@@ -67,6 +67,10 @@ public class InventoryPopUpFormController {
 
     @FXML
     public void initialize() {
+        btnAdd.setDisable(false);
+        btnUpdate.setDisable(true);
+        btnDelete.setDisable(true);
+
         try {
             lblInventoryID.setText(inventoryModel.getNextInventoryId());
             init();
@@ -92,7 +96,7 @@ public class InventoryPopUpFormController {
         InventoryDTO inventoryDTO = new InventoryDTO(inventoryId, itemName, status, expiryDate, qty);
 
         try {
-            boolean isAdded = inventoryModel.addInventoryItem(inventoryDTO,cmbSupplier.getValue());
+            boolean isAdded = inventoryModel.addInventoryItem(inventoryDTO, cmbSupplier.getValue());
             if (isAdded) {
                 inventoryPageController.refreshTable();
                 new Alert(Alert.AlertType.INFORMATION, "Inventory item added successfully!").show();
@@ -165,6 +169,7 @@ public class InventoryPopUpFormController {
         datePikcerExpiry.setValue(null);
         lblInventoryID.setText(inventoryModel.getNextInventoryId());
     }
+
     public void setInventoryData(InventoryTM selectedItem) {
         lblInventoryID.setText(selectedItem.getInventoryId());
         txtName.setText(selectedItem.getItemName());
@@ -179,7 +184,7 @@ public class InventoryPopUpFormController {
 
     @FXML
     void cmbSupplierOnAction(ActionEvent event) throws SQLException {
-        SupplierDTO supplierDTO =supplierModel.getSupplierById(cmbSupplier.getValue());
+        SupplierDTO supplierDTO = supplierModel.getSupplierById(cmbSupplier.getValue());
         lblSupplierName.setText(supplierDTO.getSupplierName());
     }
 }

@@ -14,12 +14,11 @@
 <AnchorPane prefHeight="363.0" prefWidth="614.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.bbms.controller.CampaignPopUpWindowController">
    <children>
       <ImageView fitHeight="364.0" fitWidth="618.0" layoutX="-2.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true" />
-      <HBox layoutX="277.0" layoutY="320.0" prefHeight="30.0" prefWidth="332.0" spacing="15.0">
+      <HBox layoutX="352.0" layoutY="320.0" prefHeight="30.0" prefWidth="252.0" spacing="15.0">
          <children>
             <JFXButton id="bevel" fx:id="updateBtn" onAction="#updateCampaignOnAction" prefHeight="28.0" prefWidth="70.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/blueButtonCss.css" text="Update" />
             <JFXButton id="bevel" fx:id="deleteCampaignBtn" onAction="#deleteCampaignOnAction" prefHeight="27.0" prefWidth="74.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/blueButtonCss.css" text="Delete" />
             <JFXButton id="bevel" fx:id="addCampaignBtn" onAction="#addCampaignOnAction" prefHeight="24.0" prefWidth="70.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/blueButtonCss.css" text="Add" textAlignment="JUSTIFY" textFill="#4f91fc" wrapText="true" />
-            <JFXButton id="bevel" fx:id="closeBtn" onAction="#btnCloseOnAction" prefHeight="25.0" prefWidth="72.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/blueButtonCss.css" text="Close" textAlignment="JUSTIFY" textFill="#4f91fc" wrapText="true" />
          </children>
       </HBox>
       <Label fx:id="lblCampaignId" layoutX="158.0" layoutY="53.0" prefHeight="28.0" prefWidth="80.0" />
@@ -61,5 +60,6 @@
       <TextField id="bevel" fx:id="txtCampaignName" layoutX="53.0" layoutY="115.0" prefHeight="30.0" prefWidth="188.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/textFeild.css" />
       <TextField id="bevel" fx:id="txtCampaignAddress" layoutX="55.0" layoutY="199.0" prefHeight="30.0" prefWidth="188.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/textFeild.css" />
       <Label layoutX="58.0" layoutY="164.0" text="Address :" />
+      <JFXButton id="bevel" fx:id="closeBtn" layoutX="6.0" layoutY="323.0" onAction="#btnCloseOnAction" prefHeight="25.0" prefWidth="72.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/blueButtonCss.css" text="Close" textAlignment="JUSTIFY" textFill="#4f91fc" wrapText="true" />
    </children>
 </AnchorPane>

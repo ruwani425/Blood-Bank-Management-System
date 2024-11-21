@@ -65,6 +65,10 @@ public class EmployeePopUpViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        btnAdd.setDisable(false);
+        btnDelete.setDisable(true);
+        btnUpdate.setDisable(true);
+
         try {
             lblEmpId.setText(model.getNextEmployeeId());
         } catch (SQLException e) {
@@ -253,6 +257,10 @@ void btnAddEmployeeOnAction(ActionEvent event) {
     }
 
     public void setEmployeeData(EmployeeTM employee) {
+        btnAdd.setDisable(true);
+        btnDelete.setDisable(false);
+        btnUpdate.setDisable(false);
+
         lblEmpId.setText(employee.getEmployeeID());
         txtEmployeeName.setText(employee.getName());
         txtNic.setText(employee.getNic());

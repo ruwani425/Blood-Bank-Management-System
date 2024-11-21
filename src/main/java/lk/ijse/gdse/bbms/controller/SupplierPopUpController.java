@@ -57,6 +57,10 @@ public class SupplierPopUpController {
 
     @FXML
     public void initialize() {
+        btnAdd.setDisable(false);
+        btnUpdate.setDisable(true);
+        btnDelete.setDisable(true);
+
         try {
             lblSupplierID.setText(supplierModel.getNextSupplierId());
         } catch (SQLException e) {
@@ -153,6 +157,10 @@ public class SupplierPopUpController {
     }
 
     public void setSupplierData(SupplierTM supplier) {
+        btnAdd.setDisable(true);
+        btnUpdate.setDisable(false);
+        btnDelete.setDisable(false);
+
         if (supplier != null) {
             lblSupplierID.setText(supplier.getSupplierId());
             txtName.setText(supplier.getSupplierName());

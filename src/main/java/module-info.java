@@ -5,6 +5,7 @@ module lk.ijse.gdse.bbms {
     requires java.desktop;
     requires static lombok;
     requires java.sql;
+    requires java.mail;
 
     opens lk.ijse.gdse.bbms.controller to javafx.fxml;
     opens lk.ijse.gdse.bbms.model to javafx.base;

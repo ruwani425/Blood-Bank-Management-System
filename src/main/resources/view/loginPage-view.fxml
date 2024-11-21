@@ -18,7 +18,7 @@
       </ImageView>
       <JFXTextField fx:id="userNameTxt" layoutX="516.0" layoutY="272.0" prefHeight="28.0" prefWidth="327.0" promptText="Enter User Name" />
       <JFXPasswordField fx:id="passwordTxt" layoutX="515.0" layoutY="337.0" prefHeight="28.0" prefWidth="328.0" promptText="Enter Password" />
-      <Label fx:id="lblFogotPassword" layoutX="736.0" layoutY="382.0" text="Fogot Password?" textFill="#041c86" />
+      <Label fx:id="lblFogotPassword" layoutX="739.0" layoutY="382.0" onMouseClicked="#forgotPasswordClicked" text="Fogot Password?" textFill="#041c86" />
       <JFXButton id="bevel" fx:id="loginBtn" layoutX="635.0" layoutY="455.0" onAction="#navigateToHomePage" prefHeight="33.0" prefWidth="90.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/blueButtonCss.css" text="Login">
          <font>
             <Font name="System Bold" size="14.0" />

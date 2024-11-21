@@ -55,6 +55,10 @@ public class HospitalPopUpController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        btnAdd.setDisable(false);
+        btnUpdate.setDisable(true);
+        btnDelete.setDisable(true);
         try {
             lblHospitalId.setText(hospitalModel.getNextHospitalId());
         } catch (SQLException e) {

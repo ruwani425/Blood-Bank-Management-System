@@ -6,19 +6,22 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import lk.ijse.gdse.bbms.util.MailUtil;
 import lk.ijse.gdse.bbms.util.Validation;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class LoginPageViewController implements Initializable {
+
+    public Label lblFogotPassword;
+
     @FXML
     private TextField userNameTxt;
 
@@ -41,12 +44,66 @@ public class LoginPageViewController implements Initializable {
     }
 
     @FXML
+    void forgotPasswordClicked(javafx.scene.input.MouseEvent event) {
+        String enteredUsername = userNameTxt.getText();
+
+        // Check if entered username is an email
+        String usernameRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
+        boolean isValidEmail = enteredUsername.matches(usernameRegex);
+
+        if (!isValidEmail) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Validation Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Please enter a valid email address.");
+            alert.showAndWait();
+            return;
+        }
+
+        // Simulate fetching password from the database
+        String registeredEmail = "ruwaniranthika2001@gmail.com";
+        String currentPassword = "Strong@123";
+
+        if (!enteredUsername.equals(registeredEmail)) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Email not registered in the system.");
+            alert.showAndWait();
+            return;
+        }
+
+        // Send the password via email
+        boolean isSent = MailUtil.sendEmail(
+                registeredEmail,
+                "Password Recovery - Blood Bank Management System",
+                "Your password is: " + currentPassword
+        );
+
+        if (isSent) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Success");
+            alert.setHeaderText(null);
+            alert.setContentText("Your password has been sent to your email.");
+            alert.showAndWait();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Failed to send the email. Please try again later.");
+            alert.showAndWait();
+        }
+    }
+
+
+
+    @FXML
     void navigateToHomePage(ActionEvent event) throws IOException {
 
         String passwordRegex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@#$%^&+=!])[A-Za-z\\d@#$%^&+=!]{8,}$";
-        String usernameRegex = "^[a-zA-Z0-9][a-zA-Z0-9._]{2,19}$";
+        String usernameRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
 
-        String validUsername = "admin";
+        String validUsername = "ruwaniranthika2001@gmail.com";
         String validPassword = "Strong@123";
 
         String enteredUsername = userNameTxt.getText();

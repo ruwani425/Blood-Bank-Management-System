@@ -68,6 +68,7 @@ public class InventoryPageController implements Initializable {
 
     private final InventoryModel inventoryModel = new InventoryModel();
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setCellValueFactory();
@@ -164,7 +165,8 @@ public class InventoryPageController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
             new Alert(Alert.AlertType.ERROR, "Failed to load Supplier Page!").show();
-        }    }
+        }
+    }
 
     @FXML
     void popUpNewWindowAddInventory(ActionEvent event) {

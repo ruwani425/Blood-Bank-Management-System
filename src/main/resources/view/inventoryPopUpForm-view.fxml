@@ -20,17 +20,17 @@
       <Label layoutX="43.0" layoutY="193.0" text="Qty :" />
       <Label layoutX="43.0" layoutY="109.0" text="Status :" />
       <Label layoutX="43.0" layoutY="51.0" text="Inventory ID :" />
-      <HBox alignment="TOP_RIGHT" layoutX="294.0" layoutY="327.0" prefHeight="35.0" prefWidth="300.0" spacing="4.0">
+      <HBox alignment="TOP_RIGHT" layoutX="362.0" layoutY="327.0" prefHeight="35.0" prefWidth="232.0" spacing="4.0">
          <children>
             <JFXButton id="bevel" fx:id="btnDelete" onAction="#btnDeleteInventoryOnAction" prefHeight="25.0" prefWidth="70.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/blueButtonCss.css" text="Delete" />
             <JFXButton id="bevel" fx:id="btnUpdate" onAction="#btnUpdateInventoryOnAction" prefHeight="25.0" prefWidth="70.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/blueButtonCss.css" text="Update" />
             <JFXButton id="bevel" fx:id="btnAdd" onAction="#btnAddInventoryOnAction" prefHeight="25.0" prefWidth="70.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/blueButtonCss.css" text="Add" textAlignment="JUSTIFY" textFill="#4f91fc" wrapText="true" />
-            <JFXButton id="bevel" fx:id="closeBtn" onAction="#btnCloseOnAction" prefHeight="25.0" prefWidth="70.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/blueButtonCss.css" text="Close" textAlignment="JUSTIFY" textFill="#4f91fc" wrapText="true" />
          </children>
       </HBox>
       <Label layoutX="317.0" layoutY="192.0" text="supplier :" />
       <ComboBox id="glass" fx:id="cmbSupplier" layoutX="315.0" layoutY="221.0" onAction="#cmbSupplierOnAction" prefHeight="28.0" prefWidth="118.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/textFeild.css" />
       <Label layoutX="320.0" layoutY="270.0" text="supplier Name:" />
       <Label fx:id="lblSupplierName" layoutX="423.0" layoutY="266.0" prefHeight="28.0" prefWidth="77.0" />
+      <JFXButton id="bevel" fx:id="closeBtn" layoutX="9.0" layoutY="327.0" onAction="#btnCloseOnAction" prefHeight="25.0" prefWidth="70.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/blueButtonCss.css" text="Close" textAlignment="JUSTIFY" textFill="#4f91fc" wrapText="true" />
    </children>
 </AnchorPane>

@@ -56,8 +56,6 @@ public class HomePageViewController implements Initializable {
     @FXML
     private AnchorPane rootPane;
 
-    HomePageViewController homePageViewController;
-
     @FXML
     void navigateToBloodStockPage(MouseEvent event) {
         navigateTo("/view/bloodStockPage-view.fxml");
@@ -124,7 +122,8 @@ public class HomePageViewController implements Initializable {
     void navigateToHospitalPage(MouseEvent event) {
         navigateTo("/view/hospitalPage-view.fxml");
     }
-//
+
+    //
 //    @FXML
 //    void navigateToInventoryPage(MouseEvent event) {
 //        navigateTo("/view/inventoryPage-view.fxml");
@@ -134,7 +133,6 @@ public class HomePageViewController implements Initializable {
         try {
             homeAnchor.getChildren().clear();
 
-            // Load the inventory page
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/inventoryPage-view.fxml"));
             AnchorPane inventoryPage = loader.load();
 
@@ -142,10 +140,9 @@ public class HomePageViewController implements Initializable {
             InventoryPageController controller = loader.getController();
             controller.setHomePageViewController(this);
 
-            // Add the inventory page to the anchor
             homeAnchor.getChildren().add(inventoryPage);
 
-            // Optional: Set up transitions
+            // Add the transition animation
             TranslateTransition transition = new TranslateTransition(Duration.millis(1000), inventoryPage);
             transition.setFromY(-homeAnchor.getHeight());
             transition.setToY(0);
@@ -157,6 +154,29 @@ public class HomePageViewController implements Initializable {
         }
     }
 
+    void navigateToInventoryPage(){
+        try {
+            homeAnchor.getChildren().clear();
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/inventoryPage-view.fxml"));
+            AnchorPane inventoryPage = loader.load();
+
+            SupplierPageController supplierPageController = new SupplierPageController();
+            supplierPageController.setHomePageViewController(this);
+
+            homeAnchor.getChildren().add(inventoryPage);
+
+            // Add the transition animation
+            TranslateTransition transition = new TranslateTransition(Duration.millis(1000), inventoryPage);
+            transition.setFromY(-homeAnchor.getHeight());
+            transition.setToY(0);
+            transition.play();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Failed to load Inventory Page!").show();
+        }
+    }
 
     @FXML
     void navigateToRequestPage(MouseEvent event) {
@@ -183,7 +203,7 @@ public class HomePageViewController implements Initializable {
 
             controller.setHomePageViewController(this);
             // Now you can use the controller to access any methods or variables in HealthCheckupController
-          //  controller.setDateFromHealthCheckUp(s,bloodGroup,donorId); // Example method call in HealthCheckupController
+            //  controller.setDateFromHealthCheckUp(s,bloodGroup,donorId); // Example method call in HealthCheckupController
 
         } catch (IOException e) {
             new Alert(Alert.AlertType.ERROR, "Failed to load page!").show();
@@ -201,7 +221,7 @@ public class HomePageViewController implements Initializable {
 //        }
 //    }
 
-    public void navigateToDonationsPageByButton(String s, String bloodGroup,String donorId){
+    public void navigateToDonationsPageByButton(String s, String bloodGroup, String donorId) {
         try {
             homeAnchor.getChildren().clear();
 
@@ -224,7 +244,7 @@ public class HomePageViewController implements Initializable {
             transition.play();
 
             // Now you can use the controller to access any methods or variables in HealthCheckupController
-            controller.setDateFromHealthCheckUp(s,bloodGroup,donorId); // Example method call in HealthCheckupController
+            controller.setDateFromHealthCheckUp(s, bloodGroup, donorId); // Example method call in HealthCheckupController
 
         } catch (IOException e) {
             new Alert(Alert.AlertType.ERROR, "Failed to load page!").show();
@@ -262,6 +282,7 @@ public class HomePageViewController implements Initializable {
         rootPane.setPrefHeight(screenHeight);
         navigateTo("/view/homeStartPage-view.fxml");
     }
+
     @FXML
     void onMouseEnterdImage(MouseEvent event) {
         if (event.getSource() instanceof ImageView) {
@@ -292,6 +313,7 @@ public class HomePageViewController implements Initializable {
             icon.setEffect(null);
         }
     }
+
     public void navigateWithRequestId(String requestId) {
         try {
             homeAnchor.getChildren().clear();

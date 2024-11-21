@@ -1,6 +1,8 @@
 package lk.ijse.gdse.bbms.controller;
 
 import com.jfoenix.controls.JFXButton;
+import javafx.animation.ScaleTransition;
+import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -11,15 +13,21 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 import lk.ijse.gdse.bbms.dto.SupplierDTO;
 import lk.ijse.gdse.bbms.dto.tm.SupplierTM;
 import lk.ijse.gdse.bbms.model.SupplierModel;
@@ -56,7 +64,16 @@ public class SupplierPageController implements Initializable {
     @FXML
     private JFXButton btnAddSupplier;
 
+    @FXML
+    private ImageView backArrow;
+
     private final SupplierModel supplierModel = new SupplierModel();
+    HomePageViewController homePageViewController;
+
+    public void setHomePageViewController(HomePageViewController homePageViewController) {
+        this.homePageViewController = homePageViewController;
+    }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -177,4 +194,45 @@ public class SupplierPageController implements Initializable {
 
         tblSupplier.setItems(filteredData);
     }
+
+    @FXML
+    void onMouseEnterd(MouseEvent event) {
+        if (event.getSource() instanceof ImageView) {
+            ImageView icon = (ImageView) event.getSource();
+
+            ScaleTransition scaleT = new ScaleTransition(Duration.millis(200), icon);
+            scaleT.setToX(1.2);
+            scaleT.setToY(1.2);
+            scaleT.play();
+
+            DropShadow glow = new DropShadow();
+            glow.setColor(Color.CORNFLOWERBLUE);
+            glow.setWidth(15);
+            glow.setHeight(15);
+            glow.setRadius(15);
+            icon.setEffect(glow);
+        }
+    }
+
+    @FXML
+    void onMouseExited(MouseEvent event) {
+        if (event.getSource() instanceof ImageView) {
+            ImageView icon = (ImageView) event.getSource();
+            ScaleTransition scaleT = new ScaleTransition(Duration.millis(200), icon);
+            scaleT.setToX(1);
+            scaleT.setToY(1);
+            scaleT.play();
+            icon.setEffect(null);
+        }
+    }
+
+    @FXML
+    void navigateToInventoryPage(MouseEvent event) {
+        if (homePageViewController != null) {
+            homePageViewController.navigateToInventoryPage();
+        } else {
+            System.err.println("homePageViewController is not initialized!");
+        }
+    }
+
 }
