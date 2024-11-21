@@ -6,24 +6,36 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import lk.ijse.gdse.bbms.db.DBConnection;
 import lk.ijse.gdse.bbms.dto.BloodStockDTO;
 import lk.ijse.gdse.bbms.dto.tm.BloodIssueTM;
+import lk.ijse.gdse.bbms.dto.tm.BloodRequestTM;
 import lk.ijse.gdse.bbms.dto.tm.BloodStockTM;
 import lk.ijse.gdse.bbms.dto.tm.DonorTM;
 import lk.ijse.gdse.bbms.model.BloodStockModel;
 
 import java.net.URL;
+import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
+
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
+
+import javafx.scene.control.Alert;
+import net.sf.jasperreports.engine.JRException;
+
 
 public class BloodStockPageController implements Initializable {
 
@@ -90,11 +102,14 @@ public class BloodStockPageController implements Initializable {
     @FXML
     private JFXButton btnIssue;
 
-    private String requestID;
+    private BloodRequestTM bloodRequestTM;
+
+    @FXML
+    private JFXButton btnBloodIssueReport;
 
     BloodStockModel bloodStockModel=new BloodStockModel();
     ObservableList<BloodIssueTM> bloodIssueTMS = FXCollections.observableArrayList();
-    ArrayList<BloodStockDTO>issuedBlood=new ArrayList<>();
+    ArrayList<BloodIssueTM>issuedBlood=new ArrayList<>();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -108,10 +123,10 @@ public class BloodStockPageController implements Initializable {
         tblBloodStock.setOnMouseClicked(this::handleRowClick);
     }
 
-    public void setRequestID(String requestID) {
-        this.requestID = requestID;
-        lblRequestID.setText(requestID);
-        System.out.println(requestID);
+    public void setRequestID(BloodRequestTM bloodRequestTM) {
+        this.bloodRequestTM = bloodRequestTM;
+        lblRequestID.setText(bloodRequestTM.getRequestId());
+        System.out.println(bloodRequestTM);
     }
 
     private void setCellValueFactory() {
@@ -137,7 +152,9 @@ public class BloodStockPageController implements Initializable {
         if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
             BloodStockTM selectedItem = tblBloodStock.getSelectionModel().getSelectedItem();
             if (selectedItem != null) {
-                addIssueItem(new BloodIssueTM(selectedItem.getBloodID(),selectedItem.getBloodGroup(),selectedItem.getQty(),selectedItem.getExpiryDate(),null));
+                BloodIssueTM bloodIssueTM=new BloodIssueTM(selectedItem.getBloodID(),selectedItem.getBloodGroup(),selectedItem.getQty(),selectedItem.getExpiryDate(),null);
+                bloodIssueTM.setBloodID(selectedItem.getBloodID());
+                addIssueItem(bloodIssueTM);
             }
         }
     }
@@ -252,7 +269,43 @@ public class BloodStockPageController implements Initializable {
     }
 
     @FXML
-    void btnIssueOnAction(ActionEvent event) {
-
+    void btnIssueOnAction(ActionEvent event) throws SQLException {
+            boolean isAdd=bloodStockModel.addBloodIssue(bloodRequestTM,issuedBlood);
+            if (isAdd){
+                refreshTable();
+                new Alert(Alert.AlertType.INFORMATION, "successfully saved").show();
+            }else {
+                new Alert(Alert.AlertType.ERROR, "Failed to saved blood issue").show();
+            }
     }
+
+    @FXML
+    public void btnViewIssueBloodReportOnAction(ActionEvent actionEvent) {
+        try {
+            // Establish a database connection
+            Connection connection = DBConnection.getInstance().getConnection();
+
+            // Parameters for the report (add if needed)
+            Map<String, Object> parameters = new HashMap<>();
+            parameters.put("ReportTitle", "Blood Issue Report");
+
+            // Compile the JRXML template to a JasperReport object
+            JasperReport jasperReport = JasperCompileManager.compileReport(
+                    getClass().getResourceAsStream("/reports/RecivedBloodDetails.jrxml"));
+
+            // Fill the report with data and parameters
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, connection);
+
+            // Display the report in a viewer
+            JasperViewer.viewReport(jasperPrint, false);
+
+        } catch (JRException e) {
+            // Show an error message if the report fails to generate
+            new Alert(Alert.AlertType.ERROR, "Failed to generate the report.").show();
+        } catch (SQLException e) {
+            // Show an error message if a database issue occurs
+            new Alert(Alert.AlertType.ERROR, "Database connection error.").show();
+        }
+    }
+
 }

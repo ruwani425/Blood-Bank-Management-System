@@ -68,6 +68,9 @@ public class InventoryPageController implements Initializable {
 
     private final InventoryModel inventoryModel = new InventoryModel();
 
+    public void setHomePageViewController(HomePageViewController homePageViewController) {
+        this.homePageViewController = homePageViewController;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -79,10 +82,6 @@ public class InventoryPageController implements Initializable {
         }
 
         tblInventory.setOnMouseClicked(this::handleRowClick);
-    }
-
-    public void setHomePageViewController(HomePageViewController homePageViewController) {
-        this.homePageViewController = homePageViewController;
     }
 
     private void setCellValueFactory() {
@@ -145,27 +144,7 @@ public class InventoryPageController implements Initializable {
 
     @FXML
     void navigateToSupplierPage(ActionEvent event) {
-        try {
-            // Clear the current view
-            homePageViewController.homeAnchor.getChildren().clear();
-
-            // Load the supplier page
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/supplierPage-view.fxml"));
-            AnchorPane supplierPage = loader.load();
-
-            // Add it to the home anchor
-            homePageViewController.homeAnchor.getChildren().add(supplierPage);
-
-            // Optional: Set up any needed transitions
-            TranslateTransition transition = new TranslateTransition(Duration.millis(1000), supplierPage);
-            transition.setFromY(-homePageViewController.homeAnchor.getHeight());
-            transition.setToY(0);
-            transition.play();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR, "Failed to load Supplier Page!").show();
-        }
+       homePageViewController.navigateToSupplierPage(homePageViewController);
     }
 
     @FXML
@@ -213,5 +192,28 @@ public class InventoryPageController implements Initializable {
         });
 
         tblInventory.setItems(filteredData);
+    }
+    public void navigateToInventoryPage() {
+        try {
+            // Clear the current view
+            homePageViewController.homeAnchor.getChildren().clear();
+
+            // Load the supplier page
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/inventoryPage-view.fxml"));
+            AnchorPane supplierPage = loader.load();
+
+            // Add it to the home anchor
+            homePageViewController.homeAnchor.getChildren().add(supplierPage);
+
+            // Optional: Set up any needed transitions
+            TranslateTransition transition = new TranslateTransition(Duration.millis(1000), supplierPage);
+            transition.setFromY(-homePageViewController.homeAnchor.getHeight());
+            transition.setToY(0);
+            transition.play();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Failed to load Supplier Page!").show();
+        }
     }
 }

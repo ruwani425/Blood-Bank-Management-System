@@ -120,7 +120,7 @@ public class BloodRequestController implements Initializable {
     }
 
     private void openBloodIssueWindow(BloodRequestTM selectedBloodRequest) {
-        homePageViewController.navigateWithRequestId(selectedBloodRequest.getRequestId());
+        homePageViewController.navigateWithRequestId(selectedBloodRequest);
     }
 
     private void setCellValueFactory() {
@@ -133,7 +133,7 @@ public class BloodRequestController implements Initializable {
     }
     private void loadBloodRequests() {
         try {
-            ArrayList<BloodRequestDTO> bloodRequestList = bloodRequestModel.getAllRequests();
+            ArrayList<BloodRequestDTO> bloodRequestList = bloodRequestModel.getAllRequests("PENDING");
 
             ObservableList<BloodRequestTM> observableList = FXCollections.observableArrayList();
             for (BloodRequestDTO dto : bloodRequestList) {
@@ -214,7 +214,7 @@ public class BloodRequestController implements Initializable {
         }
     }
     public void refreshTable() throws SQLException {
-        ArrayList<BloodRequestDTO> bloodRequestDTOS = bloodRequestModel.getAllRequests();
+        ArrayList<BloodRequestDTO> bloodRequestDTOS = bloodRequestModel.getAllRequests("PENDING");
         ObservableList<BloodRequestTM> bloodRequestTMS = FXCollections.observableArrayList();
 
         for (BloodRequestDTO bloodRequestDTO : bloodRequestDTOS) {

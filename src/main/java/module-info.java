@@ -6,6 +6,7 @@ module lk.ijse.gdse.bbms {
     requires static lombok;
     requires java.sql;
     requires java.mail;
+    requires net.sf.jasperreports.core;
 
     opens lk.ijse.gdse.bbms.controller to javafx.fxml;
     opens lk.ijse.gdse.bbms.model to javafx.base;

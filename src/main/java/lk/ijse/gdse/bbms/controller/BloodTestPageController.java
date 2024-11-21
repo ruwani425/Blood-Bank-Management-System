@@ -18,6 +18,20 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import javafx.application.Application;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.VBox;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+
 public class BloodTestPageController implements Initializable {
 
     @FXML
@@ -103,6 +117,8 @@ public class BloodTestPageController implements Initializable {
 
     @FXML
     private TextField txtBloodQty;
+
+    String imageUrl;
 
     BloodTestModel bloodTestModel = new BloodTestModel();
 
@@ -214,8 +230,51 @@ public class BloodTestPageController implements Initializable {
 
     @FXML
     void btnChooseFileOnFile(ActionEvent event) {
-        System.out.println("hh");
+        // Get the current stage (You might need to pass the stage reference if necessary)
+        Stage stage = new Stage();
+
+        // Create a FileChooser
+        FileChooser fileChooser = new FileChooser();
+
+        // Set extension filters for file types
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg"),
+                new FileChooser.ExtensionFilter("PDF Files", "*.pdf")
+        );
+
+        // Open file chooser dialog
+        File selectedFile = fileChooser.showOpenDialog(stage);
+
+        // Check if a file was selected
+        if (selectedFile != null) {
+            // Print the file path
+            System.out.println("File selected: " + selectedFile.getAbsolutePath());
+
+            // Copy the file to the lk.ijse.resource directory
+            String targetDirectory = "src/main/resources/images/";
+            try {
+                // Ensure the directory exists
+                Path targetPath = Paths.get(targetDirectory);
+                if (!Files.exists(targetPath)) {
+                    Files.createDirectories(targetPath);
+                }
+
+                // Define the target file path
+                Path targetFile = targetPath.resolve(selectedFile.getName());
+
+                // Copy the file
+                Files.copy(selectedFile.toPath(), targetFile);
+
+                System.out.println("File copied to: " + targetFile.toAbsolutePath());
+                imageUrl=targetFile.toAbsolutePath().toString();
+            } catch (IOException e) {
+                System.err.println("Failed to copy file: " + e.getMessage());
+            }
+        } else {
+            System.out.println("File selection canceled.");
+        }
     }
+
     @FXML
     void btnFinishedOnAction(ActionEvent event) throws SQLException {
         getByStatus();
@@ -265,7 +324,7 @@ public class BloodTestPageController implements Initializable {
                     Float.parseFloat(txtPlatelets.getText()), // Platelets (modified to float)
                     Double.parseDouble(txtRedBloodCells.getText()), // RedBloodCells
                     Double.parseDouble(txtWhiteBloodCells.getText()), // WhiteBloodCells
-                    null, // ReportImageUrl (optional)
+                    imageUrl, // ReportImageUrl (optional)
                     lblBloodType.getText(), // BloodGroup
                     Double.parseDouble(txtBloodQty.getText())
             );

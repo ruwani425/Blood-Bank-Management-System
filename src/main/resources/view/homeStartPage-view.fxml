@@ -1,24 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="660.0" prefWidth="1170.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.bbms.controller.HomeStartViewController">
+<AnchorPane prefHeight="754.0" prefWidth="1170.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.bbms.controller.HomeStartViewController">
    <children>
-      <ImageView fitHeight="641.0" fitWidth="1120.0" layoutX="-9.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="lblTime" layoutX="46.0" layoutY="315.0" prefHeight="105.0" prefWidth="360.0" text="00.00.00" textFill="#08090a">
+      <ImageView fitHeight="777.0" fitWidth="1173.0" layoutX="-2.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../lk/ijse/gdse/bbms/assert/homePageBackGround.png" />
+         </image></ImageView>
+      <Label fx:id="lblTime" layoutX="46.0" layoutY="434.0" prefHeight="105.0" prefWidth="360.0" text="00.00.00" textFill="#08090a">
          <font>
             <Font name="Arial Unicode MS" size="74.0" />
          </font>
       </Label>
-      <Label fx:id="lblYear" layoutX="58.0" layoutY="427.0" prefHeight="28.0" prefWidth="97.0" text="YYYY" textFill="#08090a">
+      <Label fx:id="lblYear" layoutX="58.0" layoutY="546.0" prefHeight="28.0" prefWidth="97.0" text="YYYY" textFill="#08090a">
          <font>
             <Font name="System Bold" size="36.0" />
          </font>
       </Label>
-      <Label fx:id="lblMonthDate" layoutX="164.0" layoutY="427.0" prefHeight="52.0" prefWidth="304.0" text="MM/DD" textFill="#08090a">
+      <Label fx:id="lblMonthDate" layoutX="164.0" layoutY="546.0" prefHeight="52.0" prefWidth="304.0" text="MM/DD" textFill="#08090a">
          <font>
             <Font name="System Bold" size="36.0" />
          </font>

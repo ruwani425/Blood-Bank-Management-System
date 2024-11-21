@@ -33,9 +33,9 @@ public class BloodRequestModel {
         );
     }
 
-    public ArrayList<BloodRequestDTO> getAllRequests() throws SQLException {
+    public ArrayList<BloodRequestDTO> getAllRequests(String status) throws SQLException {
         // Define a query to select all columns from the Blood_request table
-        ResultSet rst = CrudUtil.execute("SELECT * FROM Blood_request");
+        ResultSet rst = CrudUtil.execute("SELECT * FROM Blood_request where Status=?",status);
 
         // Create an ArrayList to store the results
         ArrayList<BloodRequestDTO> bloodRequestList = new ArrayList<>();
@@ -58,5 +58,7 @@ public class BloodRequestModel {
         // Return the populated list
         return bloodRequestList;
     }
-
+    public boolean updateStatus(String requestId) throws SQLException {
+        return CrudUtil.execute("UPDATE Blood_request SET Status='COMPLETED' WHERE Request_id=?",requestId);
+    }
 }

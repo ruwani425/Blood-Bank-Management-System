@@ -9,7 +9,6 @@ import java.sql.SQLException;
 @Getter
 public class DBConnection {
     private static DBConnection instance;
-
     private final Connection connection;
 
     private DBConnection() throws SQLException {

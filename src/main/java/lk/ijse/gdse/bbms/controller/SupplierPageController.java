@@ -71,9 +71,8 @@ public class SupplierPageController implements Initializable {
     HomePageViewController homePageViewController;
 
     public void setHomePageViewController(HomePageViewController homePageViewController) {
-        this.homePageViewController = homePageViewController;
+        this.homePageViewController=homePageViewController;
     }
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -228,11 +227,6 @@ public class SupplierPageController implements Initializable {
 
     @FXML
     void navigateToInventoryPage(MouseEvent event) {
-        if (homePageViewController != null) {
-            homePageViewController.navigateToInventoryPage();
-        } else {
-            System.err.println("homePageViewController is not initialized!");
-        }
+      homePageViewController.navigateToInventoryPage();
     }
-
 }

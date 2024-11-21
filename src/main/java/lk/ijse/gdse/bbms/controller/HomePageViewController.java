@@ -13,6 +13,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.util.Duration;
 import javafx.animation.TranslateTransition;
+import lk.ijse.gdse.bbms.dto.tm.BloodRequestTM;
 
 import java.io.IOException;
 import java.net.URL;
@@ -129,7 +130,7 @@ public class HomePageViewController implements Initializable {
 //        navigateTo("/view/inventoryPage-view.fxml");
 //    }
     @FXML
-    void navigateToInventoryPage(MouseEvent event) {
+    void navigateToInventoryPage() {
         try {
             homeAnchor.getChildren().clear();
 
@@ -154,15 +155,16 @@ public class HomePageViewController implements Initializable {
         }
     }
 
-    void navigateToInventoryPage(){
+    public void navigateToSupplierPage(HomePageViewController homePageViewController) {
         try {
             homeAnchor.getChildren().clear();
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/inventoryPage-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/supplierPage-view.fxml"));
             AnchorPane inventoryPage = loader.load();
 
-            SupplierPageController supplierPageController = new SupplierPageController();
-            supplierPageController.setHomePageViewController(this);
+            // Set the controller reference
+            SupplierPageController controller = loader.getController();
+            controller.setHomePageViewController(homePageViewController);
 
             homeAnchor.getChildren().add(inventoryPage);
 
@@ -314,7 +316,7 @@ public class HomePageViewController implements Initializable {
         }
     }
 
-    public void navigateWithRequestId(String requestId) {
+    public void navigateWithRequestId(BloodRequestTM requestId) {
         try {
             homeAnchor.getChildren().clear();
 
