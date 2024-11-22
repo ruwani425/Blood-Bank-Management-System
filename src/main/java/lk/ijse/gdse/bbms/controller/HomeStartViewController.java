@@ -44,24 +44,12 @@ public class HomeStartViewController implements Initializable {
     @FXML
     private Label lblResived;
 
-    @FXML
-    private TableView<DonorTM> tblDashBoradDonor;
-
-    @FXML
-    private TableColumn<DonorTM, String> colDonorName;
-
-    @FXML
-    private TableColumn<DonorTM, String> colDonorAddress;
-
-    @FXML
-    private TableColumn<DonorTM, String> colDonorBloodGroup;
 
     BloodStockModel bloodStockModel = new BloodStockModel();
     BloodRequestModel bloodRequestModel = new BloodRequestModel();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        setCellValueFactory();
         setCurrentTime();
         setYear();
         setMonthAndDate();
@@ -90,32 +78,15 @@ public class HomeStartViewController implements Initializable {
 //        requestLbl.setText(String.valueOf(totalRequestCount));
         try {
             populateDashboardData();
-            refreshTable();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
-    private void refreshTable() throws SQLException {
-        ArrayList<DonorDTO> donorDTOS = new DonorModel().getAllDonors();
-        ObservableList<DonorTM> donorTMS = FXCollections.observableArrayList();
-
-        for (DonorDTO donorDTO : donorDTOS) {
-            donorTMS.add(new DonorTM(donorDTO.getDonorName(), donorDTO.getDonorAddress(), donorDTO.getBloodGroup()));
-        }
-        tblDashBoradDonor.setItems(donorTMS);
     }
 
     private void populateDashboardData() throws SQLException {
         stockLbl.setText(String.valueOf(bloodStockModel.getTotalBloodIDCount()));
         lblResived.setText(String.valueOf(bloodStockModel.getTotalIssuedBloodIDCount()));
         requestLbl.setText(String.valueOf(bloodRequestModel.getTotalRequestBloodCount()));
-    }
-
-    private void setCellValueFactory() {
-        colDonorName.setCellValueFactory(new PropertyValueFactory<>("donorName"));
-        colDonorBloodGroup.setCellValueFactory(new PropertyValueFactory<>("bloodGroup"));
-        colDonorAddress.setCellValueFactory(new PropertyValueFactory<>("donorAddress"));
     }
 
     private void setCurrentTime() {

@@ -12,6 +12,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import lk.ijse.gdse.bbms.db.DBConnection;
 import lk.ijse.gdse.bbms.dto.BloodStockDTO;
+import lk.ijse.gdse.bbms.dto.HospitalDTO;
 import lk.ijse.gdse.bbms.dto.tm.BloodIssueTM;
 import lk.ijse.gdse.bbms.dto.tm.BloodRequestTM;
 import lk.ijse.gdse.bbms.dto.tm.BloodStockTM;
@@ -27,6 +28,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import lk.ijse.gdse.bbms.model.HospitalModel;
+import lk.ijse.gdse.bbms.util.MailUtil;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -107,6 +110,14 @@ public class BloodStockPageController implements Initializable {
     @FXML
     private JFXButton btnBloodIssueReport;
 
+    @FXML
+    private JFXButton btnSendMail;
+
+    String bloodType;
+
+    String hospitalEmail;
+    HospitalModel hospitalModel=new HospitalModel();
+
     BloodStockModel bloodStockModel=new BloodStockModel();
     ObservableList<BloodIssueTM> bloodIssueTMS = FXCollections.observableArrayList();
     ArrayList<BloodIssueTM>issuedBlood=new ArrayList<>();
@@ -123,10 +134,13 @@ public class BloodStockPageController implements Initializable {
         tblBloodStock.setOnMouseClicked(this::handleRowClick);
     }
 
-    public void setRequestID(BloodRequestTM bloodRequestTM) {
+    public void setRequestID(BloodRequestTM bloodRequestTM) throws SQLException {
         this.bloodRequestTM = bloodRequestTM;
         lblRequestID.setText(bloodRequestTM.getRequestId());
         System.out.println(bloodRequestTM);
+        HospitalDTO hospitalById = hospitalModel.getHospitalById(bloodRequestTM.getHospitalId());
+        hospitalEmail=hospitalById.getEmail();
+        bloodType=bloodRequestTM.getBloodType();
     }
 
     private void setCellValueFactory() {
@@ -298,4 +312,22 @@ public class BloodStockPageController implements Initializable {
         }
     }
 
+    @FXML
+    public void btnSendBloodNotFoundEmail(ActionEvent actionEvent) {
+        System.out.println(hospitalEmail);
+        System.out.println(bloodType);
+        new Thread(() -> {
+            MailUtil.sendEmail(
+                    hospitalEmail,
+                    "Urgent Blood Requirement: "+bloodType+"Out of Stock",
+                    "We hope this message finds you well.\n" +
+                            "\n" +
+                            "We regret to inform you that the requested blood type "+bloodType+"is currently unavailable in our stock at this moment. We are working diligently to replenish our supply and will notify you as soon as it becomes available.\n" +
+                            "\n" +
+                            "If there’s anything else we can assist you with, please don’t hesitate to reach out.\n" +
+                            "\n" +
+                            "Thank you for understanding."
+            );
+        }).start();
+    }
 }

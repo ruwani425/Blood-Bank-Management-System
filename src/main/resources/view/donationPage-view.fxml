@@ -34,7 +34,7 @@
       </Label>
       <TextField id="bevel" fx:id="txtQty" layoutX="55.0" layoutY="152.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/textFeild.css" />
       <JFXButton id="bevel" fx:id="btnAdd" layoutX="1079.0" layoutY="328.0" onAction="#btnAddDonationOnAction" prefHeight="28.0" prefWidth="78.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/blueButtonCss.css" text="Add" />
-      <ComboBox id="glass" fx:id="cmbSelectCampaign" layoutX="174.0" layoutY="56.0" prefHeight="28.0" prefWidth="118.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/textFeild.css" />
+      <ComboBox id="glass" fx:id="cmbSelectCampaign" layoutX="174.0" layoutY="56.0" onAction="#cmbSelectOnAction" prefHeight="28.0" prefWidth="118.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/textFeild.css" />
       <Label fx:id="lblBloodGroup" layoutX="159.0" layoutY="198.0" prefHeight="37.0" prefWidth="177.0" />
       <Label layoutX="53.0" layoutY="58.0" text="Select Campaign :" />
       <Label layoutX="57.0" layoutY="115.0" text="Blood Quantity :" />
@@ -60,5 +60,17 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
+      <Label layoutX="429.0" layoutY="84.0" text="Name :" />
+      <Label layoutX="427.0" layoutY="121.0" text="Address :" />
+      <Label layoutX="431.0" layoutY="165.0" text="NIC :" />
+      <Label fx:id="lblDonorName" layoutX="488.0" layoutY="84.0" prefHeight="28.0" prefWidth="239.0" />
+      <Label fx:id="lblDonorAddress" layoutX="494.0" layoutY="119.0" prefHeight="28.0" prefWidth="239.0" />
+      <Label fx:id="lblDonorNic" layoutX="494.0" layoutY="153.0" prefHeight="28.0" prefWidth="239.0" />
+      <Label layoutX="792.0" layoutY="83.0" text="Name :" />
+      <Label layoutX="793.0" layoutY="112.0" text="ID :" />
+      <Label layoutX="793.0" layoutY="144.0" text="Collected Units :" />
+      <Label fx:id="lblCampaignName" layoutX="842.0" layoutY="78.0" prefHeight="28.0" prefWidth="239.0" />
+      <Label fx:id="lblCampaignID" layoutX="843.0" layoutY="107.0" prefHeight="28.0" prefWidth="239.0" />
+      <Label fx:id="lblCollectedUnits" layoutX="898.0" layoutY="139.0" prefHeight="28.0" prefWidth="85.0" />
    </children>
 </AnchorPane>

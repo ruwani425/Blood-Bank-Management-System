@@ -74,7 +74,7 @@ public class HospitalModel {
         if (rst.next()) {
             return new HospitalDTO(
                     rst.getString("Hospital_id"),
-                    rst.getString("Hospital_name"),
+                    rst.getString("Name"),
                     rst.getString("Address"),
                     rst.getString("Contact_number"),
                     rst.getString("Email"),

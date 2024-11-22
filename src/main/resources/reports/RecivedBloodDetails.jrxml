@@ -73,7 +73,7 @@
 		</element>
 	</columnHeader>
 	<detail>
-		<band height="125" splitType="Stretch">
+		<band height="30" splitType="Stretch">
 			<element kind="textField" uuid="e8fee040-e005-4eb1-b9dd-ba86334160e4" x="0" y="0" width="111" height="30" fontSize="12.0" hTextAlign="Center">
 				<expression><![CDATA[$F{Reserved_id}]]></expression>
 				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e89ca083-dc36-4b1e-bb56-e6f6beb80c1f"/>
@@ -111,7 +111,7 @@
 			</element>
 		</band>
 	</detail>
-	<columnFooter height="45" splitType="Stretch"/>
+	<columnFooter height="114" splitType="Stretch"/>
 	<pageFooter height="54" splitType="Stretch"/>
 	<summary height="42" splitType="Stretch"/>
 </jasperReport>

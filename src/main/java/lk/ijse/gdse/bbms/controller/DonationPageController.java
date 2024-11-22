@@ -1,4 +1,5 @@
 package lk.ijse.gdse.bbms.controller;
+
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.collections.FXCollections;
@@ -10,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import lk.ijse.gdse.bbms.dto.CampaignDTO;
 import lk.ijse.gdse.bbms.dto.DonationDTO;
 import lk.ijse.gdse.bbms.dto.DonorDTO;
 import lk.ijse.gdse.bbms.dto.HealthCheckupDTO;
@@ -17,6 +19,8 @@ import lk.ijse.gdse.bbms.dto.tm.DonationTM;
 import lk.ijse.gdse.bbms.dto.tm.DonorTM;
 import lk.ijse.gdse.bbms.model.CampaignModel;
 import lk.ijse.gdse.bbms.model.DonationModel;
+import lk.ijse.gdse.bbms.model.DonorModel;
+import lk.ijse.gdse.bbms.util.MailUtil;
 
 import java.net.URL;
 import java.sql.Date;
@@ -40,19 +44,19 @@ public class DonationPageController implements Initializable {
     private TableView<DonationTM> tblDonation;
 
     @FXML
-    private TableColumn<DonationTM,String> colDonationId;
+    private TableColumn<DonationTM, String> colDonationId;
 
     @FXML
-    private TableColumn<DonationTM,String> colBloodCampaignId;
+    private TableColumn<DonationTM, String> colBloodCampaignId;
 
     @FXML
-    private TableColumn<DonationTM,String> colHealthCheckUpId;
+    private TableColumn<DonationTM, String> colHealthCheckUpId;
 
     @FXML
-    private TableColumn<DonationTM,String> colBloodGroup;
+    private TableColumn<DonationTM, String> colBloodGroup;
 
     @FXML
-    private TableColumn<DonationTM,Integer> colQty;
+    private TableColumn<DonationTM, Integer> colQty;
 
     @FXML
     private TableColumn<DonationTM, Date> colDateOfDonation;
@@ -63,7 +67,29 @@ public class DonationPageController implements Initializable {
     @FXML
     private Label lblBloodGroup;
 
-    private DonationModel donationModel=new DonationModel();
+
+    @FXML
+    private Label lblDonorName;
+
+    @FXML
+    private Label lblDonorAddress;
+
+    @FXML
+    private Label lblDonorNic;
+
+    @FXML
+    private Label lblCampaignName;
+
+    @FXML
+    private Label lblCampaignID;
+
+    @FXML
+    private Label lblCollectedUnits;
+
+    String donorEmail;
+
+    private DonationModel donationModel = new DonationModel();
+    private DonorModel donorModel = new DonorModel();
 
     CampaignModel campaignModel = new CampaignModel();
     String checkupId;
@@ -72,25 +98,20 @@ public class DonationPageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        setCellValueFactory();
-
         try {
+            setCellValueFactory();
             refreshTable();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-        try {
+            getDonorById();
             lblDonationId.setText(donationModel.getNextDonationId());
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        try {
             ArrayList<String> idList = campaignModel.findCampaignIds();
-            cmbSelectCampaign.getItems().addAll(idList); // Add items to ComboBox
+            cmbSelectCampaign.getItems().addAll(idList);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
+    }
+
+    private void getDonorById() {
+
     }
 
     private void setCellValueFactory() {
@@ -101,6 +122,7 @@ public class DonationPageController implements Initializable {
         colQty.setCellValueFactory(new PropertyValueFactory<>("Qty"));
         colDateOfDonation.setCellValueFactory(new PropertyValueFactory<>("dateOfDonation"));
     }
+
     public void refreshTable() throws SQLException {
         ArrayList<DonationDTO> donationDTOS = donationModel.getAllDonations();
         ObservableList<DonationTM> donationTMS = FXCollections.observableArrayList();
@@ -118,7 +140,8 @@ public class DonationPageController implements Initializable {
         }
         tblDonation.setItems(donationTMS);
     }
-//    private void handleRowClick(MouseEvent event) {
+
+    //    private void handleRowClick(MouseEvent event) {
 //        if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
 //            DonorTM selectedDonation = tblDonation.getSelectionModel().getSelectedItem();
 //            if (selectedDonor != null) {
@@ -142,11 +165,24 @@ public class DonationPageController implements Initializable {
                 bloodGroup,
                 qty,
                 donationDate
-        ),donorId);
+        ), donorId);
 
         if (isSaved) {
             lblDonationId.setText(donationModel.getNextDonationId());
             refreshTable();
+
+            new Thread(() -> {
+                MailUtil.sendEmail(
+                        donorEmail,
+                        " Heartfelt Thanks for Your Generous Blood Donation!",
+                        "Dear Donor,\n" +
+                                "\n" +
+                                "Thank you for your generous blood donation. Your kindness has the power to save lives and bring hope to those in need.\n" +
+                                "\n" +
+                                "We deeply appreciate your support and look forward to seeing you again!"
+                );
+            }).start();
+
             new Alert(Alert.AlertType.INFORMATION, "Donation saved successfully!").show();
         } else {
             new Alert(Alert.AlertType.ERROR, "Failed to save donation.").show();
@@ -154,11 +190,29 @@ public class DonationPageController implements Initializable {
     }
 
 
-    public void setDateFromHealthCheckUp(String s, String bloodGroup,String id) {
+    public void setDateFromHealthCheckUp(String s, String bloodGroup, String id) {
         System.out.printf("HealthCheckupDTO initialized in DonationPageController: %s, %s%n", s, bloodGroup);
         this.checkupId = s;
         this.bloodGroup = bloodGroup;
-        this.donorId=id;
+        this.donorId = id;
         System.out.println("HealthCheckupDTO initialized in DonationPageController: ");
+        try {
+            DonorDTO donorById = donorModel.getDonorById(id);
+            lblBloodGroup.setText(donorById.getBloodGroup());
+            lblDonorAddress.setText(donorById.getDonorAddress());
+            lblDonorNic.setText(donorById.getDonorNic());
+            lblDonorName.setText(donorById.getDonorName());
+            donorEmail = donorById.getDonorEmail();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void cmbSelectOnAction(ActionEvent event) throws SQLException {
+        CampaignDTO campaignDTO = campaignModel.getCampaignById(cmbSelectCampaign.getValue());
+        lblCampaignID.setText(campaignDTO.getBlood_campaign_id());
+        lblCampaignName.setText(campaignDTO.getCampaign_name());
+        lblCollectedUnits.setText(String.valueOf(campaignDTO.getCollectedUnits()));
     }
 }

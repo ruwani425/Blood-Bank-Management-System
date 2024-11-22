@@ -169,7 +169,7 @@ public class BloodRequestController implements Initializable {
             String requestId = lblRequestID.getText();
             String hospitalId = cmbHospital.getSelectionModel().getSelectedItem();
             String bloodType = cmbBloodGroup.getSelectionModel().getSelectedItem();
-            Date dateOfRequest = Date.valueOf(LocalDate.now()); // Current date
+            Date dateOfRequest = Date.valueOf(LocalDate.now());
             double qty = Double.parseDouble(txtBloodQty.getText());
             String status = cmbStatus.getSelectionModel().getSelectedItem();
 

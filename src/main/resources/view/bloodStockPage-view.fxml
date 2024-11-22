@@ -44,5 +44,6 @@
       <JFXButton id="glass" fx:id="btnExpired" layoutX="86.0" layoutY="60.0" onAction="#btnIsExpiredOnAction" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/whiteBtn.css" text="Expired" />
       <JFXButton id="bevel" fx:id="btnIssue" layoutX="574.0" layoutY="609.0" onAction="#btnIssueOnAction" prefHeight="18.0" prefWidth="66.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/blueButtonCss.css" text="Issue" />
       <JFXButton id="glass" fx:id="btnBloodIssueReport" layoutX="949.0" layoutY="60.0" onAction="#btnViewIssueBloodReportOnAction" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/whiteBtn.css" text="View Issued Blood Report" />
+      <JFXButton id="glass" fx:id="btnSendMail" layoutX="393.0" layoutY="409.0" onAction="#btnSendBloodNotFoundEmail" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/whiteBtn.css" text="Blood Not Found Email" />
    </children>
 </AnchorPane>

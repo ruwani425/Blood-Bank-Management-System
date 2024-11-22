@@ -79,4 +79,28 @@ public class CampaignModel {
         }
         return campaignIds;
     }
+
+    public CampaignDTO getCampaignById(String value) throws SQLException {
+        ResultSet rst = CrudUtil.execute("select * from Blood_campaign where Blood_campaign_id=?",value);
+        if (rst.next()) {
+            return new CampaignDTO(
+                    rst.getString(1),
+                    rst.getString(2),
+                    rst.getString(3),
+                    rst.getDate(4),
+                    rst.getDate(5),
+                    rst.getString(6),
+                    rst.getInt(7)
+            );
+        }
+        return null;
+    }
+
+    public boolean updateCollectedUnit(String campaignId, int qty) throws SQLException {
+        return CrudUtil.execute(
+                "UPDATE Blood_campaign SET Collected_units = Collected_units + ? WHERE Blood_campaign_id = ?",
+                1,
+                campaignId
+        );
+    }
 }

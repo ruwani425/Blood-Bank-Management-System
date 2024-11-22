@@ -15,6 +15,7 @@ import java.util.ArrayList;
 public class DonationModel {
     DonorModel donorModel = new DonorModel();
     BloodTestModel bloodTestModel = new BloodTestModel();
+    CampaignModel campaignModel = new CampaignModel();
 
     public boolean addDonation(DonationDTO donationDTO, String donorID) throws SQLException {
         Connection connection = DBConnection.getInstance().getConnection();
@@ -34,8 +35,13 @@ public class DonationModel {
                 if (bloodTestModel.addBloodTest(bloodTestDTO)) {
                     if (
                             donorModel.updateLastDonationDate(donorID, donationDTO.getDateOfDonation())) {
-                        connection.commit();
-                        return true;
+                            if(campaignModel.updateCollectedUnit(donationDTO.getCampaignId(),donationDTO.getQty())){
+                                connection.commit();
+                                return true;
+                            }else {
+                                connection.rollback();
+                                return false;
+                            }
                     } else {
                         connection.rollback();
                         return false;

@@ -17,6 +17,7 @@ import lk.ijse.gdse.bbms.dto.tm.BloodRequestTM;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class HomePageViewController implements Initializable {
@@ -229,6 +230,7 @@ public class HomePageViewController implements Initializable {
             controller.setDateFromHealthCheckUp(s, bloodGroup, donorId);
 
         } catch (IOException e) {
+            e.printStackTrace();
             new Alert(Alert.AlertType.ERROR, "Failed to load page!").show();
         }
     }
@@ -316,6 +318,8 @@ public class HomePageViewController implements Initializable {
 
         } catch (IOException e) {
             new Alert(Alert.AlertType.ERROR, "Failed to load page!").show();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 }

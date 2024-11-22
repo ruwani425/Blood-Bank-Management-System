@@ -104,4 +104,23 @@ public class DonorModel{
         );
     }
 
+    public DonorDTO getDonorById(String donorId) throws SQLException {
+        System.out.println(donorId);
+        ResultSet rst = CrudUtil.execute("select * from Donor where Donor_id=?", donorId);
+
+        if (rst.next()) {
+            return new DonorDTO(
+                    rst.getString("Donor_id"),
+                    rst.getString(2), // Name (not required in this method)
+                    rst.getString(3),  // NIC
+                    rst.getString(4), // Address
+                    rst.getString(5), // E_mail
+                    rst.getString("Blood_group"), // Blood_group
+                    rst.getString("Gender"), // Gender
+                    rst.getDate("Dob"), // Date of Birth
+                    rst.getDate("Last_donation_date") // Last Donation Date
+            );
+        }
+        return null; // Return null if no donor with the given NIC is found
+    }
 }

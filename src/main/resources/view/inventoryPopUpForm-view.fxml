@@ -30,7 +30,7 @@
       <Label layoutX="317.0" layoutY="192.0" text="supplier :" />
       <ComboBox id="glass" fx:id="cmbSupplier" layoutX="315.0" layoutY="221.0" onAction="#cmbSupplierOnAction" prefHeight="28.0" prefWidth="118.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/textFeild.css" />
       <Label layoutX="320.0" layoutY="270.0" text="supplier Name:" />
-      <Label fx:id="lblSupplierName" layoutX="423.0" layoutY="266.0" prefHeight="28.0" prefWidth="77.0" />
+      <Label fx:id="lblSupplierName" layoutX="423.0" layoutY="266.0" prefHeight="28.0" prefWidth="154.0" />
       <JFXButton id="bevel" fx:id="closeBtn" layoutX="9.0" layoutY="327.0" onAction="#btnCloseOnAction" prefHeight="25.0" prefWidth="70.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/blueButtonCss.css" text="Close" textAlignment="JUSTIFY" textFill="#4f91fc" wrapText="true" />
    </children>
 </AnchorPane>
