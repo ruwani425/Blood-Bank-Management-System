@@ -61,4 +61,13 @@ public class BloodRequestModel {
     public boolean updateStatus(String requestId) throws SQLException {
         return CrudUtil.execute("UPDATE Blood_request SET Status='COMPLETED' WHERE Request_id=?",requestId);
     }
+
+    public int getTotalRequestBloodCount() throws SQLException {
+        ResultSet rst = CrudUtil.execute("SELECT COUNT(*) FROM Blood_request");
+
+        if (rst.next()) {
+            return rst.getInt(1); // Return the total count
+        }
+        return 0; // Return 0 if no data is found
+    }
 }

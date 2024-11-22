@@ -4,8 +4,11 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import lk.ijse.gdse.bbms.model.BloodRequestModel;
+import lk.ijse.gdse.bbms.model.BloodStockModel;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -13,6 +16,7 @@ import java.util.ResourceBundle;
 public class HomeStartViewController implements Initializable {
 
     boolean run = true;
+
     Thread thread;
     @FXML
     private Label lblTime;
@@ -22,11 +26,46 @@ public class HomeStartViewController implements Initializable {
     @FXML
     private Label lblMonthDate;
 
+    @FXML
+    private Label stockLbl;
+
+    @FXML
+    private Label requestLbl;
+
+    @FXML
+    private Label lblResived;
+
+    BloodStockModel bloodStockModel = new BloodStockModel();
+    BloodRequestModel bloodRequestModel = new BloodRequestModel();
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setCurrentTime();
         setYear();
         setMonthAndDate();
+        int totalBloodCount = 0;
+        try {
+            totalBloodCount = bloodStockModel.getTotalBloodIDCount();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        stockLbl.setText(String.valueOf(totalBloodCount));
+
+        int totalReservedCount = 0;
+        try {
+            totalReservedCount = bloodStockModel.getTotalIssuedBloodIDCount();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        lblResived.setText(String.valueOf(totalReservedCount));
+
+        int totalRequestCount = 0;
+        try {
+            totalRequestCount = bloodRequestModel.getTotalRequestBloodCount();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        requestLbl.setText(String.valueOf(totalRequestCount));
     }
 
     private void setCurrentTime() {
@@ -35,7 +74,8 @@ public class HomeStartViewController implements Initializable {
             while (run) {
                 try {
                     Thread.sleep(1000);
-                } catch (Exception ignored) {}
+                } catch (Exception ignored) {
+                }
 
                 final String time = timeFormat.format(new Date());
                 Platform.runLater(() -> lblTime.setText(time));

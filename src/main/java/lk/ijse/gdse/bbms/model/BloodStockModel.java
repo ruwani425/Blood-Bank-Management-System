@@ -168,4 +168,20 @@ public class BloodStockModel {
         }
         return "R001"; // Return the default Blood ID if no data is found
     }
+    public int getTotalBloodIDCount() throws SQLException {
+        ResultSet rst = CrudUtil.execute("SELECT COUNT(*) FROM Blood_stock");
+
+        if (rst.next()) {
+            return rst.getInt(1); // Return the total count
+        }
+        return 0; // Return 0 if no data is found
+    }
+    public int getTotalIssuedBloodIDCount() throws SQLException {
+        ResultSet rst = CrudUtil.execute("SELECT COUNT(*) FROM Reserved_blood");
+
+        if (rst.next()) {
+            return rst.getInt(1); // Return the total count
+        }
+        return 0; // Return 0 if no data is found
+    }
 }
