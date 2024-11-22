@@ -47,7 +47,6 @@ public class LoginPageViewController implements Initializable {
     void forgotPasswordClicked(javafx.scene.input.MouseEvent event) {
         String enteredUsername = userNameTxt.getText();
 
-        // Check if entered username is an email
         String usernameRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
         boolean isValidEmail = enteredUsername.matches(usernameRegex);
 
@@ -60,7 +59,6 @@ public class LoginPageViewController implements Initializable {
             return;
         }
 
-        // Simulate fetching password from the database
         String registeredEmail = "ruwaniranthika2001@gmail.com";
         String currentPassword = "Strong@123";
 
@@ -73,7 +71,6 @@ public class LoginPageViewController implements Initializable {
             return;
         }
 
-        // Send the password via email
         boolean isSent = MailUtil.sendEmail(
                 registeredEmail,
                 "Password Recovery - Blood Bank Management System",

@@ -28,10 +28,9 @@ public class HealthCheckUpModel {
             int newIdIndex = i + 1; // Increment the number by 1
             return String.format("H%03d", newIdIndex); // Return the new Donor ID in format Hnnn
         }
-        return "H001"; // Return the default HealthCheck ID if no data is found
+        return "H001";
     }
 
-    // Method to get health checkup details by donor ID
     public HealthCheckupDTO getHealthCheckupByDonorId(String donorId) throws SQLException {
         ResultSet rst = CrudUtil.execute("select * from Health_checkup where Donor_id = ?", donorId);
 
@@ -46,6 +45,6 @@ public class HealthCheckUpModel {
                     rst.getString(7)
             );
         }
-        return null; // Return null if no health checkup found for the given donor ID
+        return null;
     }
 }

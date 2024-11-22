@@ -3,7 +3,6 @@ package lk.ijse.gdse.bbms.model;
 import lk.ijse.gdse.bbms.db.DBConnection;
 import lk.ijse.gdse.bbms.dto.BloodStockDTO;
 import lk.ijse.gdse.bbms.dto.BloodTestDTO;
-import lk.ijse.gdse.bbms.dto.DonorDTO;
 import lk.ijse.gdse.bbms.util.CrudUtil;
 
 import java.sql.Connection;
@@ -141,34 +140,30 @@ public class BloodTestModel {
     }
 
     public BloodTestDTO getBloodTestDetailById(String testID) throws SQLException {
-        // Query the database for the Blood_group and Collected_date based on Test_id
         ResultSet rst = CrudUtil.execute("SELECT Blood_group, Collected_date FROM Blood_test WHERE Test_id = ?", testID);
 
-        // Check if a result exists
         if (rst.next()) {
-            // Extract the Blood_group and Collected_date from the result set
             String bloodGroup = rst.getString("Blood_group");
             Date collectedDate = rst.getDate("Collected_date");
 
-            // Create and return a BloodTestDTO with the extracted data
             return new BloodTestDTO(
-                    null, // TestID (optional: pass if needed)
-                    null, // DonationID (optional: pass if needed)
-                    collectedDate, // Collected_date
-                    null, // Expiry_date (optional: pass if needed)
-                    null, // TestResult (optional: pass if needed)
-                    0.0,  // Haemoglobin (optional: default value)
-                    null, // TestDate (optional: pass if needed)
-                    null, // ReportSerialNum (optional: pass if needed)
-                    0.0f,  // Platelets (optional: default value)
-                    0.0,  // RedBloodCells (optional: default value)
-                    0.0,  // WhiteBloodCells (optional: default value)
-                    null, // ReportImageUrl (optional: pass if needed)
-                    bloodGroup, // Blood_group
+                    null,
+                    null,
+                    collectedDate,
+                    null,
+                    null,
+                    0.0,
+                    null,
+                    null,
+                    0.0f,
+                    0.0,
+                    0.0,
+                    null,
+                    bloodGroup,
                     0.0
             );
         }
-        return null; // Return null if no matching record is found
+        return null;
     }
 
 

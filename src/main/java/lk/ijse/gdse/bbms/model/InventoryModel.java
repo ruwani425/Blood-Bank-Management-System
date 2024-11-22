@@ -101,7 +101,7 @@ public class InventoryModel {
                     rst.getInt("Qty")
             );
         }
-        return null; // Return null if no inventory item is found with the given ID
+        return null;
     }
 
     public ArrayList<String> getAllInventoryIDs() throws SQLException {
@@ -110,7 +110,7 @@ public class InventoryModel {
         ArrayList<String> inventoryIds = new ArrayList<>();
 
         while (rst.next()) {
-            inventoryIds.add(rst.getString("Inventory_id")); // Add each Inventory ID to the list
+            inventoryIds.add(rst.getString("Inventory_id"));
         }
         return inventoryIds;
     }

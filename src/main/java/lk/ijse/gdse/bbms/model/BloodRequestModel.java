@@ -9,7 +9,6 @@ import java.util.ArrayList;
 
 public class BloodRequestModel {
     public String getNextRequestId() throws SQLException {
-        // Query the database to get the latest Request_id from the BloodRequest table
         ResultSet rst = CrudUtil.execute("select Request_id from Blood_request order by Request_id desc limit 1");
 
         if (rst.next()) {
@@ -19,7 +18,7 @@ public class BloodRequestModel {
             int newIdIndex = i + 1; // Increment the numeric part by 1
             return String.format("R%03d", newIdIndex); // Return the new Request ID in format Rnnn
         }
-        return "R001"; // Return the default Request ID if no data is found
+        return "R001";
     }
     public boolean addBloodRequest(BloodRequestDTO bloodRequestDTO) throws SQLException {
         return CrudUtil.execute(
@@ -34,28 +33,23 @@ public class BloodRequestModel {
     }
 
     public ArrayList<BloodRequestDTO> getAllRequests(String status) throws SQLException {
-        // Define a query to select all columns from the Blood_request table
         ResultSet rst = CrudUtil.execute("SELECT * FROM Blood_request where Status=?",status);
 
-        // Create an ArrayList to store the results
         ArrayList<BloodRequestDTO> bloodRequestList = new ArrayList<>();
 
-        // Loop through the result set and populate the list
         while (rst.next()) {
             BloodRequestDTO bloodRequest = new BloodRequestDTO(
-                    rst.getString("Request_id"),       // Request ID
-                    rst.getString("Hospital_id"),      // Hospital ID
-                    rst.getString("Blood_group"),       // Blood Type
-                    rst.getDate("Date_of_request"),    // Date of Request
-                    rst.getDouble("Qty"),              // Quantity
-                    rst.getString("Status")            // Status
+                    rst.getString("Request_id"),
+                    rst.getString("Hospital_id"),
+                    rst.getString("Blood_group"),
+                    rst.getDate("Date_of_request"),
+                    rst.getDouble("Qty"),
+                    rst.getString("Status")
             );
 
-            // Add the DTO object to the list
             bloodRequestList.add(bloodRequest);
         }
 
-        // Return the populated list
         return bloodRequestList;
     }
     public boolean updateStatus(String requestId) throws SQLException {
@@ -66,8 +60,8 @@ public class BloodRequestModel {
         ResultSet rst = CrudUtil.execute("SELECT COUNT(*) FROM Blood_request");
 
         if (rst.next()) {
-            return rst.getInt(1); // Return the total count
+            return rst.getInt(1);
         }
-        return 0; // Return 0 if no data is found
+        return 0;
     }
 }

@@ -92,7 +92,6 @@ public class AddDonorPopUpController implements Initializable {
 
     @FXML
     void btnAddDonorOnAction(ActionEvent event) throws SQLException {
-        // Regular expressions for validation
         String nameRegex = "^[A-Za-z\\s]{3,50}$"; // Only letters and spaces, 3-50 characters
         String emailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"; // Standard email format
         String nicRegex = "^[0-9]{9}[vVxX]|[0-9]{12}$"; // Sri Lankan NIC format
@@ -216,7 +215,6 @@ public class AddDonorPopUpController implements Initializable {
 
     @FXML
     void btnUpdateDonorOnAction(ActionEvent event) throws SQLException {
-        // Regular expressions for validation
         String nameRegex = "^[A-Za-z\\s]{3,50}$"; // Only letters and spaces, 3-50 characters
         String emailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"; // Standard email format
         String nicRegex = "^[0-9]{9}[vVxX]|[0-9]{12}$"; // Sri Lankan NIC format

@@ -113,7 +113,7 @@ public class SupplierPageController implements Initializable {
 
 
     private void handleRowClick(MouseEvent event) {
-        if (event.getClickCount() == 2) { // Double click
+        if (event.getClickCount() == 2) {
             SupplierTM selectedSupplier = tblSupplier.getSelectionModel().getSelectedItem();
             if (selectedSupplier != null) {
                 openEditSupplierWindow(selectedSupplier);
@@ -128,7 +128,7 @@ public class SupplierPageController implements Initializable {
 
             SupplierPopUpController controller = fxmlLoader.getController();
             controller.setSupplierData(selectedSupplier);
-            controller.setSupplierPageController(this); // Pass the instance
+            controller.setSupplierPageController(this);
 
             Stage stage = new Stage();
             stage.initStyle(StageStyle.UNDECORATED);
@@ -138,7 +138,6 @@ public class SupplierPageController implements Initializable {
             stage.initOwner(tblSupplier.getScene().getWindow());
             stage.showAndWait();
 
-            // Refresh table (redundant as controller will do this on successful update)
             refreshTable();
         } catch (IOException | SQLException e) {
             e.printStackTrace();
@@ -152,7 +151,7 @@ public class SupplierPageController implements Initializable {
             Parent root = fxmlLoader.load();
 
             SupplierPopUpController controller = fxmlLoader.getController();
-            controller.setSupplierPageController(this); // Pass the instance
+            controller.setSupplierPageController(this);
 
             Stage stage = new Stage();
             stage.initStyle(StageStyle.UNDECORATED);
@@ -162,7 +161,6 @@ public class SupplierPageController implements Initializable {
             stage.initOwner(((Node) event.getSource()).getScene().getWindow());
             stage.showAndWait();
 
-            // Refresh table (redundant as controller will do this on successful update)
             refreshTable();
         } catch (IOException e) {
             e.printStackTrace();

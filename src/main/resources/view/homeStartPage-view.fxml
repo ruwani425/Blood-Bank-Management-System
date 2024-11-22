@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -70,6 +72,24 @@
       <Label fx:id="stockLbl" layoutX="930.0" layoutY="72.0" prefHeight="60.0" prefWidth="81.0">
          <font>
             <Font name="System Bold" size="36.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="311.0" fitWidth="340.0" layoutX="759.0" layoutY="384.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../lk/ijse/gdse/bbms/assert/dashboardIcon.png" />
+         </image>
+      </ImageView>
+      <TableView fx:id="tblDashBoradDonor" layoutX="411.0" layoutY="238.0" prefHeight="159.0" prefWidth="322.0" stylesheets="@../lk/ijse/gdse/bbms/styleSheets/tableStyle.css">
+        <columns>
+          <TableColumn fx:id="colDonorName" prefWidth="75.0" text="Donor" />
+          <TableColumn fx:id="colDonorAddress" prefWidth="105.0" text="Address" />
+            <TableColumn fx:id="colDonorBloodGroup" prefWidth="106.0" text="Blood Group" />
+        </columns>
+      </TableView>
+      <Label layoutX="411.0" layoutY="226.0" prefHeight="35.0" prefWidth="322.0" style="-fx-background-color: white;" />
+      <Label layoutX="417.0" layoutY="224.0" text="Avilable Donors">
+         <font>
+            <Font name="System Bold" size="13.0" />
          </font>
       </Label>
    </children>

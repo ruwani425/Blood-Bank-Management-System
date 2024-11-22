@@ -126,7 +126,7 @@ public class CampaignPageController implements Initializable {
             addCampaignPopUpController.setCampainPageController(this);
 
             Stage stage = new Stage();
-            stage.initStyle(StageStyle.UNDECORATED); // Remove the black toolbar
+            stage.initStyle(StageStyle.UNDECORATED);
             stage.setResizable(false);
             stage.setScene(new Scene(root));
 
@@ -150,7 +150,7 @@ public class CampaignPageController implements Initializable {
             controller.setCampaignData(campaignTM);
 
             Stage stage = new Stage();
-            stage.initStyle(StageStyle.UNDECORATED); // Remove the black toolbar
+            stage.initStyle(StageStyle.UNDECORATED);
 
             stage.setResizable(false);
             stage.setScene(new Scene(root));
@@ -180,7 +180,7 @@ public class CampaignPageController implements Initializable {
                         campaignTM.getStartDate().toString().contains(searchKeyword) ||
                         campaignTM.getEndDate().toString().contains(searchKeyword) ||
                         campaignTM.getStatus().toLowerCase().contains(searchKeyword) ||
-                        String.valueOf(campaignTM.getCollectedUnits()).contains(searchKeyword); // For integer values
+                        String.valueOf(campaignTM.getCollectedUnits()).contains(searchKeyword);
             });
         });
 

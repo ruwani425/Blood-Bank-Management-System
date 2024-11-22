@@ -81,7 +81,7 @@ public class HospitalModel {
                     rst.getString("Type")
             );
         }
-        return null; // Return null if no hospital with the given ID is found
+        return null;
     }
 
     public ArrayList<String> getAllHospitalIDs() throws SQLException {
@@ -90,7 +90,7 @@ public class HospitalModel {
         ArrayList<String> hospitalIds = new ArrayList<>();
 
         while (rst.next()) {
-            hospitalIds.add(rst.getString("Hospital_id")); // Add each Hospital ID to the list
+            hospitalIds.add(rst.getString("Hospital_id"));
         }
         return hospitalIds;
     }

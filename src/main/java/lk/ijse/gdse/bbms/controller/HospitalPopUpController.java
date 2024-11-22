@@ -76,41 +76,36 @@ public class HospitalPopUpController implements Initializable {
 
     @FXML
     void btnAddHospitalOnAction(ActionEvent event) {
-        // Define regular expressions for validation
         String nameRegex = "^[A-Za-z\\s]{3,50}$"; // Only letters and spaces, 3-50 characters
         String addressRegex = "^.{5,100}$"; // At least 5 characters for address
         String contactNumberRegex = "^[0-9]{10}$"; // 10 digits for Sri Lankan contact numbers
         String emailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"; // Standard email format
 
-        // Validate each field
         boolean isNameValid = Validation.validateTextField(txtName, nameRegex, txtName.getText());
         boolean isAddressValid = Validation.validateTextField(txtAddress, addressRegex, txtAddress.getText());
         boolean isContactNumberValid = Validation.validateTextField(txtContactNumber, contactNumberRegex, txtContactNumber.getText());
         boolean isEmailValid = Validation.validateTextField(txtEmail, emailRegex, txtEmail.getText());
 
-        // Check if all fields are valid (no ComboBox validation)
         if (!isNameValid || !isAddressValid || !isContactNumberValid || !isEmailValid) {
             new Alert(Alert.AlertType.ERROR, "Please correct the highlighted fields.").show();
             return; // Stop execution if validation fails
         }
 
-        // If validation passes, proceed with adding the hospital
         String name = txtName.getText();
         String address = txtAddress.getText();
         String contactNumber = txtContactNumber.getText();
         String email = txtEmail.getText();
-        String type = cmbHospitalType.getValue(); // No validation for ComboBox here
+        String type = cmbHospitalType.getValue();
         String hospitalId = lblHospitalId.getText();
 
-        // Create HospitalDTO and add hospital
         HospitalDTO hospitalDTO = new HospitalDTO(hospitalId, name, address, contactNumber, email, type);
 
         try {
             boolean isAdded = hospitalModel.addHospital(hospitalDTO);
             if (isAdded) {
                 new Alert(Alert.AlertType.INFORMATION, "Hospital added successfully!").show();
-                clearFields(); // Clear fields after adding
-                hospitalPageController.refreshTable(); // Refresh hospital table
+                clearFields();
+                hospitalPageController.refreshTable();
             } else {
                 new Alert(Alert.AlertType.ERROR, "Failed to add Hospital.").show();
             }
@@ -148,8 +143,8 @@ public class HospitalPopUpController implements Initializable {
 //    }
     @FXML
     void btnCloseOnAction(ActionEvent event) {
-        Stage stage = (Stage) closeBtn.getScene().getWindow(); // Get the current stage (popup window)
-        stage.close(); // Close the stage (popup window)
+        Stage stage = (Stage) closeBtn.getScene().getWindow();
+        stage.close();
     }
 
     @FXML
@@ -163,8 +158,8 @@ public class HospitalPopUpController implements Initializable {
                 boolean isDeleted = hospitalModel.deleteHospital(hospitalId);
                 if (isDeleted) {
                     new Alert(Alert.AlertType.INFORMATION, "Hospital deleted successfully!").show();
-                    clearFields(); // Clear fields after deletion
-                    hospitalPageController.refreshTable(); // Refresh the hospital table
+                    clearFields();
+                    hospitalPageController.refreshTable();
                     stage = (Stage) btnDelete.getScene().getWindow();
                     stage.close();
                 } else {
@@ -208,43 +203,38 @@ public class HospitalPopUpController implements Initializable {
 
     @FXML
     void btnUpdateHospitalOnAction(ActionEvent event) {
-        // Define regular expressions for validation
         String nameRegex = "^[A-Za-z\\s]{3,50}$"; // Only letters and spaces, 3-50 characters
         String addressRegex = "^.{5,100}$"; // At least 5 characters for address
         String contactNumberRegex = "^[0-9]{10}$"; // 10 digits for Sri Lankan contact numbers
         String emailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"; // Standard email format
 
-        // Validate each field
         boolean isNameValid = Validation.validateTextField(txtName, nameRegex, txtName.getText());
         boolean isAddressValid = Validation.validateTextField(txtAddress, addressRegex, txtAddress.getText());
         boolean isContactNumberValid = Validation.validateTextField(txtContactNumber, contactNumberRegex, txtContactNumber.getText());
         boolean isEmailValid = Validation.validateTextField(txtEmail, emailRegex, txtEmail.getText());
 
-        // Check if all fields are valid (no ComboBox validation)
         if (!isNameValid || !isAddressValid || !isContactNumberValid || !isEmailValid) {
             new Alert(Alert.AlertType.ERROR, "Please correct the highlighted fields.").show();
-            return; // Stop execution if validation fails
+            return;
         }
 
-        // If validation passes, proceed with updating the hospital
         String name = txtName.getText();
         String address = txtAddress.getText();
         String contactNumber = txtContactNumber.getText();
         String email = txtEmail.getText();
-        String type = cmbHospitalType.getValue(); // No validation for ComboBox here
+        String type = cmbHospitalType.getValue();
         String hospitalId = lblHospitalId.getText();
 
-        // Create HospitalDTO and update hospital
         HospitalDTO hospitalDTO = new HospitalDTO(hospitalId, name, address, contactNumber, email, type);
 
         try {
             boolean isUpdated = hospitalModel.updateHospital(hospitalDTO);
             if (isUpdated) {
                 new Alert(Alert.AlertType.INFORMATION, "Hospital updated successfully!").show();
-                clearFields(); // Clear fields after updating
-                hospitalPageController.refreshTable(); // Refresh the hospital table
+                clearFields();
+                hospitalPageController.refreshTable();
                 stage = (Stage) btnUpdate.getScene().getWindow();
-                stage.close(); // Close the window
+                stage.close();
             } else {
                 new Alert(Alert.AlertType.ERROR, "Failed to update Hospital.").show();
             }
@@ -260,7 +250,7 @@ public class HospitalPopUpController implements Initializable {
         txtContactNumber.clear();
         txtEmail.clear();
         cmbHospitalType.setValue(null);
-        lblHospitalId.setText(hospitalModel.getNextHospitalId()); // Reset hospital ID for next input
+        lblHospitalId.setText(hospitalModel.getNextHospitalId());
     }
     public void setHospitalData(HospitalTM hospital) {
         btnAdd.setDisable(true);

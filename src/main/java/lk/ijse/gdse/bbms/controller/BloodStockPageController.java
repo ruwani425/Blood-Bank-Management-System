@@ -160,11 +160,9 @@ public class BloodStockPageController implements Initializable {
     }
 
     private void addIssueItem(BloodIssueTM bloodIssueTM) {
-        // Initialize button with action
         var button = new JFXButton("Delete");
         button.setStyle("-fx-background-color: #ff4d4d; -fx-text-fill: white;"); // Optional styling
         button.setOnAction(event -> {
-            // Remove the item from both the table and the ObservableList
             bloodIssueTMS.remove(bloodIssueTM);
             tblBloodIssue.getItems().remove(bloodIssueTM);
             System.out.println("Deleted row with Blood Issue ID: " + bloodIssueTM.getBloodIssueID());
@@ -173,7 +171,6 @@ public class BloodStockPageController implements Initializable {
         System.out.println(issuedBlood.toString());
         bloodIssueTM.setButton(button);
 
-        // Add the item to the data source and the table
         bloodIssueTMS.add(bloodIssueTM);
         tblBloodIssue.getItems().add(bloodIssueTM);
     }
@@ -282,28 +279,21 @@ public class BloodStockPageController implements Initializable {
     @FXML
     public void btnViewIssueBloodReportOnAction(ActionEvent actionEvent) {
         try {
-            // Establish a database connection
             Connection connection = DBConnection.getInstance().getConnection();
 
-            // Parameters for the report (add if needed)
             Map<String, Object> parameters = new HashMap<>();
             parameters.put("ReportTitle", "Blood Issue Report");
 
-            // Compile the JRXML template to a JasperReport object
             JasperReport jasperReport = JasperCompileManager.compileReport(
                     getClass().getResourceAsStream("/reports/RecivedBloodDetails.jrxml"));
 
-            // Fill the report with data and parameters
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, connection);
 
-            // Display the report in a viewer
             JasperViewer.viewReport(jasperPrint, false);
 
         } catch (JRException e) {
-            // Show an error message if the report fails to generate
             new Alert(Alert.AlertType.ERROR, "Failed to generate the report.").show();
         } catch (SQLException e) {
-            // Show an error message if a database issue occurs
             new Alert(Alert.AlertType.ERROR, "Database connection error.").show();
         }
     }

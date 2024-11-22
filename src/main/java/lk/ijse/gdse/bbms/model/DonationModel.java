@@ -88,7 +88,6 @@ public class DonationModel {
                     return String.format("DN%03d", newIdIndex); // Return the new Donation ID in format DNnnn
                 } catch (NumberFormatException e) {
                     System.out.println("Error parsing donation ID: " + lastId);
-                    // Handle the error appropriately, maybe return a default value
                 }
             } else {
                 System.out.println("Unexpected ID format: " + lastId);

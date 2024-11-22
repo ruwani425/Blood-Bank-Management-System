@@ -111,7 +111,7 @@ public class InventoryPageController implements Initializable {
     }
 
     private void handleRowClick(MouseEvent event) {
-        if (event.getClickCount() == 2) { // Double-click
+        if (event.getClickCount() == 2) {
             InventoryTM selectedItem = tblInventory.getSelectionModel().getSelectedItem();
             if (selectedItem != null) {
                 openEditInventoryWindow(selectedItem);
@@ -126,7 +126,7 @@ public class InventoryPageController implements Initializable {
 
             InventoryPopUpFormController controller = fxmlLoader.getController();
             controller.setInventoryData(selectedItem);
-            controller.setInventoryPageController(this); // Pass the instance
+            controller.setInventoryPageController(this);
 
             Stage stage = new Stage();
             stage.initStyle(StageStyle.UNDECORATED);
@@ -156,7 +156,7 @@ public class InventoryPageController implements Initializable {
             inventoryPopUpFormController.setInventoryPageController(this);
 
             Stage stage = new Stage();
-            stage.initStyle(StageStyle.UNDECORATED); // Remove the black toolbar
+            stage.initStyle(StageStyle.UNDECORATED);
             stage.setResizable(false);
             stage.setScene(new Scene(root));
 
@@ -181,7 +181,6 @@ public class InventoryPageController implements Initializable {
 
                 String searchKeyword = newValue.toLowerCase();
 
-                // Convert expiry date to string for comparison
                 String expiryDateString = inventoryTM.getExpiryDate() != null ? inventoryTM.getExpiryDate().toString() : "";
                 return inventoryTM.getInventoryId().toLowerCase().contains(searchKeyword) ||
                         inventoryTM.getItemName().toLowerCase().contains(searchKeyword) ||
@@ -195,17 +194,13 @@ public class InventoryPageController implements Initializable {
     }
     public void navigateToInventoryPage() {
         try {
-            // Clear the current view
             homePageViewController.homeAnchor.getChildren().clear();
 
-            // Load the supplier page
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/inventoryPage-view.fxml"));
             AnchorPane supplierPage = loader.load();
 
-            // Add it to the home anchor
             homePageViewController.homeAnchor.getChildren().add(supplierPage);
 
-            // Optional: Set up any needed transitions
             TranslateTransition transition = new TranslateTransition(Duration.millis(1000), supplierPage);
             transition.setFromY(-homePageViewController.homeAnchor.getHeight());
             transition.setToY(0);

@@ -7,18 +7,15 @@ import java.util.Properties;
 public class MailUtil {
 
     public static boolean sendEmail(String recipientEmail, String subject, String messageBody) {
-        // Sender's email credentials
         final String senderEmail = "ruwaniranthika2001@gmail.com";
         final String senderPassword = "nzdb wpjr ymhc jnqx";
 
-        // Configuring mail server properties
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.port", "587");
 
-        // Create a new session with the authenticated credentials
         Session session = Session.getInstance(props, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
@@ -27,7 +24,6 @@ public class MailUtil {
         });
 
         try {
-            // Create a new email message
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(senderEmail));
             message.setRecipients(
@@ -35,7 +31,6 @@ public class MailUtil {
             message.setSubject(subject);
             message.setText(messageBody);
 
-            // Send the email
             Transport.send(message);
             System.out.println("Email sent successfully to " + recipientEmail);
             return true;

@@ -1,15 +1,24 @@
 package lk.ijse.gdse.bbms.controller;
 
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.cell.PropertyValueFactory;
+import lk.ijse.gdse.bbms.dto.DonorDTO;
+import lk.ijse.gdse.bbms.dto.tm.DonorTM;
 import lk.ijse.gdse.bbms.model.BloodRequestModel;
 import lk.ijse.gdse.bbms.model.BloodStockModel;
+import javafx.scene.control.TableView;
+import lk.ijse.gdse.bbms.model.DonorModel;
 
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
 
@@ -35,37 +44,78 @@ public class HomeStartViewController implements Initializable {
     @FXML
     private Label lblResived;
 
+    @FXML
+    private TableView<DonorTM> tblDashBoradDonor;
+
+    @FXML
+    private TableColumn<DonorTM, String> colDonorName;
+
+    @FXML
+    private TableColumn<DonorTM, String> colDonorAddress;
+
+    @FXML
+    private TableColumn<DonorTM, String> colDonorBloodGroup;
+
     BloodStockModel bloodStockModel = new BloodStockModel();
     BloodRequestModel bloodRequestModel = new BloodRequestModel();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        setCellValueFactory();
         setCurrentTime();
         setYear();
         setMonthAndDate();
-        int totalBloodCount = 0;
+//        int totalBloodCount = 0;
+//        try {
+//            totalBloodCount = bloodStockModel.getTotalBloodIDCount();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        stockLbl.setText(String.valueOf(totalBloodCount));
+//
+//        int totalReservedCount = 0;
+//        try {
+//            totalReservedCount = bloodStockModel.getTotalIssuedBloodIDCount();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        lblResived.setText(String.valueOf(totalReservedCount));
+//
+//        int totalRequestCount = 0;
+//        try {
+//            totalRequestCount = bloodRequestModel.getTotalRequestBloodCount();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        requestLbl.setText(String.valueOf(totalRequestCount));
         try {
-            totalBloodCount = bloodStockModel.getTotalBloodIDCount();
+            populateDashboardData();
+            refreshTable();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        stockLbl.setText(String.valueOf(totalBloodCount));
+    }
 
-        int totalReservedCount = 0;
-        try {
-            totalReservedCount = bloodStockModel.getTotalIssuedBloodIDCount();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        lblResived.setText(String.valueOf(totalReservedCount));
+    private void refreshTable() throws SQLException {
+        ArrayList<DonorDTO> donorDTOS = new DonorModel().getAllDonors();
+        ObservableList<DonorTM> donorTMS = FXCollections.observableArrayList();
 
-        int totalRequestCount = 0;
-        try {
-            totalRequestCount = bloodRequestModel.getTotalRequestBloodCount();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        for (DonorDTO donorDTO : donorDTOS) {
+            donorTMS.add(new DonorTM(donorDTO.getDonorName(), donorDTO.getDonorAddress(), donorDTO.getBloodGroup()));
         }
-        requestLbl.setText(String.valueOf(totalRequestCount));
+        tblDashBoradDonor.setItems(donorTMS);
+    }
+
+    private void populateDashboardData() throws SQLException {
+        stockLbl.setText(String.valueOf(bloodStockModel.getTotalBloodIDCount()));
+        lblResived.setText(String.valueOf(bloodStockModel.getTotalIssuedBloodIDCount()));
+        requestLbl.setText(String.valueOf(bloodRequestModel.getTotalRequestBloodCount()));
+    }
+
+    private void setCellValueFactory() {
+        colDonorName.setCellValueFactory(new PropertyValueFactory<>("donorName"));
+        colDonorBloodGroup.setCellValueFactory(new PropertyValueFactory<>("bloodGroup"));
+        colDonorAddress.setCellValueFactory(new PropertyValueFactory<>("donorAddress"));
     }
 
     private void setCurrentTime() {

@@ -18,7 +18,7 @@ public class SupplierModel {
             int newIdIndex = i + 1; // Increment by 1
             return String.format("S%03d", newIdIndex); // Format as Snnn
         }
-        return "S001"; // Default supplier ID
+        return "S001";
     }
 
     public ArrayList<SupplierDTO> getAllSuppliers() throws SQLException {
@@ -77,7 +77,7 @@ public class SupplierModel {
                     rst.getString(5)
             );
         }
-        return null; // Return null if no supplier with the given ID is found
+        return null;
     }
 
     public ArrayList<String> getAllSupplierIDs() throws SQLException {
@@ -86,7 +86,7 @@ public class SupplierModel {
         ArrayList<String> supplierIds = new ArrayList<>();
 
         while (rst.next()) {
-            supplierIds.add(rst.getString("Supplier_id")); // Add each Supplier ID to the list
+            supplierIds.add(rst.getString("Supplier_id"));
         }
         return supplierIds;
     }

@@ -9,9 +9,7 @@ import java.util.ArrayList;
 
 public class EmployeeModel {
 
-    // Method to get the next Employee ID
     public String getNextEmployeeId() throws SQLException {
-        // Query to get the last employee ID
         ResultSet rst = CrudUtil.execute("SELECT Employee_id FROM Employee ORDER BY Employee_id DESC LIMIT 1");
 
         if (rst.next()) {
@@ -24,7 +22,6 @@ public class EmployeeModel {
         return "E001"; // Return the default employee ID if no data is found
     }
 
-    // Method to add an employee
     public boolean addEmployee(EmployeeDTO employeeDTO) throws SQLException {
         return CrudUtil.execute(
                 "INSERT INTO Employee (Employee_id, Name, Nic, Address, E_mail, Role, Status) VALUES (?,?,?,?,?,?,?)",
@@ -38,12 +35,10 @@ public class EmployeeModel {
         );
     }
 
-    // Method to delete an employee by ID
     public boolean deleteEmployee(String employeeId) throws SQLException {
         return CrudUtil.execute("DELETE FROM Employee WHERE Employee_id=?", employeeId);
     }
 
-    // Method to update an employee
     public boolean updateEmployee(EmployeeDTO employeeDTO) throws SQLException {
         return CrudUtil.execute(
                 "UPDATE Employee SET Name=?, Nic=?, Address=?, E_mail=?, Role=?, Status=? WHERE Employee_id=?",
@@ -57,14 +52,11 @@ public class EmployeeModel {
         );
     }
 
-    // Method to get all employees from the database
     public ArrayList<EmployeeDTO> getAllEmployees() throws SQLException {
         ArrayList<EmployeeDTO> employeeList = new ArrayList<>();
 
-        // Query to get all employees
         ResultSet rst = CrudUtil.execute("SELECT Employee_id, Name, Nic, Address, E_mail, Role, Status FROM Employee");
 
-        // Loop through the ResultSet and add each employee to the list
         while (rst.next()) {
             String employeeId = rst.getString("Employee_id");
             String name = rst.getString("Name");
@@ -74,7 +66,6 @@ public class EmployeeModel {
             String role = rst.getString("Role");
             String status = rst.getString("Status");
 
-            // Create EmployeeDTO object and add to the list
             EmployeeDTO employeeDTO = new EmployeeDTO(employeeId, name, nic, address, email, role, status);
             employeeList.add(employeeDTO);
         }

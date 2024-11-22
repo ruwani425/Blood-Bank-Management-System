@@ -117,8 +117,7 @@ public class DonorPageViewController implements Initializable {
             addDonorPopUpController.setDonorPageViewController(this);
 
             Stage stage = new Stage();
-            stage.initStyle(StageStyle.UNDECORATED); // Remove the black toolbar
-            //stage.setTitle("Add New Donor");
+            stage.initStyle(StageStyle.UNDECORATED);
             stage.setResizable(false);
             stage.setScene(new Scene(root));
 
@@ -150,7 +149,7 @@ public class DonorPageViewController implements Initializable {
             controller.setDonorData(donor);
 
             Stage stage = new Stage();
-            stage.initStyle(StageStyle.UNDECORATED); // Remove the black toolbar
+            stage.initStyle(StageStyle.UNDECORATED);
             stage.setResizable(false);
             stage.setScene(new Scene(root));
             stage.initModality(Modality.WINDOW_MODAL);
@@ -173,7 +172,6 @@ public class DonorPageViewController implements Initializable {
 
                 String searchKeyword = newValue.toLowerCase();
 
-                // Convert dob to a string for comparison
                 String dobString = donorTM.getDob() != null ? donorTM.getDob().toString() : "";
                 return donorTM.getDonorId().toLowerCase().contains(searchKeyword) ||
                         donorTM.getDonorName().toLowerCase().contains(searchKeyword) ||
@@ -181,7 +179,7 @@ public class DonorPageViewController implements Initializable {
                         donorTM.getDonorAddress().toLowerCase().contains(searchKeyword) ||
                         donorTM.getDonorEmail().toLowerCase().contains(searchKeyword) ||
                         donorTM.getGender().toLowerCase().contains(searchKeyword) ||
-                        dobString.contains(searchKeyword) || // Check dob as a string
+                        dobString.contains(searchKeyword) ||
                         donorTM.getBloodGroup().toLowerCase().contains(searchKeyword);
             });
         });

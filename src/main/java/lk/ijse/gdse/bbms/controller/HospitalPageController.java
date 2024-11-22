@@ -108,7 +108,6 @@ public class HospitalPageController implements Initializable {
             Parent root = fxmlLoader.load();
              HospitalPopUpController hospitalPopUpController = fxmlLoader.getController();
              hospitalPopUpController.setHospitalPageController(this);
-           // addHospitalPopUpController.setHeaderText("Add New Hospital");
 
             Stage stage = new Stage();
             stage.initStyle(StageStyle.UNDECORATED);
@@ -140,7 +139,6 @@ public class HospitalPageController implements Initializable {
             HospitalPopUpController controller = fxmlLoader.getController();
             controller.setHospitalPageController(this);
             controller.setHospitalData(hospital);
-          //  controller.setHeaderText("Edit Hospital");
 
             Stage stage = new Stage();
             stage.initStyle(StageStyle.UNDECORATED);

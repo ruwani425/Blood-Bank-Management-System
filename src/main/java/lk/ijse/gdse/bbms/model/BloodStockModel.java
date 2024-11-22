@@ -69,38 +69,31 @@ public class BloodStockModel {
     }
 
     public boolean updateBloodStockStatus() throws SQLException {
-        // Update all records where expiry date is before the current date
         int rowsUpdated = CrudUtil.execute(
                 "UPDATE Blood_stock SET status = 'EXPIRED' WHERE Expiry_date < CURDATE()"
         );
-        // Return true if at least one record was updated, false otherwise
         return rowsUpdated > 0;
     }
 
     public boolean updateBloodStockStatusAfterIssued(String bloodId) throws SQLException {
-        // Update all records where expiry date is before the current date
         boolean rowsUpdated = CrudUtil.execute(
                 "UPDATE Blood_stock SET status = 'ISSUED' WHERE Blood_id=?", bloodId
         );
-        // Return true if at least one record was updated, false otherwise
         return rowsUpdated;
     }
 
 
     public ArrayList<BloodStockDTO> getExpiredBloodStocks() throws SQLException {
-        // Fetch records with Expiry_date < CURDATE()
         ResultSet rst = CrudUtil.execute("SELECT * FROM Blood_stock WHERE Expiry_date < CURDATE()");
 
         ArrayList<BloodStockDTO> bloodStockDTOS = new ArrayList<>();
 
         while (rst.next()) {
-            // Update the status of the expired record to 'EXPIRED'
             CrudUtil.execute(
                     "UPDATE Blood_stock SET status = 'EXPIRED' WHERE Blood_id = ?",
                     rst.getString(1) // Blood_id
             );
 
-            // Add the record to the list
             bloodStockDTOS.add(new BloodStockDTO(
                     rst.getString(1),   // bloodID
                     rst.getString(2),   // testID
@@ -166,22 +159,22 @@ public class BloodStockModel {
             int newIdIndex = i + 1; // Increment the number by 1
             return String.format("R%03d", newIdIndex); // Return the new Blood ID in format Rnnn
         }
-        return "R001"; // Return the default Blood ID if no data is found
+        return "R001";
     }
     public int getTotalBloodIDCount() throws SQLException {
         ResultSet rst = CrudUtil.execute("SELECT COUNT(*) FROM Blood_stock");
 
         if (rst.next()) {
-            return rst.getInt(1); // Return the total count
+            return rst.getInt(1);
         }
-        return 0; // Return 0 if no data is found
+        return 0;
     }
     public int getTotalIssuedBloodIDCount() throws SQLException {
         ResultSet rst = CrudUtil.execute("SELECT COUNT(*) FROM Reserved_blood");
 
         if (rst.next()) {
-            return rst.getInt(1); // Return the total count
+            return rst.getInt(1);
         }
-        return 0; // Return 0 if no data is found
+        return 0;
     }
 }

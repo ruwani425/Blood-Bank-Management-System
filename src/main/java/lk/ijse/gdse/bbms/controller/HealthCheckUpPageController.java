@@ -89,7 +89,6 @@ public class HealthCheckUpPageController implements Initializable {
     }
     @FXML
     void btnCheckDonorHealthCheckUpDetail(ActionEvent event) throws SQLException {
-        // Regular expressions for validation
         String nicRegex = "^[0-9]{9}[vVxX]|[0-9]{12}$"; // Valid NIC format (9 digits + V or 12 digits)
         String bloodPressureRegex = "^\\d{1,3}/\\d{1,3}$"; // Blood pressure format: systolic/diastolic
         String weightRegex = "^[1-9][0-9]*([.][0-9]{1,2})?$"; // Weight as a positive decimal number

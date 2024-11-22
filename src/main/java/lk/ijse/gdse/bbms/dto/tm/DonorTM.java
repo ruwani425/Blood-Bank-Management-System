@@ -20,4 +20,10 @@ public class DonorTM {
     private String bloodGroup;
     private String gender;
     private Date dob;
+
+    public DonorTM(String donorName, String donorAddress, String bloodGroup) {
+        this.donorName = donorName;
+        this.donorAddress = donorAddress;
+        this.bloodGroup = bloodGroup;
+    }
 }
