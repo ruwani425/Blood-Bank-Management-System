@@ -115,8 +115,7 @@ public class BloodStockModel {
         connection.setAutoCommit(false);
 
         try {
-            issuedBlood.forEach(bloodStockDTO -> {
-
+            for (BloodIssueTM bloodStockDTO : issuedBlood) {
                 try {
                     if (CrudUtil.execute("INSERT INTO Blood_request_detail VALUES (?,?)",
                             bloodRequestTM.getRequestId(),
@@ -129,7 +128,7 @@ public class BloodStockModel {
                                 LocalDate.now(),
                                 bloodStockDTO.getBloodQty())) {
                             if (updateBloodStockStatusAfterIssued(bloodStockDTO.getBloodID())) {
-                                if (bloodRequestModel.updateStatus(bloodRequestTM.getRequestId())){
+                                if (bloodRequestModel.updateStatus(bloodRequestTM.getRequestId())) {
                                     connection.commit();
                                 }
                             }
@@ -138,7 +137,7 @@ public class BloodStockModel {
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
-            });
+            }
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -161,6 +160,7 @@ public class BloodStockModel {
         }
         return "R001";
     }
+
     public int getTotalBloodIDCount() throws SQLException {
         ResultSet rst = CrudUtil.execute("SELECT COUNT(*) FROM Blood_stock");
 
@@ -169,6 +169,7 @@ public class BloodStockModel {
         }
         return 0;
     }
+
     public int getTotalIssuedBloodIDCount() throws SQLException {
         ResultSet rst = CrudUtil.execute("SELECT COUNT(*) FROM Reserved_blood");
 

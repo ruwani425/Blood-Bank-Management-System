@@ -21,9 +21,9 @@ public class CrudUtil {
             return (T) resultSet;
         }else {
             int i = pst.executeUpdate();
-            boolean isSaved = i >0;
+            Boolean isSaved = i >0;
 
-            return (T) ((Boolean) isSaved);
+            return (T) isSaved;
         }
     }
 }

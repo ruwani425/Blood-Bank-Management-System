@@ -13,8 +13,7 @@ public class AppInitializer extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(AppInitializer.class.getResource("/view/homePage-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        //stage.setTitle("Welcome to blood bank management system!");
-        stage.setResizable(false);  // Disable resizing
+        stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
     }
