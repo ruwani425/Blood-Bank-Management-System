@@ -59,8 +59,8 @@ public class LoginPageViewController implements Initializable {
             return;
         }
 
-        String registeredEmail = "ruwaniranthika2001@gmail.com";
-        String currentPassword = "Strong@123";
+        String registeredEmail = "";//enter valid e mail address
+        String currentPassword = "Strong@123";//enter valid password
 
         if (!enteredUsername.equals(registeredEmail)) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -100,8 +100,8 @@ public class LoginPageViewController implements Initializable {
         String passwordRegex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@#$%^&+=!])[A-Za-z\\d@#$%^&+=!]{8,}$";
         String usernameRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
 
-        String validUsername = "ruwaniranthika2001@gmail.com";
-        String validPassword = "Strong@123";
+        String validUsername = "";//enter valid e mail
+        String validPassword = "Strong@123";//enter valid password
 
         String enteredUsername = userNameTxt.getText();
         String enteredPassword = passwordTxt.getText();

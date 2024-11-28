@@ -7,8 +7,8 @@ import java.util.Properties;
 public class MailUtil {
 
     public static boolean sendEmail(String recipientEmail, String subject, String messageBody) {
-        final String senderEmail = "ruwaniranthika2001@gmail.com";
-        final String senderPassword = "nzdb wpjr ymhc jnqx";
+        final String senderEmail = "";//enter your e-mail,on two-factor authentication
+        final String senderPassword = "";//enter app password(search e mail settings)
 
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
